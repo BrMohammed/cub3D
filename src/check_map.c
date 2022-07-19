@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../Includes/cub.h"
 
 int	ft_isdigit(char *c)
 {
@@ -59,14 +59,87 @@ void check_of_repet(char **str)
 
 }
 
-check_of_contaner(char *str)
+void check_of_contaner(char *str)
 {
 	int i;
+	int v;
+	int length;
+	int size;
 	char **c;
 
 	i = 0;
+	length = 0;
 	c = ft_split(str,'\n');
-	//while()
+	while(c[i])
+	{
+		v = 0;
+		while(c[i][v])
+			v++;
+		if (length < v )
+			length = v;
+		i++;
+	}
+	i = 0;
+	while(c[i])
+	{
+		if(ft_strlen(c[i]) < (size_t)length)
+		{
+			v = ft_strlen(c[i]);
+			while(v < length)
+			{
+				c[i] = ft_strjoin(c[i]," ");
+				v++;
+			}
+		}
+		i++;
+	}
+	size = i;
+	i = 0;
+	while(c[i])
+	{
+		v = 0;
+		while(c[i][v])
+		{
+			if((v == 0 && c[i][v] != 32 && c[i][v] != 9 && c[i][v] != 49) || (c[i][v + 1] == '\0' && c[i][v] != 32 && c[i][v] != 9 && c[i][v] != 49))
+			{
+				printf("%d  %d\n", i , v);
+				printf("Error\n");
+				exit(1);
+			}
+			if((i == 0 && c[i][v] != 32 && c[i][v] != 9 && c[i][v] != 49) || (c[i + 1] == '\0' && c[i][v] != 32 && c[i][v] != 9 && c[i][v] != 49))
+			{
+				printf("%d  %d\n", i , v);
+				printf("Error\n");
+				exit(1);
+			}
+			if(c[i][v + 1] != '\0' && c[i][v] == 32 && c[i][v + 1] != 32 && c[i][v + 1] != 49)
+			{
+				printf("%d  %d\n", i , v);
+				printf("Error\n");
+				exit(1);
+			}
+			if(v != 0 && c[i][v] == 32 && c[i][v - 1] != 49 && c[i][v - 1] != 32)
+			{
+				printf("%d  %d\n", i , v);
+				printf("Error\n");
+				exit(1);
+			}
+			if(c[i + 1 ] != '\0' && c[i][v] == 32 && c[i + 1][v] != 49 && c[i + 1][v] != 32)
+			{
+				printf("%d  %d\n", i , v);
+				printf("Error\n");
+				exit(1);
+			}
+			if(i != 0 && c[i][v] == 32 && c[i - 1][v] != 49 && c[i - 1][v] != 32)
+			{
+				printf("%d  %d\n", i , v);
+				printf("Error\n");
+				exit(1);
+			}
+			v++;
+		}
+		i++;
+	}
 }
 
 void check_map(char *str)
@@ -161,7 +234,7 @@ void check_map(char *str)
 				}
 				break;
 			}
-			else if(ft_strncmp(&a[i],"1",1) == 0 || ft_strncmp(&a[i],"0",1))
+			else if(ft_strncmp(&a[i],"1",1) == 0 || ft_strncmp(&a[i],"0",1) == 0)
 			{
 				map_contaner = ft_strjoin(map_contaner,a);
 				count_rows++;

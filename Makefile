@@ -2,12 +2,12 @@ NAME = cub3D
 
 CC = gcc
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g
 
 MLX =  -lmlx -framework OpenGL -framework AppKit
 
-FILES = hole_move.c destroy.c get_next_line.c check_map.c\
-	move.c respone_obj.c respone.c cub3D.c
+FILES = src/hole_move.c src/destroy.c src/get_next_line.c src/check_map.c\
+	src/move.c src/respone_obj.c src/respone.c cub3D.c
 
 LIBFT = libft/libft.a
 
@@ -43,7 +43,7 @@ PU = git push origin master
 commit = git log --graph --oneline --decorate HEAD^..HEAD
 
 push :
-	@$(commit)
+	
 	@$(ADD)
 	$(read)
 	$(PU)

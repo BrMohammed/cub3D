@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../Includes/cub.h"
 
 static int	g_temp;
 int			g_x;

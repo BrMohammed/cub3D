@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../Includes/cub.h"
 
 void	respone_obj(t_data *data)
 {

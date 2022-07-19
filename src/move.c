@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../Includes/cub.h"
 
 void	move_show_count(t_data *data)
 {

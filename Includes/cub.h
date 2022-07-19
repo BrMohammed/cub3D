@@ -8,7 +8,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 #include <signal.h>
-#include "./libft/libft.h"
+#include "../libft/libft.h"
 
 typedef struct s_data
 {

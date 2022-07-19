@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../Includes/cub.h"
 
 void	path(t_data *data)
 {
