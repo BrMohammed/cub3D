@@ -40,6 +40,9 @@ typedef struct s_data
 	void		*plat;
 	char		**result;
 
+	int player_y;
+	int player_x;
+
 	void		*coin;
 	char		*coin_path;
 

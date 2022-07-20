@@ -18,10 +18,14 @@ void	respone_obj(t_data *data)
 			}
 			else if (data->result[fd][i] == 48)
 				mlx_put_image_to_window(data->mlx, data->mlx_win,data->plat, i * 15, fd * 15);
-			if (data->result[fd][i] == 78)
+			if (data->result[fd][i] == 'N')
 			{
-				mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->player,i * 15, fd * 15);
+				mlx_put_image_to_window(data->mlx, data->mlx_win,data->plat, i * 15, fd * 15);
+				mlx_put_image_to_window(data->mlx, data->mlx_win,data->player,i * 15, fd * 15);
+				data->result[fd][i] = '0';
+				data->player_x = i * 15;
+				data->player_y = fd * 15;
+				
 			}
 			i++;
 		}

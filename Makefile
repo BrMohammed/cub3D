@@ -6,7 +6,7 @@ CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g
 
 MLX =  -lmlx -framework OpenGL -framework AppKit
 
-FILES = src/hole_move.c src/destroy.c src/get_next_line.c src/check_map.c\
+FILES = src/destroy.c src/get_next_line.c src/check_map.c\
 	src/move.c src/respone_obj.c src/respone.c cub3D.c
 
 LIBFT = libft/libft.a

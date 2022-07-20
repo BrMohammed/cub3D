@@ -36,40 +36,20 @@ int	mouse(void)
 
 int	key(int key, t_data *data)
 {
-	int x = 0;
-	int y = 0;
-	int faux = 0;
 	
 	if (key == 53)
 	{
 		exit(0);
 	}
 	
-	while (data->result[y] != '\0')
-	{
-		while (data->result[y][x] != '\0')
-		{
-			if(data->result[y][x] == 'N' && faux == 0)
-			{
-				faux = 1;
-				g_d = data->result[y][x + 1];
-				g_w = data->result[y - 1][x];
-				g_a = data->result[y][x - 1];
-				g_s = data->result[y + 1][x];
-				if (data->win == 0 && (key == 2 || key == 124) && (g_d == '0'|| g_d == 'N'))
-						move(data, g_d, 0, 1);
-				if (data->win == 0 && (key == 0 || key == 123) && (g_a == '0' || g_a == 'N'))
-						move(data, g_a, 0, -1);
-				if (data->win == 0 && (key == 13 || key == 126) && (g_w == '0' || g_w == 'N'))
-						move(data, g_w, -1, 0);
-				if (data->win == 0 && (key == 1 || key == 125) && (g_s == '0' || g_s == 'N'))
-						move(data, g_s, 1, 0);
-			}
-			x++;
-		}
-		x = 0;
-		y++;
-	}
+	if (data->win == 0 && (key == 2 || key == 124))
+			move(data, g_d, 0, 5);
+	if (data->win == 0 && (key == 0 || key == 123))
+			move(data, g_a, 0, -5);
+	if (data->win == 0 && (key == 13 || key == 126) )
+			move(data, g_w, -5, 0);
+	if (data->win == 0 && (key == 1 || key == 125))
+			move(data, g_s, 5, 0);
 	return (0);
 }
 
@@ -155,7 +135,8 @@ int	main(int ac, char **av)
 	{
 		respone(&data);
 		respone_obj(&data);
-		mlx_key_hook(data.mlx_win, &key, &data);
+		mlx_hook(data.mlx_win, 2, 1L<<0, key, &data);
+		//mlx_key_hook(data.mlx_win, &key, &data);
 		mlx_mouse_hook (data.mlx_win, &keymouse, &data);
 		mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);
 		// mlx_loop_hook(data.mlx, &hole_move, &data);
