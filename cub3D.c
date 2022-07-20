@@ -1,4 +1,5 @@
 #include "Includes/cub.h"
+#define pi 3.1415926535
 
 char	g_d;
 char	g_w;
@@ -33,7 +34,50 @@ int	mouse(void)
 	exit(0);
 	return (0);
 }
+void	draw_line(t_data *game, int *begin, int *end, int color)
+{
+	double	delta[2];
+	int		pixels;
+	double	pixel[2];
 
+	pixel[0] = begin[0];
+	pixel[1] = begin[1];
+	delta[0] = end[0] - begin[0];
+	delta[1] = end[1] - begin[1];
+	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
+	delta[0] /= pixels;
+	delta[1] /= pixels;
+	while (pixels)
+	{
+		mlx_pixel_put(game->mlx, game->mlx_win, pixel[0], pixel[1], color);
+		pixel[0] += delta[0];
+		pixel[1] += delta[1];
+		--pixels;
+	}
+}
+
+void	move_rotated(t_data *data, char v, int y, int x)
+{
+	int a[2];
+	int b[2];
+	(void)v;
+	mlx_clear_window(data->mlx, data->mlx_win);
+	destroy(data);
+	respone2(data);
+	respone_obj(data);
+	data->player_x = x + data->player_x;
+	data->player_y = y + data->player_y;
+	mlx_put_image_to_window(data->mlx, data->mlx_win,data->player,data->player_x, data->player_y);
+	mlx_pixel_put(data->mlx,data->mlx_win,(data->player_x + 8) + data->pdy  * 3, (data->player_y + 7) + data->pdx * 3,11111);
+	mlx_pixel_put(data->mlx,data->mlx_win,(data->player_x + 8), (data->player_y + 7),11111);
+	a[0] = data->player_x + 8;
+	a[1] = data->player_y + 7;
+	b[0] = (data->player_x + 8) + data->pdy  * 3;
+	b[1] = (data->player_y + 7) + data->pdx * 3;
+	draw_line(data, a, b, 0Xff0000);
+	printf("%d,%d\n",data->player_x,data->player_y);
+	
+}
 int	key(int key, t_data *data)
 {
 	
@@ -42,14 +86,29 @@ int	key(int key, t_data *data)
 		exit(0);
 	}
 	
-	if (data->win == 0 && (key == 2 || key == 124))
+	if (data->win == 0 && key == 2)
 			move(data, g_d, 0, 5);
-	if (data->win == 0 && (key == 0 || key == 123))
+	if (data->win == 0 && key == 0 )
 			move(data, g_a, 0, -5);
-	if (data->win == 0 && (key == 13 || key == 126) )
+	if (data->win == 0 && key == 13 )
 			move(data, g_w, -5, 0);
-	if (data->win == 0 && (key == 1 || key == 125))
+	if (data->win == 0 && key == 1)
 			move(data, g_s, 5, 0);
+	if(key == 124)
+	{
+		data->pa -= 0.1;
+		if(data->pa < 0)
+		{
+			data->pa += 2 * pi;
+		}
+		data->pdx = cos(data->pa) * 5;
+		data->pdy = sin(data->pa) * 5;
+		move_rotated(data, g_w, 0, 0);
+	}
+	// if(key == 123)
+	// {
+		
+	// }
 	return (0);
 }
 

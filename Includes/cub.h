@@ -9,9 +9,14 @@
 # include <unistd.h>
 #include <signal.h>
 #include "../libft/libft.h"
+#include <math.h>
 
 typedef struct s_data
 {
+	double pdx;
+	double pdy;
+	double pa;
+
     int			win;
 	void		*hole;
 	char		*hole_path;

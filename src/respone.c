@@ -21,6 +21,8 @@ void	x_y(t_data *data)
 		y++;
 	}
 	data->mlx = mlx_init();
+	data->pdx = cos(data->pa) * 5;
+	data->pdy = sin(data->pa) * 5;
 	data->mlx_win = mlx_new_window(data->mlx, x * 15, y * 15, "cub3d");
 }
 

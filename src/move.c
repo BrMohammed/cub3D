@@ -13,7 +13,6 @@ static void	condetion42(char v, t_data *data, int y, int x)
 	(void)v;
 	data->player_x = x + data->player_x;
 	data->player_y = y + data->player_y;
-	printf("%d\n",data->player_x);
 	mlx_put_image_to_window(data->mlx, data->mlx_win,data->player,data->player_x, data->player_y);
 }
 
