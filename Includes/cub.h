@@ -67,11 +67,10 @@ typedef struct s_data
 char	*get_next_line(int fd);
 
 void	move(t_data *data, char v, int y, int x);
-void	error_game(char **c, int error, int fd, char *str);
 void	respone(t_data *data);
 void	respone_obj(t_data *data);
 int		hole_move(t_data *data);
 void 	destroy(t_data *data);
 void 	respone2(t_data *data);
-void check_map(char *str);
+char **check_map(char *str);
 #endif

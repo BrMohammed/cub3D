@@ -49,27 +49,21 @@ int	key(int key, t_data *data)
 	{
 		while (data->result[y][x] != '\0')
 		{
-			if(data->result[y][x] == 'P' && faux == 0)
+			if(data->result[y][x] == 'N' && faux == 0)
 			{
 				faux = 1;
 				g_d = data->result[y][x + 1];
 				g_w = data->result[y - 1][x];
 				g_a = data->result[y][x - 1];
 				g_s = data->result[y + 1][x];
-				if (data->win == 0 && (key == 2 || key == 124) && (g_d == '0'
-					|| g_d == 'P' || g_d == 'C' || g_d == 'E' || g_d == 'A'))
+				if (data->win == 0 && (key == 2 || key == 124) && (g_d == '0'|| g_d == 'N'))
 						move(data, g_d, 0, 1);
-				if (data->win == 0 && (key == 0 || key == 123) && (g_a == '0'
-					|| g_a == 'P' || g_a == 'C' || g_a == 'E' || g_a == 'A'))
+				if (data->win == 0 && (key == 0 || key == 123) && (g_a == '0' || g_a == 'N'))
 						move(data, g_a, 0, -1);
-				if (data->win == 0 && (key == 13 || key == 126) && (g_w == '0'
-					|| g_w == 'P' || g_w == 'C' || g_w == 'E' || g_w == 'A'))
+				if (data->win == 0 && (key == 13 || key == 126) && (g_w == '0' || g_w == 'N'))
 						move(data, g_w, -1, 0);
-				if (data->win == 0 && (key == 1 || key == 125) && (g_s == '0'
-					|| g_s == 'P' || g_s == 'C' || g_s == 'E' || g_s == 'A'))
+				if (data->win == 0 && (key == 1 || key == 125) && (g_s == '0' || g_s == 'N'))
 						move(data, g_s, 1, 0);
-				if (data->coin_point == 0)
-					door_open(data, 'E');
 			}
 			x++;
 		}
@@ -112,7 +106,7 @@ int keymouse(int button, int x,int y,t_data *data)
 		{
 			while (data->result[f][t] != '\0')
 			{
-				if (data->result[f][t] == 'P' )
+				if (data->result[f][t] == 'N' )
 				{
 					if (v[0] != f )
 					{
@@ -151,33 +145,22 @@ int keymouse(int button, int x,int y,t_data *data)
 
 int	main(int ac, char **av)
 {
-	//t_data	data;
-	//int		fd;
-	//int		error;
-	//int 	id;
-	//char* temp;
+	t_data	data;
 
 	if (av[1])
 		check_cub(av[1]);
-	check_map(av[1]);
-	//error = 1;
+	data.result = check_map(av[1]);
 	(void) ac;
-	// if (ac == 2)
-	// {
-	// 	fd = open(av[1], O_RDONLY);
-	// 	error = read(fd, data.bufer, 1000);
-	// 	data.bufer[error] = '\0';
-	// 	close(fd);
-	// 	data.result = ft_split(data.bufer, '\n');
-	// 	error_game(data.result, error, fd, data.bufer);
-	// 	respone(&data);
-	// 	respone_obj(&data);
-	// 	mlx_key_hook(data.mlx_win, &key, &data);
-	// 	mlx_mouse_hook (data.mlx_win, &keymouse, &data);
-	// 	mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);
-	// 	mlx_loop_hook(data.mlx, &hole_move, &data);
-	//     mlx_loop(data.mlx);
-	// 	free(data.mlx);
-	// }
+	if (ac == 2)
+	{
+		respone(&data);
+		respone_obj(&data);
+		mlx_key_hook(data.mlx_win, &key, &data);
+		mlx_mouse_hook (data.mlx_win, &keymouse, &data);
+		mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);
+		// mlx_loop_hook(data.mlx, &hole_move, &data);
+	    mlx_loop(data.mlx);
+		free(data.mlx);
+	}
 	return (0);
 }

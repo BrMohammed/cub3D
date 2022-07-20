@@ -20,7 +20,7 @@ void	hole_b(t_data *data, char v, int move)
 	mlx_put_image_to_window(data->mlx, data->mlx_win,
 		data->hole, g_x * 80, g_y * 80);
 	data->result[g_y][g_x] = 'A';
-	if (v == 'P')
+	if (v == 'N')
 	{
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->plat, g_x * 80, g_y * 80);
@@ -51,13 +51,13 @@ void	conditions(t_data *data)
 		g_temp = 2;
 	if (d == '1' || d == 'C' || d == 'E' || d == 'A')
 		g_temp = 3;
-	if ((s == '0' && g_temp == 1) || (s == 'P' && g_temp == 1))
+	if ((s == '0' && g_temp == 1) || (s == 'N' && g_temp == 1))
 		hole_b(data, s, 1);
-	if ((w == '0' && g_temp == 0) || (w == 'P' && g_temp == 0))
+	if ((w == '0' && g_temp == 0) || (w == 'N' && g_temp == 0))
 		hole_b(data, w, 2);
-	if ((a == '0' && g_temp == 3) || (a == 'P' && g_temp == 3))
+	if ((a == '0' && g_temp == 3) || (a == 'N' && g_temp == 3))
 		hole_b(data, a, 3);
-	if ((d == '0' && g_temp == 2) || (d == 'P' && g_temp == 2))
+	if ((d == '0' && g_temp == 2) || (d == 'N' && g_temp == 2))
 		hole_b(data, d, 4);
 }
 

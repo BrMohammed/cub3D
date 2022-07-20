@@ -59,7 +59,7 @@ void check_of_repet(char **str)
 
 }
 
-void check_of_contaner(char *str)
+char **check_of_contaner(char *str)
 {
 	int i;
 	int v;
@@ -140,9 +140,10 @@ void check_of_contaner(char *str)
 		}
 		i++;
 	}
+	return(c);
 }
 
-void check_map(char *str)
+char **check_map(char *str)
 {
 	int fd;
 	int i;
@@ -245,5 +246,8 @@ void check_map(char *str)
 	}
 	temp_of_repet = ft_split(stack_symbol_of_lines,',');
 	check_of_repet(temp_of_repet);
-	check_of_contaner(map_contaner);
+	free_table(temp_of_repet);
+	temp_of_repet = NULL;
+	temp_of_repet = check_of_contaner(map_contaner);
+	return(temp_of_repet);
 }
