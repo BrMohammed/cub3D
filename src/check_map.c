@@ -59,7 +59,7 @@ void check_of_repet(char **str)
 
 }
 
-char **check_of_contaner(char *str)
+char **check_of_contaner(char *str,t_data *data)
 {
 	int i;
 	int v;
@@ -93,6 +93,7 @@ char **check_of_contaner(char *str)
 		}
 		i++;
 	}
+	data->result_lenght = i;
 	size = i;
 	i = 0;
 	while(c[i])
@@ -143,7 +144,7 @@ char **check_of_contaner(char *str)
 	return(c);
 }
 
-char **check_map(char *str)
+char **check_map(char *str,t_data *data)
 {
 	int fd;
 	int i;
@@ -248,6 +249,6 @@ char **check_map(char *str)
 	check_of_repet(temp_of_repet);
 	free_table(temp_of_repet);
 	temp_of_repet = NULL;
-	temp_of_repet = check_of_contaner(map_contaner);
+	temp_of_repet = check_of_contaner(map_contaner,data);
 	return(temp_of_repet);
 }

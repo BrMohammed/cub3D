@@ -10,25 +10,15 @@
 #include <signal.h>
 #include "../libft/libft.h"
 #include <math.h>
+#define pi 3.1415926535
 
 typedef struct s_data
 {
-	double pdx;
-	double pdy;
-	double pa;
-
-    int			win;
-	void		*hole;
-	char		*hole_path;
-
-	int			hole_high;
-	int			hole_whith;
-
-	void		*dead;
-	char		*dead_path;
-
 	void		*mlx;
 	void		*mlx_win;
+
+	int			img_width;
+	int			img_height;
 
 	void		*player;
 	char		*player_path;
@@ -39,46 +29,31 @@ typedef struct s_data
 	char		*walls_path;
 	void		*walls;
 
-	int			high;
-	int			whith;
 	char		*plat_path;
 	void		*plat;
 	char		**result;
 
-	int player_y;
-	int player_x;
+	double		player_y;
+	double		player_x;
 
-	void		*coin;
-	char		*coin_path;
+	double		pdx;
+	double		pdy;
+	double		pa;
+	double		lenght_of_ray;
 
-	void		*coin1;
-	char		*coin_path1;
-
-	void		*door_close;
-	char		*door_cloce_path;
-
-	void		*door_open;
-	char		*door_open_path;
-
-	int			door_high;
-	int			door_whith;
-
-	int			coin_point ;
-	int			player_count ;
-
-	int			img_width;
-	int			img_height;
-
-	char		*bufer;
+	int result_lenght;
 }	t_data;
 
 char	*get_next_line(int fd);
 
-void	move(t_data *data, char v, int y, int x);
+void	move(t_data *data, int y, int x);
 void	respone(t_data *data);
 void	respone_obj(t_data *data);
 int		hole_move(t_data *data);
 void 	destroy(t_data *data);
 void 	respone2(t_data *data);
-char **check_map(char *str);
+char 	**check_map(char *str,t_data *data);
+void	move_rotated(t_data *data);
+void	draw_line(t_data *game, int *begin, int *end, int color);
+void ray_colesion(t_data *data);
 #endif

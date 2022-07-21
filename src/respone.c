@@ -21,9 +21,7 @@ void	x_y(t_data *data)
 		y++;
 	}
 	data->mlx = mlx_init();
-	data->pdx = cos(data->pa) * 5;
-	data->pdy = sin(data->pa) * 5;
-	data->mlx_win = mlx_new_window(data->mlx, x * 15, y * 15, "cub3d");
+	data->mlx_win = mlx_new_window(data->mlx, x * 50, y * 50, "cub3d");
 }
 
 void	respone(t_data *data)
@@ -36,4 +34,5 @@ void	respone(t_data *data)
 			&data->img_width, &data->img_height);
 	data->player = mlx_xpm_file_to_image(data->mlx, data->player_path,
 			&data->img_width, &data->img_height);
+	
 }
