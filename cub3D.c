@@ -58,7 +58,7 @@ int	key(int key, t_data *data)
 	}
 	if(key == 124)
 	{
-		data->pa -= 0.1;
+		data->pa -= 0.5;
 		if(data->pa < 0)
 		{
 			data->pa += 2 * pi;
@@ -69,7 +69,7 @@ int	key(int key, t_data *data)
 	}
 	if(key == 123)
 	{
-		data->pa += 0.1;
+		data->pa += 0.5;
 		if(data->pa >  2 * pi)
 		{
 			data->pa -= 2 * pi;
@@ -79,33 +79,6 @@ int	key(int key, t_data *data)
 		move_rotated(data);
 	}
 	return(0);
-}
-
-int key_roted(int key, t_data *data)
-{
-	if(key == 124)
-	{
-		data->pa -= 0.1;
-		if(data->pa < 0)
-		{
-			data->pa += 2 * pi;
-		}
-		data->pdy = cos(data->pa) * -data->lenght_of_ray;
-		data->pdx = sin(data->pa) * -data->lenght_of_ray;
-		move_rotated(data);
-	}
-	if(key == 123)
-	{
-		data->pa += 0.1;
-		if(data->pa >  2 * pi)
-		{
-			data->pa -= 2 * pi;
-		}
-		data->pdy = cos(data->pa) * -data->lenght_of_ray;
-		data->pdx = sin(data->pa) * -data->lenght_of_ray;
-		move_rotated(data);
-	}
-	return (0);
 }
 
 void	check_cub(char *str)
@@ -193,7 +166,6 @@ int	main(int ac, char **av)
 		respone(&data);
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 1L<<0, key, &data);
-		//mlx_hook(data.mlx_win, 2, 1L<<0, key_roted, &data);
 		//mlx_key_hook(data.mlx_win, &key, &data);
 		mlx_mouse_hook (data.mlx_win, &keymouse, &data);
 		mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);

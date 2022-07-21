@@ -19,7 +19,6 @@ void	move(t_data *data, int y, int x)
 {
 	move_show_count(data);
 	condetion42(data, y, x);
-	ray_colesion(data);
 	move_rotated(data);
 }
 void	move_rotated(t_data *data)
