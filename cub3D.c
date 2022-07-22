@@ -56,27 +56,26 @@ int	key(int key, t_data *data)
 	{
 		move(data, 5, 0);
 	}
-	if(key == 124)
-	{
-		data->pa -= 0.5;
-		if(data->pa < 0)
-		{
-			data->pa += 2 * pi;
-		}
-		data->pdy = cos(data->pa) * -data->lenght_of_ray;
-		data->pdx = sin(data->pa) * -data->lenght_of_ray;
-		move_rotated(data);
-	}
 	if(key == 123)
 	{
-		data->pa += 0.5;
+		data->pa -= 0.1;
+		if(data->pa < 0)
+			data->pa += 2 * pi;
+		data->pdy = cos(data->pa) * -data->lenght_of_ray;
+		data->pdx = sin(data->pa) * -data->lenght_of_ray;
+		
+		move_rotated(data);
+		ray_colesion(data);
+	}
+	if(key == 124)
+	{
+		data->pa += 0.1;
 		if(data->pa >  2 * pi)
-		{
 			data->pa -= 2 * pi;
-		}
 		data->pdy = cos(data->pa) * -data->lenght_of_ray;
 		data->pdx = sin(data->pa) * -data->lenght_of_ray;
 		move_rotated(data);
+		ray_colesion(data);
 	}
 	return(0);
 }
