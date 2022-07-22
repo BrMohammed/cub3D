@@ -61,9 +61,6 @@ int	key(int key, t_data *data)
 		data->pa -= 0.1;
 		if(data->pa < 0)
 			data->pa += 2 * pi;
-		data->pdy = cos(data->pa) * -data->lenght_of_ray;
-		data->pdx = sin(data->pa) * -data->lenght_of_ray;
-		
 		move_rotated(data);
 		ray_colesion(data);
 	}
@@ -72,8 +69,6 @@ int	key(int key, t_data *data)
 		data->pa += 0.1;
 		if(data->pa >  2 * pi)
 			data->pa -= 2 * pi;
-		data->pdy = cos(data->pa) * -data->lenght_of_ray;
-		data->pdx = sin(data->pa) * -data->lenght_of_ray;
 		move_rotated(data);
 		ray_colesion(data);
 	}
@@ -101,55 +96,6 @@ void	check_cub(char *str)
 	}
 }
 
-
-int keymouse(int button, int x,int y,t_data *data)
-{
-	int t = 0;
-	int f = 0;
-	int v[2] = {y/80,x/80};
-	if (button == 1)
-	{
-		while (data->result[f] != '\0')
-		{
-			while (data->result[f][t] != '\0')
-			{
-				if (data->result[f][t] == 'N' )
-				{
-					if (v[0] != f )
-					{
-						if(f < v[0])
-						{
-							key(1,data);
-						}
-						if(f > v[0])
-						{
-							key(13,data);
-							f = 0;
-						}
-					}
-					if (v[1] != t )
-					{
-						if(t < v[1])
-						{
-							key(2,data);
-						}
-						if(t > v[1])
-						{
-							key(0,data);
-							f = 0;
-						}
-					}
-				}
-				t++;
-			}
-			t = 0;
-			f++;
-		}
-	}
-	return(0);
-}
-
-
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -160,15 +106,10 @@ int	main(int ac, char **av)
 	(void) ac;
 	if (ac == 2)
 	{
-		//pixel_of_ray_size = lenght_of_ray * 2
-		//data.result_lenght = 2;
 		respone(&data);
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 1L<<0, key, &data);
-		//mlx_key_hook(data.mlx_win, &key, &data);
-		mlx_mouse_hook (data.mlx_win, &keymouse, &data);
 		mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);
-		// mlx_loop_hook(data.mlx, &hole_move, &data);
 	    mlx_loop(data.mlx);
 		free(data.mlx);
 	}

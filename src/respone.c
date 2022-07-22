@@ -14,9 +14,9 @@ void	x_y(t_data *data)
 
 	x = 0;
 	y = 0;
-	while (data->result[y] != '\0')
+	while (data->result[y])
 	{
-		while (data->result[0][x] != '\0')
+		while (data->result[0][x])
 			x++;
 		y++;
 	}

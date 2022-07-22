@@ -2,56 +2,44 @@
 
 void	respone_obj(t_data *data)
 {
-	int	fd;
-	int i;
+	int	x;
+	int y;
 
-	fd = 0;
-	i = 0;
-	while (data->result[fd] != '\0')
+	x = 0;
+	y = 0;
+	while (data->result[y] != '\0')
 	{
-		while (data->result[fd][i] != '\0')
+		while (data->result[y][x] != '\0')
 		{
-			if (data->result[fd][i] == 49 )
+			if (data->result[y][x] == 49 )
 			{
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->walls, i * 50, fd * 50);
+					data->walls, x * 50, y * 50);
 			}
-			else if (data->result[fd][i] == 48 || data->result[fd][i] == 'N')
-				mlx_put_image_to_window(data->mlx, data->mlx_win,data->plat, i * 50, fd * 50);
-			i++;
+			else if (data->result[y][x] == 48 || data->result[y][x] == 'N')
+				mlx_put_image_to_window(data->mlx, data->mlx_win,data->plat, x * 50, y * 50);
+			x++;
 		}
-		i = 0;
-		fd++;
+		x = 0;
+		y++;
 	}
-	fd = 0;
-	i = 0;
-	while (data->result[fd] != '\0')
+	x = 0;
+	y = 0;
+	while (data->result[y] != '\0')
 	{
-		while (data->result[fd][i] != '\0')
+		while (data->result[y][x] != '\0')
 		{
-			if (data->result[fd][i] == 'N')
+			if (data->result[y][x] == 'N')
 			{
-				data->player_x = i * 50;
-				data->player_y = fd * 50;
+				data->player_y = y * 50;
+				data->player_x = x * 50;
 				ray_colesion(data);
-				data->pdy = cos(data->pa) * -data->lenght_of_ray;
-				data->pdx = sin(data->pa) * 0;
-				int a[2];
-				int b[2];
-				mlx_pixel_put(data->mlx,data->mlx_win,(data->player_x + 7.5) + data->pdx  * data->lenght_of_ray, (data->player_y + 7.5) + data->pdy * data->lenght_of_ray,0Xff0000);
-				mlx_pixel_put(data->mlx,data->mlx_win,(data->player_x + 7.5), (data->player_y + 7),0Xff0000);
-				a[0] = data->player_x + 7.5;
-				a[1] = data->player_y + 7.5;
-				b[0] = (data->player_x + 7.5) + data->pdx  * data->lenght_of_ray;
-				b[1] = (data->player_y + 7.5) + data->pdy * data->lenght_of_ray;
-				draw_line(data, a, b, 0Xff0000);
 				mlx_put_image_to_window(data->mlx, data->mlx_win,data->player,data->player_x, data->player_y);
-				data->result[fd][i] = '0';
-				//printf("%f, %f, %f\n",data->pdx,data->pdy,data->pa);
+				data->result[y][x] = '0';
 			}
-			i++;
+			x++;
 		}
-		i = 0;
-		fd++;
+		x = 0;
+		y++;
 	}
 }
