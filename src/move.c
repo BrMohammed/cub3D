@@ -12,7 +12,6 @@ static void	condetion42(t_data *data, int y, int x)
 {
 	data->player_x = x + data->player_x;
 	data->player_y = y + data->player_y;
-	mlx_put_image_to_window(data->mlx, data->mlx_win,data->player,data->player_x, data->player_y);
 }
 
 void	move(t_data *data, int y, int x)

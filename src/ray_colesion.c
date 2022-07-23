@@ -24,21 +24,44 @@ void ray_colesion(t_data *data)
         }
         y++;
     }
-    x = 0;
+    printf("pa = %f\n",data->pa );
+    double degre = (data->pa / pi) * 180;
+    printf("degre = %f\n",degre);
     y = py;
     while(y >= 0)
     {
-        if(data->result[y][px] == '1') //wall detect posetion
+        x = 0;
+        while (data->result[y][x])
         {
-            tpy = ((data->player_y) - (((y + 1) * 50))) + 7.5;
-            tpx = tan(data->pa) * tpy;
-            a[0] = data->player_x + 7.5;
-			a[1] = data->player_y + 7.5;
-			b[0] =   tpx + data->player_x;
-			b[1] = (((y + 1) * 50));
-            draw_line(data, a, b, 0Xff0000);
-            break;
+            if(data->result[y][x] == '1') //wall detect posetion
+            {
+                tpy = ((data->player_y) - (((y + 1) * 50))) + 7.5;
+                tpx = tan(data->pa) * tpy;
+                a[0] = data->player_x + 7.5;
+                a[1] = data->player_y + 7.5;
+                b[0] =   tpx + data->player_x;
+                b[1] = (((y + 1) * 50));
+                if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
+                {
+                    draw_line(data, a, b, 0Xff0000);
+                    printf("x * 50 = %d , x + 1 * 50 = %d\n",x * 50,(x + 1) * 50);
+                    printf("x = %d\n px = %d \n",x,px);
+                    printf("b[0]x = %d\n y = %f \n",b[0],tpy);
+                    printf("tpx = %f\n",tpx);
+                    break;
+                }
+            }
+            x++;
         }
+        if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
+            break;
         y--;
     }
+    // }
+    // if((data->pa >= (3*pi)/4 && data->pa <= pi) || (data->pa >= 0 && data->pa <= pi / 4)  )
+    // {
+    //     printf("hi\n");
+    // }
+    printf("===============\n\n");
+    
 }
