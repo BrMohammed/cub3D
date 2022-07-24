@@ -22,6 +22,10 @@ void	x_y(t_data *data)
 	}
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, x * 50, y * 50, "cub3d");
+	data->px_x = 0;
+	data->py_x = 0;
+	data->px_y = 0;
+	data->py_y = 0;
 }
 
 void	respone(t_data *data)

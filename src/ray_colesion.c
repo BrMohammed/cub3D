@@ -34,8 +34,8 @@ int y_detect(t_data *data, int y,int up_down, double *ray_colesion_y)
             if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
             {
                 //draw_line(data, a, b, 0Xff0000);
-                 *ray_colesion_y =  sqrt(pow(b[0],2) + pow(b[1],2));
-                 printf("ray_colesion_y = %f\n", *ray_colesion_y);
+                *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
+                printf("ray_colesion_y = %f\n", *ray_colesion_y);
                 data->px_y = b[0];
 	            data->py_y =  b[1];
                 return(1);
@@ -71,7 +71,7 @@ int x_detect(int up_down_x,int px,int y,t_data *data,double *ray_colesion_x)
                 if( y + 1 != '\0' && b[1] >= y * 50 && b[1] <= (y + 1) * 50)
                 {
                     //draw_line(data, a, b, 11111);
-                    *ray_colesion_x =  b[1]  / cos(data->pa);
+                    *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
                     printf("ray_colesion_x = %f\n", *ray_colesion_x);
                     data->px_x = b[0];
 	                data->py_x =  b[1];
@@ -95,10 +95,10 @@ int x_detect(int up_down_x,int px,int y,t_data *data,double *ray_colesion_x)
                 a[1] = data->player_y + 7.5;
                 b[0] = (((x + 1) * 50));
                 b[1] = (data->player_y +  7.5) - tpy;
-                if( y + 1 != '\0' && b[1] >= y * 50 && b[1] <= (y + 1) * 50)
+                if(b[1] >= y * 50 && b[1] <= (y + 1) * 50)
                 {
                     //draw_line(data, a, b, 11111);
-                    *ray_colesion_x =  b[1]  / cos(data->pa);
+                    *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
                     printf("ray_colesion_x = %f\n", *ray_colesion_x);
                     data->px_x = b[0];
 	                data->py_x =  b[1];
@@ -127,6 +127,8 @@ void ray_colesion(t_data *data)
     
     printf("pa = %f\n",data->pa );
     double degre = (data->pa / pi) * 180;
+    if(degre == 360)
+        degre = 0;
     printf("degre = %f\n",degre);
     while(data->result[y])
     {
@@ -143,7 +145,7 @@ void ray_colesion(t_data *data)
     }
     //   ----  y   ------
     y = py;
-    if((degre >= 0 && degre < 90) || (degre <= 360 && degre > 270))
+    if((degre >= 0 && degre < 90) || (degre <= 360 && degre >= 270))
     {
         up_down = 1;
         y--;
@@ -213,8 +215,9 @@ void ray_colesion(t_data *data)
             y++;
         }
     }
-
-    if( ray_colesion_x <= ray_colesion_y)
+    printf("## ray_colesion_x = %f\n",ray_colesion_x);
+    printf("## ray_colesion_y = %f\n",ray_colesion_y);
+    if( (ray_colesion_x < ray_colesion_y && ray_colesion_x != 0 ) || ray_colesion_y == 0)
     {
         a[0] = data->player_x + 7.5;
         a[1] = data->player_y + 7.5;
