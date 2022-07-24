@@ -43,6 +43,11 @@ typedef struct s_data
 
 	int result_lenght;
 	int result_x_length;
+
+	double px_y;
+	double py_y;
+	double px_x;
+	double py_x;
 }	t_data;
 
 char	*get_next_line(int fd);
