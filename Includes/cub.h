@@ -42,6 +42,7 @@ typedef struct s_data
 	double		lenght_of_ray;
 
 	int result_lenght;
+	int result_x_length;
 }	t_data;
 
 char	*get_next_line(int fd);
