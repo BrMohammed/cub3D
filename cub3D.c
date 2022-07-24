@@ -70,7 +70,7 @@ int	key(int key, t_data *data)
 	{
 		data->pa += 0.02;
 		if(data->pa > 2 * M_PI)
-			data->pa -= 2* M_PI;
+			data->pa -= 2 * M_PI;
 		// data->pdx = cos(data->pa) * 5;
 		// data->pdy = sin(data->pa) * 5;
 		move_rotated(data);
