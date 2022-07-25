@@ -7,38 +7,56 @@ int y_detect(t_data *data, int y,int px,int up_down, double *ray_colesion_y)
     x = px;
     int a[2];
 	int b[2];
-    double tpx =0;
+    double tpx = 0;
     double tpy = 0;
-    while (data->result[y][x])
+    if(up_down == 1)
     {
-        if(data->result[y][x] == '1') //wall detect posetion
+        while (data->result[y][x])
         {
-            if (up_down == 1) 
+            if(data->result[y][x] == '1') //wall detect posetion
             {
                 tpy = ((data->player_y + 7.5) - (((y + 1) * 50)));
                 tpx = tpy / -tan(data->pa);
                 b[1] = (((y + 1) * 50));
+                a[0] = data->player_x + 7.5;
+                a[1] = data->player_y + 7.5;
+                b[0] =   tpx + data->player_x + 7.5;
+                if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
+                {
+                    draw_line(data, a, b, 0Xff0000);
+                    *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
+                    data->px_y = b[0];
+                    data->py_y =  b[1];
+                    return(1);
+                }
             }
-            // else
-            // {
-            //     tpy = ((((y) * 50)) - (data->player_y)) + 7.5;
-            //     tpx = -tan(data->pa) * tpy;
-            //     b[1] = (((y) * 50));
-            // }
-            a[0] = data->player_x + 7.5;
-            a[1] = data->player_y + 7.5;
-            b[0] =   tpx + data->player_x + 7.5;
-            if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
-            {
-                draw_line(data, a, b, 0Xff0000);
-                *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
-                //printf("ray_colesion_y = %f\n", *ray_colesion_y);
-                data->px_y = b[0];
-	            data->py_y =  b[1];
-                return(1);
-            }
+            x++;
         }
-        x++;
+    }
+    else
+    {
+        while (x >= 0)
+        {
+            if(data->result[y][x] == '1') //wall detect posetion
+            {
+                
+                tpy = ((data->player_y + 7.5) - (((y + 1) * 50)));
+                tpx = tpy / -tan(data->pa);
+                b[1] = (((y + 1) * 50));
+                a[0] = data->player_x + 7.5;
+                a[1] = data->player_y + 7.5;
+                b[0] =   tpx + data->player_x + 7.5;
+                if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
+                {
+                    draw_line(data, a, b, 0Xff0000);
+                    *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
+                    data->px_y = b[0];
+                    data->py_y =  b[1];
+                    return(1);
+                }
+            }
+            x--;
+        }
     }
     return(0);
 }
@@ -90,12 +108,12 @@ int x_detect(int up_down_x,int px,int y,t_data *data,double *ray_colesion_x)
         {
             if(data->result[y][x] == '1') //wall detect posetion
             {
-                tpx = ((((x) * 50)) - (data->player_x + 7.5));
+               tpx = ((data->player_x + 7.5) - (((x + 1) * 50)));
                 tpy = tpx * tan(data->pa);
-                b[1] = tpy + (data->player_y +  7.5);
+                b[1] = (data->player_y +  7.5) - tpy;
                 a[0] = data->player_x + 7.5 ;
                 a[1] = data->player_y + 7.5 ;
-                b[0] = (((x) * 50));
+                b[0] = (((x + 1) * 50));
                 if(b[1] >= y * 50 && b[1] <= (y + 1) * 50)
                 {
                     draw_line(data, a, b, 1111);
@@ -154,7 +172,10 @@ void ray_colesion(t_data *data)
     y = py;
     if((degre <= 360 && degre > 180))
     {
-        up_down = 1;
+        if(degre <= 360 && degre > 270)
+            up_down = 1;
+        if(degre <= 270 && degre > 180)
+            up_down = 0;
         y--;
         while(y >= 0)
         {
@@ -163,17 +184,20 @@ void ray_colesion(t_data *data)
             y--;
         }
      }
-    // else
-    // {
-    //     up_down = 0;
-    //     y++;
-    //     while(data->result[y])
-    //     {
-    //         if(y_detect(data,y,up_down,&ray_colesion_y) == 1)
-    //             break;
-    //         y++;
-    //     }
-    // }
+    else
+    {
+        y = py;
+        if(degre <= 180 && degre > 90)
+            up_down = 0;
+        if(degre <= 90 && degre > 0)
+            up_down = 1;
+        while(data->result[y])
+        {
+            if(y_detect(data,y,px,up_down,&ray_colesion_y) == 1)
+                break;
+            y++;
+        }
+    }
     //////// ----------- x ---------------
 
     // if(degre >= 0 && degre < 90)
