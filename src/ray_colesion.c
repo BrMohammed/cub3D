@@ -1,6 +1,6 @@
 #include "../Includes/cub.h"
 
-int y_detect(t_data *data, int y,int px,int up_down, double *ray_colesion_y)
+int y_detect(t_data *data,int y, int y_plus,int px,int up_down, double *ray_colesion_y)
 {
     int x;
    
@@ -15,9 +15,9 @@ int y_detect(t_data *data, int y,int px,int up_down, double *ray_colesion_y)
         {
             if(data->result[y][x] == '1') //wall detect posetion
             {
-                tpy = ((data->player_y + 7.5) - (((y + 1) * 50)));
+                tpy = ((data->player_y + 7.5) - (((y_plus) * 50)));
                 tpx = tpy / -tan(data->pa);
-                b[1] = (((y + 1) * 50));
+                b[1] = (((y_plus) * 50));
                 a[0] = data->player_x + 7.5;
                 a[1] = data->player_y + 7.5;
                 b[0] =   tpx + data->player_x + 7.5;
@@ -40,9 +40,9 @@ int y_detect(t_data *data, int y,int px,int up_down, double *ray_colesion_y)
             if(data->result[y][x] == '1') //wall detect posetion
             {
                 
-                tpy = ((data->player_y + 7.5) - (((y + 1) * 50)));
+                tpy = ((data->player_y + 7.5) - (((y_plus) * 50)));
                 tpx = tpy / -tan(data->pa);
-                b[1] = (((y + 1) * 50));
+                b[1] = (((y_plus) * 50));
                 a[0] = data->player_x + 7.5;
                 a[1] = data->player_y + 7.5;
                 b[0] =   tpx + data->player_x + 7.5;
@@ -169,17 +169,17 @@ void ray_colesion(t_data *data)
         y++;
     }
      //// ----  y   ------
-    y = py;
+    
     if((degre <= 360 && degre > 180))
     {
+        y = py;
         if(degre <= 360 && degre > 270)
             up_down = 1;
         if(degre <= 270 && degre > 180)
             up_down = 0;
-        y--;
         while(y >= 0)
         {
-            if(y_detect(data,y,px,up_down,&ray_colesion_y) == 1)
+            if(y_detect(data,y,y + 1,px,up_down,&ray_colesion_y) == 1)
                 break;
             y--;
         }
@@ -193,7 +193,7 @@ void ray_colesion(t_data *data)
             up_down = 1;
         while(data->result[y])
         {
-            if(y_detect(data,y,px,up_down,&ray_colesion_y) == 1)
+            if(y_detect(data,y,y,px,up_down,&ray_colesion_y) == 1)
                 break;
             y++;
         }
