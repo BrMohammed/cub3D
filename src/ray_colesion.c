@@ -99,7 +99,7 @@ int x_detect(int up_down_x,int px,int y,t_data *data,double *ray_colesion_x)
         x = px;
         while (x >= 0)
         {
-            if((degre >= 270 && degre <= 0 )|| ( degre <= 90 && degre >= 0))
+            if((degre >= 270 && degre <= 90 ))
                x_plus = x;
             else
                 x_plus = x + 1;
@@ -118,7 +118,7 @@ int x_detect(int up_down_x,int px,int y,t_data *data,double *ray_colesion_x)
         x++;
         while (data->result[y][x])
         {
-            if((degre >= 270 && degre < 0) || (degre <= 90 && degre < 0))
+            if((degre >= 270 && degre <= 90 ))
                x_plus = x + 1;
             else
                 x_plus = x;
@@ -143,19 +143,15 @@ void ray_colesion(t_data *data)
     int up_down_x = 0;
     int a[2];
 	int b[2];
-
-     double ray_colesion_y = 0;
-     double ray_colesion_x = 0;
-    (void)ray_colesion_x;
-    (void)ray_colesion_y;
+    double degre;
+    double ray_colesion_y;
+    double ray_colesion_x;
 
 
-    printf("pa = %f\n",data->pa );
-    double degre = (data->pa / pi) * 180;
-    // if(degre == 360)
-    //     degre = 0;
-    printf("degre = %f\n",degre);
-    while(data->result[y])
+    degre = (data->pa / pi) * 180;
+    ray_colesion_y = 0;
+    ray_colesion_x = 0;
+    while(data->result[y]) //know position of player in map
     {
         if(data->player_y + 7.5 >= y * 50 && data->player_y + 7.5 <= (y + 1) * 50) // player posetion y
             py = y;
@@ -168,8 +164,7 @@ void ray_colesion(t_data *data)
         }
         y++;
     }
-     //// ----  y   ------
-    
+    //////// ----------  y  --------------
     if((degre <= 360 && degre > 180))
     {
         y = py;
@@ -198,8 +193,7 @@ void ray_colesion(t_data *data)
             y++;
         }
     }
-    //////// ----------- x --------------- just x betwin 270 and 90
-
+    //////// ----------- x ---------------
     if(degre >= 0 && degre <= 180)
     {
         y = py;

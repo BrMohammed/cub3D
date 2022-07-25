@@ -39,30 +39,29 @@ int	key(int key, t_data *data)
 	
 	if (key == 2) //d
 	{
-		move(data, 0, 5);
-		
+		move(data,cos(-data->pa) * 5 ,-sin(data->pa) * 5);
+		ray_colesion(data);
 	}
 	if ( key == 0 )//a
 	{
-		
-		move(data, 0, -5);
+		move(data,-cos(-data->pa) * 5 ,-sin(-data->pa) * 5);
+		ray_colesion(data);
 	}	
 	if (key == 13 )//w
 	{
-		
-		move(data, -5, 0);
+		move(data, sin(data->pa) * 5, cos(data->pa) * 5);
+		ray_colesion(data);
 	}
 	if (key == 1)//s
 	{
-		move(data, 5, 0);
+		move(data, -sin(data->pa) * 5, -cos(data->pa) * 5);
+		ray_colesion(data);
 	}
 	if(key == 123)
 	{
 		data->pa -= 0.02;
 		if(data->pa < 0)
 			data->pa += 2 * M_PI;
-		// data->pdx = cos(data->pa) * 5;
-		// data->pdy = sin(data->pa) * 5;
 		move_rotated(data);
 		ray_colesion(data);
 	}
@@ -71,8 +70,6 @@ int	key(int key, t_data *data)
 		data->pa += 0.02;
 		if(data->pa > 2 * M_PI)
 			data->pa -= 2 * M_PI;
-		// data->pdx = cos(data->pa) * 5;
-		// data->pdy = sin(data->pa) * 5;
 		move_rotated(data);
 		ray_colesion(data);
 	}

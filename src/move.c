@@ -1,6 +1,6 @@
 #include "../Includes/cub.h"
 
-void	move_show_count(t_data *data)
+void	destroy_and_refresh(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
 	destroy(data);
@@ -16,7 +16,7 @@ static void	condetion42(t_data *data, int y, int x)
 
 void	move(t_data *data, int y, int x)
 {
-	move_show_count(data);
+	destroy_and_refresh(data);
 	condetion42(data, y, x);
 	move_rotated(data);
 }
