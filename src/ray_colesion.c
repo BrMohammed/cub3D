@@ -1,10 +1,10 @@
 #include "../Includes/cub.h"
 
-int y_detect(t_data *data, int y,int up_down, double *ray_colesion_y)
+int y_detect(t_data *data, int y,int px,int up_down, double *ray_colesion_y)
 {
     int x;
-
-    x = 0;
+   
+    x = px;
     int a[2];
 	int b[2];
     double tpx =0;
@@ -13,27 +13,24 @@ int y_detect(t_data *data, int y,int up_down, double *ray_colesion_y)
     {
         if(data->result[y][x] == '1') //wall detect posetion
         {
-           
             if (up_down == 1) 
             {
-                tpy = ((data->player_y) - (((y + 1) * 50))) + 7.5;
-                tpx = tan(data->pa) * tpy;
+                tpy = ((data->player_y + 7.5) - (((y + 1) * 50)));
+                tpx = tpy / -tan(data->pa);
+                b[1] = (((y + 1) * 50));
             }
-            else
-            {
-                tpy = ((((y) * 50)) - (data->player_y)) + 7.5;
-                tpx = -tan(data->pa) * tpy;
-            }
+            // else
+            // {
+            //     tpy = ((((y) * 50)) - (data->player_y)) + 7.5;
+            //     tpx = -tan(data->pa) * tpy;
+            //     b[1] = (((y) * 50));
+            // }
             a[0] = data->player_x + 7.5;
             a[1] = data->player_y + 7.5;
-            b[0] =   tpx + data->player_x;
-            if (up_down == 1) 
-                b[1] = (((y + 1) * 50));
-            else
-               b[1] = (((y) * 50));
+            b[0] =   tpx + data->player_x + 7.5;
             if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
             {
-                //draw_line(data, a, b, 0Xff0000);
+                draw_line(data, a, b, 0Xff0000);
                 *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
                 //printf("ray_colesion_y = %f\n", *ray_colesion_y);
                 data->px_y = b[0];
@@ -124,8 +121,8 @@ void ray_colesion(t_data *data)
     int x = 0;
     int px = 0;
     int py = 0;
-    //int up_down = 0;
-    int up_down_x = 0;
+    int up_down = 0;
+    //int up_down_x = 0;
     int a[2];
 	int b[2];
 
@@ -134,16 +131,11 @@ void ray_colesion(t_data *data)
     (void)ray_colesion_x;
     (void)ray_colesion_y;
 
-    a[0] = data->player_x + 7.5;
-    a[1] = data->player_y + 7.5;
-    b[0] = a[0] + cos(data->pa) * 32;
-    b[1] = a[1] + sin(data->pa) * 32;
-    draw_line(data, a, b, 0Xffffff);
-    printf("y = %d\n" ,b[1]);
+
     printf("pa = %f\n",data->pa );
     double degre = (data->pa / pi) * 180;
-    if(degre == 360)
-        degre = 0;
+    // if(degre == 360)
+    //     degre = 0;
     printf("degre = %f\n",degre);
     while(data->result[y])
     {
@@ -158,19 +150,19 @@ void ray_colesion(t_data *data)
         }
         y++;
     }
-    //   ----  y   ------
-    // y = py;
-    // if((degre >= 0 && degre < 90) || (degre <= 360 && degre >= 270))
-    // {
-    //     up_down = 1;
-    //     y--;
-    //     while(y >= 0)
-    //     {
-    //         if(y_detect(data,y,up_down,&ray_colesion_y) == 1)
-    //             break;
-    //         y--;
-    //     }
-    // }
+     //// ----  y   ------
+    y = py;
+    if((degre <= 360 && degre > 180))
+    {
+        up_down = 1;
+        y--;
+        while(y >= 0)
+        {
+            if(y_detect(data,y,px,up_down,&ray_colesion_y) == 1)
+                break;
+            y--;
+        }
+     }
     // else
     // {
     //     up_down = 0;
@@ -184,67 +176,70 @@ void ray_colesion(t_data *data)
     // }
     //////// ----------- x ---------------
 
-    if(degre >= 0 && degre < 90)
-    {
-        y = py;
-        up_down_x = 0;
-        while(data->result[y])
-        {
-            if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
-                break;
-            y++;
-        }
-    }
-    else if(degre >= 90 && degre <= 180)
-    {
-        y = py;
-        up_down_x = 1;
-        while(data->result[y])
-        {
-            if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
-                break; 
-            y++;
-        }
-    }
-    else if(degre <= 270 && degre > 180)
-    {
-        y = py;
-        up_down_x = 1;
-        while(y >= 0)
-        {
-            if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
-                break; 
-            y--;
-        }
-    }
-    else
-    {
-        y = py;
-        up_down_x = 0;
-        while(y >= 0)
-        {
-           if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
-                break; 
-            y--;
-        }
-    }
+    // if(degre >= 0 && degre < 90)
+    // {
+    //     y = py;
+    //     up_down_x = 0;
+    //     while(data->result[y])
+    //     {
+    //         if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
+    //             break;
+    //         y++;
+    //     }
+    // }
+    // else if(degre >= 90 && degre <= 180)
+    // {
+    //     y = py;
+    //     up_down_x = 1;
+    //     while(data->result[y])
+    //     {
+    //         if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
+    //             break; 
+    //         y++;
+    //     }
+    // }
+    // else if(degre <= 270 && degre > 180)
+    // {
+    //     y = py;
+    //     up_down_x = 1;
+    //     while(y >= 0)
+    //     {
+    //         if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
+    //             break; 
+    //         y--;
+    //     }
+    // }
+    // else
+    // {
+    //     y = py;
+    //     up_down_x = 0;
+    //     while(y >= 0)
+    //     {
+    //        if (x_detect(up_down_x,px,y,data,&ray_colesion_x) == 1)
+    //             break; 
+    //         y--;
+    //     }
+    // }
+    a[0] = data->player_x + 7.5;
+    a[1] = data->player_y + 7.5;
     // printf("## ray_colesion_x = %f\n",ray_colesion_x);
     // printf("## ray_colesion_y = %f\n",ray_colesion_y);
     // if( (ray_colesion_x < ray_colesion_y && ray_colesion_x != 0 ) || ray_colesion_y == 0)
     // {
-        // a[0] = data->player_x + 7.5;
-        // a[1] = data->player_y + 7.5;
         // b[0] = data->px_x;
         // b[1] = data->py_x ;
         // draw_line(data, a, b, 11111);
     // }
     // else
     // {
-        a[0] = data->player_x + 7.5;
-        a[1] = data->player_y + 7.5;
         // b[0] = data->px_y;
         // b[1] = data->py_y ;
         // draw_line(data, a, b, 0Xff0000);
         
     // }
+   
+    b[0] = a[0] + cos(data->pa) * 32;
+    b[1] = a[1] + sin(data->pa) * 32;
+    draw_line(data, a, b, 0Xffffff);
+    printf("y = %d\n" ,b[1]);
 }
