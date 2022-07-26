@@ -51,8 +51,8 @@ typedef struct s_data
 	double		pa;
 	double		lenght_of_ray;
 
-	int result_lenght;
-	int result_x_length;
+	int result_hight;
+	int result_with;
 
 	int px_y;
 	int py_y;
@@ -76,7 +76,7 @@ void	move_rotated(t_data *data);
 void	draw_line(t_data *game, int *begin, int *end, int color);
 void 	ray_colesion(t_data *data);
 void	destroy_and_refresh(t_data *data);
-int	movement(t_data *data);
+int		movement(t_data *data);
 int		key_up(int key, t_data *data);
 int		key_down(int key, t_data *data);
 #endif

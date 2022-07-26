@@ -79,7 +79,7 @@ char **check_of_contaner(char *str,t_data *data)
 			length = v;
 		i++;
 	}
-	data->result_x_length = length;
+	data->result_with = length;
 	i = 0;
 	while(c[i])
 	{
@@ -94,7 +94,7 @@ char **check_of_contaner(char *str,t_data *data)
 		}
 		i++;
 	}
-	data->result_lenght = i;
+	data->result_hight = i;
 	size = i;
 	i = 0;
 	while(c[i])

@@ -1,13 +1,13 @@
 #include "../Includes/cub.h"
 
-int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y)
+int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double engel)
 {
     int a[2];
 	int b[2];
     double tpx = 0;
     double tpy = 0;
     tpy = ((data->player_y + 7.5) - (((y_plus) * 50)));
-    tpx = tpy / -tan(data->pa);
+    tpx = tpy / -tan(engel);
     b[1] = (((y_plus) * 50));
     a[0] = data->player_x + 7.5;
     a[1] = data->player_y + 7.5;
@@ -22,7 +22,7 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y)
     return(0);
 }
 
-int y_detect(t_data *data,int y, int y_plus,int px,int left_begin_agrement_x_from_player, double *ray_colesion_y)
+int y_detect(t_data *data,int y, int y_plus,int px,int left_begin_agrement_x_from_player, double *ray_colesion_y,double engel)
 {
     int x;
    
@@ -33,7 +33,7 @@ int y_detect(t_data *data,int y, int y_plus,int px,int left_begin_agrement_x_fro
         {
             if(data->result[y][x] == '1') //wall detect posetion
             {
-                if(y_detect_loop(data,y_plus,x,ray_colesion_y) == 1)
+                if(y_detect_loop(data,y_plus,x,ray_colesion_y,engel) == 1)
                     return(1);
             }
             x++;
@@ -45,7 +45,7 @@ int y_detect(t_data *data,int y, int y_plus,int px,int left_begin_agrement_x_fro
         {
             if(data->result[y][x] == '1') //wall detect posetion
             {
-               if(y_detect_loop(data,y_plus,x,ray_colesion_y) == 1)
+               if(y_detect_loop(data,y_plus,x,ray_colesion_y,engel) == 1)
                     return(1);
             }
             x--;
@@ -54,7 +54,7 @@ int y_detect(t_data *data,int y, int y_plus,int px,int left_begin_agrement_x_fro
     return(0);
 }
 
-int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x)
+int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double engel)
 {
     int a[2];
 	int b[2];
@@ -62,7 +62,7 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x)
     double tpy = 0;
 
     tpx = ((data->player_x + 7.5) - (((x_plus) * 50)));
-    tpy = tpx * tan(data->pa);
+    tpy = tpx * tan(engel);
     b[1] = (data->player_y +  7.5) - tpy;
     a[0] = data->player_x + 7.5 ;
     a[1] = data->player_y + 7.5 ;
@@ -77,7 +77,7 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x)
     return(0);
 }
 
-int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,double *ray_colesion_x)
+int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,double *ray_colesion_x,double engel)
 {
     int x;
     int x_plus;
@@ -85,7 +85,7 @@ int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,d
     x = 0;
     x_plus = 0;
     double degre;
-    degre = (data->pa / pi) * 180;
+    degre = (engel / pi) * 180;
     if(left_begin_agrement_x_from_player_x == 1)
     {
         x = px;
@@ -98,7 +98,7 @@ int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,d
             
             if(data->result[y][x] == '1') //wall detect posetion
             {
-                if(x_detect_loop(x_plus,y,data,ray_colesion_x) == 1)
+                if(x_detect_loop(x_plus,y,data,ray_colesion_x,engel) == 1)
                     return(1);
             }
             x--;
@@ -116,7 +116,7 @@ int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,d
                 x_plus = x;
             if(data->result[y][x] == '1') //wall detect posetion
             {
-                if(x_detect_loop(x_plus,y,data,ray_colesion_x) == 1)
+                if(x_detect_loop(x_plus,y,data,ray_colesion_x,engel) == 1)
                     return(1);
             }
             x++;
@@ -125,7 +125,7 @@ int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,d
      return(0);
 }
 
-void ray_colesion(t_data *data)
+void one_ray(t_data *data,double engel)
 {
     int y = 0;
     int x = 0;
@@ -140,7 +140,7 @@ void ray_colesion(t_data *data)
     double ray_colesion_x;
 
 
-    degre = (data->pa / pi) * 180;
+    degre = (engel / pi) * 180;
     ray_colesion_y = 0;
     ray_colesion_x = 0;
     while(data->result[y]) //know position of player in map
@@ -173,8 +173,8 @@ void ray_colesion(t_data *data)
             
         while(y >= 0)
         {
-            if(y_detect(data,y,y + 1,px,left_begin_agrement_x_from_player,&ray_colesion_y) == 1 ||
-                 x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x) == 1)
+            if(y_detect(data,y,y + 1,px,left_begin_agrement_x_from_player,&ray_colesion_y,engel) == 1 ||
+                 x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,engel) == 1)
                 break;
             y--;
         }
@@ -195,8 +195,8 @@ void ray_colesion(t_data *data)
         } 
         while(data->result[y])
         {
-            if(y_detect(data,y,y,px,left_begin_agrement_x_from_player,&ray_colesion_y) == 1 || 
-                x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x) == 1)
+            if(y_detect(data,y,y,px,left_begin_agrement_x_from_player,&ray_colesion_y,engel) == 1 || 
+                x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,engel) == 1)
                 break;
             y++;
         }
@@ -216,6 +216,34 @@ void ray_colesion(t_data *data)
         b[1] = data->py_y ;
         draw_line(data, a, b, 0Xff0000);
     }
+}
+
+void ray_colesion(t_data *data)
+{
+    double left_ray;
+    double write_ray;
+    int a[2];
+	int b[2];
+    int test = 0;
+    left_ray =  data->pa;
+    write_ray = data->pa;
+    left_ray -= 0.523599;
+    write_ray += 0.523599;
+    printf("left_ray = %f\n",left_ray);
+    while(left_ray <= data->pa)
+    {
+        one_ray(data,left_ray);
+        left_ray += 0.001;
+        test++;
+    }
+    while(write_ray >= data->pa)
+    {
+        one_ray(data,write_ray);
+        write_ray -= 0.001;
+    }
+    one_ray(data,data->pa);
+    a[0] = data->player_x + 7.5;
+    a[1] = data->player_y + 7.5;
     b[0] = a[0] + cos(data->pa) * 32;
     b[1] = a[1] + sin(data->pa) * 32;
     draw_line(data, a, b, 0Xffffff);

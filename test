@@ -1,0 +1,23 @@
+void ray_colesion(t_data *data)
+{
+    double left_ray;
+    int a[2];
+	int b[2];
+    int test = 0;
+    left_ray =  data->pa;
+    left_ray -= 0.523599;
+    printf("left_ray = %f\n",left_ray);
+	if(data->pa < 0)
+		data->pa += 2 * M_PI;
+    // while(test >= 5)
+    // {
+        // left_ray += 0.1;
+        one_ray(data,left_ray);
+        // test++;
+    // }
+    a[0] = data->player_x + 7.5;
+    a[1] = data->player_y + 7.5;
+    b[0] = a[0] + cos(data->pa) * 32;
+    b[1] = a[1] + sin(data->pa) * 32;
+    draw_line(data, a, b, 0Xffffff);
+}
