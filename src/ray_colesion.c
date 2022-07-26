@@ -208,51 +208,40 @@ void one_ray(t_data *data,double engel)
     {
         b[0] = data->px_x;
         b[1] = data->py_x ;
-        draw_line(data, a, b, 11111);
     }
     else
     {
         b[0] = data->px_y;
         b[1] = data->py_y ;
-        draw_line(data, a, b, 0Xff0000);
     }
+    draw_line(data, a, b, 0Xff0000);
 }
 
 void ray_colesion(t_data *data)
 {
-    double left_ray;
-    double write_ray;
+    double rays;
     int a[2];
 	int b[2];
-    left_ray =  data->pa;
-    write_ray = data->pa;
+    int test = 0;
+    double angel_move = 0;
     double point_to_break;
-    left_ray -= M_PI/6;
-    write_ray += M_PI/6;
-	if(write_ray > 2 * M_PI)
-		write_ray -= 2 * M_PI;			
-	if(left_ray <= 0)
-		left_ray += 2 * M_PI; 
-    one_ray(data,left_ray);
-    one_ray(data,write_ray);
+
+    angel_move = (M_PI/3) / ((data->result_with/2 ) * 50);
+    rays =  data->pa;
+    rays -= M_PI/6;		
+	if(rays <= 0)
+		rays += 2 * M_PI; 
     point_to_break = 0;	
     while(point_to_break <= M_PI/3 )
     {	
-        left_ray += 0.001;
-        if(left_ray > 2 * M_PI)
-			left_ray -= 2 * M_PI;
-        one_ray(data,left_ray);
-        point_to_break += 0.001;
+        rays += angel_move;
+        if(rays > 2 * M_PI)
+			rays -= 2 * M_PI;
+        one_ray(data,rays);
+        point_to_break += angel_move;
+        test++;
     }
-    // point_to_break = 0;
-    // while(point_to_break <= M_PI/6)
-    // { 
-    //     point_to_break += 0.001;
-    //     if(write_ray <= 0)
-	// 	    write_ray += 2 * M_PI; 				
-    //     one_ray(data,write_ray);
-    //     write_ray -= 0.001;
-    // }
+    printf("test = %d\n with/2 = %d\n",test,(data->result_with/2 ) * 50);
     one_ray(data,data->pa);
     a[0] = data->player_x + 7.5;
     a[1] = data->player_y + 7.5;

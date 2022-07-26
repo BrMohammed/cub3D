@@ -4,6 +4,7 @@ int	key_down(int key, t_data *data)
 {
 	if (key == 53)
 	{
+		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
 	if (key == 2 || key == 0 || key == 13 || key == 1)
@@ -56,41 +57,34 @@ int	key_up(int key, t_data *data)
 
 int	movement(t_data *data)
 {
-	static int i;
-
-	if(i == 200)
+	if(data->ON_KEYDOWN_DERECTION == 1)
 	{
-		if(data->ON_KEYDOWN_DERECTION == 1)
-		{
-			if(data->KEY_W == 1)
-				move(data, sin(data->pa) * 5, cos(data->pa) * 5);
-			else if(data->KEY_S == 1)
-				move(data, -sin(data->pa) * 5, -cos(data->pa) * 5);
-			else if(data->KEY_A == 1)
-				move(data,-cos(-data->pa) * 5 ,-sin(-data->pa) * 5);
-			else if(data->KEY_D == 1)
-				move(data,cos(-data->pa) * 5 ,-sin(data->pa) * 5);
-			ray_colesion(data);
-		}
-		if(data->ON_KEYDOWN_CAMERA == 1)
-		{
-			if(data->KEY_WRIGHT == 1)
-			{
-				data->pa += 0.02;
-				if(data->pa > 2 * M_PI)
-					data->pa -= 2 * M_PI;
-			}
-			if(data->KEY_LEFT == 1)
-			{
-				data->pa -= 0.02;
-				if(data->pa < 0)
-					data->pa += 2 * M_PI;
-			}
-			move_rotated(data);
-			ray_colesion(data);
-		}
-		i = 0;
+		if(data->KEY_W == 1)
+			move(data, sin(data->pa) * 5, cos(data->pa) * 5);
+		else if(data->KEY_S == 1)
+			move(data, -sin(data->pa) * 5, -cos(data->pa) * 5);
+		else if(data->KEY_A == 1)
+			move(data,-cos(-data->pa) * 5 ,-sin(-data->pa) * 5);
+		else if(data->KEY_D == 1)
+			move(data,cos(-data->pa) * 5 ,-sin(data->pa) * 5);
+		ray_colesion(data);
 	}
-	i++;
+	if(data->ON_KEYDOWN_CAMERA == 1)
+	{
+		if(data->KEY_WRIGHT == 1)
+		{
+			data->pa += 0.02;
+			if(data->pa > 2 * M_PI)
+				data->pa -= 2 * M_PI;
+		}
+		if(data->KEY_LEFT == 1)
+		{
+			data->pa -= 0.02;
+			if(data->pa < 0)
+				data->pa += 2 * M_PI;
+		}
+		move_rotated(data);
+		ray_colesion(data);
+	}
 	return (0);
 }

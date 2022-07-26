@@ -21,7 +21,7 @@ void	draw_line(t_data *game, int *begin, int *end, int color)
 	delta[1] /= pixels;
 	while (pixels)
 	{
-		mlx_pixel_put(game->mlx, game->mlx_win, pixel[0], pixel[1], color);
+		rander_image(&game->img, (t_rect){pixel[0], pixel[1],1, 1, color});
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;
@@ -67,6 +67,7 @@ int	main(int ac, char **av)
 		mlx_loop_hook(data.mlx, &movement, &data);
 		mlx_hook(data.mlx_win, 17, 0, &mouse, &data);
 	    mlx_loop(data.mlx);
+		mlx_destroy_image(data.mlx, data.img.mlx_img);
 		free(data.mlx);
 	}
 	return (0);

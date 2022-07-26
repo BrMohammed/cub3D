@@ -91,8 +91,6 @@ void	move(t_data *data, int y, int x);
 void	respone(t_data *data);
 void	respone_obj(t_data *data);
 int		hole_move(t_data *data);
-void 	destroy(t_data *data);
-void 	respone2(t_data *data);
 char 	**check_map(char *str,t_data *data);
 void	move_rotated(t_data *data);
 void	draw_line(t_data *game, int *begin, int *end, int color);
