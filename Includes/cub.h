@@ -11,6 +11,16 @@
 #include "../libft/libft.h"
 #include <math.h>
 #define pi 3.1415926535
+#define ON_KEYUP_DERECTION key_up[0] 
+#define ON_KEYUP_CAMERA key_up[1] 
+#define ON_KEYDOWN_DERECTION key_down[0] 
+#define ON_KEYDOWN_CAMERA key_down[1] 
+#define KEY_LEFT key_select[0]
+#define KEY_WRIGHT key_select[1]
+#define KEY_W key_select[2]
+#define KEY_S key_select[3]
+#define KEY_A key_select[4]
+#define KEY_D key_select[5]
 
 typedef struct s_data
 {
@@ -48,6 +58,9 @@ typedef struct s_data
 	int py_y;
 	int px_x;
 	int py_x;
+	int key_up[2];
+	int key_down[2];
+	int key_select[6];
 }	t_data;
 
 char	*get_next_line(int fd);
