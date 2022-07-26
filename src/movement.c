@@ -31,11 +31,7 @@ int	key_down(int key, t_data *data)
 
 int	key_up(int key, t_data *data)
 {
-	if (key == 53)
-	{
-		exit(0);
-	}
-	if (key == 2 || key == 0 || key == 13 || key == 1)
+	if ((key == 2 || key == 0 || key == 13 || key == 1 ))
 	{
 		data->ON_KEYDOWN_DERECTION = 0;
 		if (key == 2) //d
