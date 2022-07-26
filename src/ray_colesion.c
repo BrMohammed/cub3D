@@ -224,20 +224,32 @@ void ray_colesion(t_data *data)
     double write_ray;
     int a[2];
 	int b[2];
-    int test = 0;
     left_ray =  data->pa;
     write_ray = data->pa;
-    left_ray -= 0.523599;
-    write_ray += 0.523599;
-    printf("left_ray = %f\n",left_ray);
-    while(left_ray <= data->pa)
-    {
-        one_ray(data,left_ray);
+    double point_to_break;
+    left_ray -= M_PI/6;
+    write_ray += M_PI/6;
+	if(write_ray > 2 * M_PI)
+		write_ray -= 2 * M_PI;			
+	if(left_ray <= 0)
+		left_ray += 2 * M_PI; 
+    one_ray(data,left_ray);
+    one_ray(data,write_ray);
+    point_to_break = 0;	
+    while(point_to_break <= M_PI/6 )
+    {	
         left_ray += 0.001;
-        test++;
+        if(left_ray > 2 * M_PI)
+			left_ray -= 2 * M_PI;
+        one_ray(data,left_ray);
+        point_to_break += 0.001;
     }
-    while(write_ray >= data->pa)
-    {
+    point_to_break = 0;
+    while(point_to_break <= M_PI/6)
+    { 
+        point_to_break += 0.001;
+        if(write_ray <= 0)
+		    write_ray += 2 * M_PI; 				
         one_ray(data,write_ray);
         write_ray -= 0.001;
     }

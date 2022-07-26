@@ -54,10 +54,10 @@ typedef struct s_data
 	int result_hight;
 	int result_with;
 
-	int px_y;
-	int py_y;
-	int px_x;
-	int py_x;
+	double px_y;
+	double py_y;
+	double px_x;
+	double py_x;
 	int key_up[2];
 	int key_down[2];
 	int key_select[6];
