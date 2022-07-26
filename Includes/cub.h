@@ -74,6 +74,9 @@ void 	respone2(t_data *data);
 char 	**check_map(char *str,t_data *data);
 void	move_rotated(t_data *data);
 void	draw_line(t_data *game, int *begin, int *end, int color);
-void ray_colesion(t_data *data);
+void 	ray_colesion(t_data *data);
 void	destroy_and_refresh(t_data *data);
+int	movement(t_data *data);
+int		key_up(int key, t_data *data);
+int		key_down(int key, t_data *data);
 #endif

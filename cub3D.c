@@ -28,83 +28,6 @@ void	draw_line(t_data *game, int *begin, int *end, int color)
 	}
 }
 
-int	key_down(int key, t_data *data)
-{
-	// if (key == 53)
-	// {
-	// 		exit(0);
-	// }
-	
-	if (key == 2) //d
-	{
-		data->ON_KEYDOWN_DERECTION = 1;
-		data->KEY_D = 1;
-	}
-	if ( key == 0 )//a
-	{
-		data->ON_KEYDOWN_DERECTION = 1;
-		data->KEY_A = 1;
-	}	
-	if (key == 13 )//w
-	{
-		data->ON_KEYDOWN_DERECTION = 1;
-		data->KEY_W = 1;
-	}
-	if (key == 1)//s
-	{
-		data->ON_KEYDOWN_DERECTION = 1;
-		data->KEY_S = 1;
-	}
-	if(key == 123)
-	{
-
-	}
-	if(key == 124)
-	{
-		data->ON_KEYDOWN_CAMERA = 1;
-		data->KEY_WRIGHT = 1;
-	}
-	return(0);
-}
-
-int	key_up(int key, t_data *data)
-{
-	
-	// if (key == 53)
-	// {
-	// 	exit(0);
-	// }
-	
-	if (key == 2) //d
-	{
-		data->ON_KEYUP_DERECTION = 0;
-		data->KEY_D = 0;
-	}
-	if ( key == 0 )//a
-	{
-		
-	}	
-	if (key == 13 )//w
-	{
-		
-	}
-	if (key == 1)//s
-	{
-		
-	}
-	if(key == 123)
-	{
-		
-	}
-	if(key == 124)
-	{
-		data->ON_KEYUP_CAMERA = 0;
-		data->KEY_WRIGHT = 0;
-	}
-	return(0);
-}
-
-
 void	check_cub(char *str)
 {
 	int		i;
@@ -126,38 +49,6 @@ void	check_cub(char *str)
 	}
 }
 
-int	movement(t_data *data)
-{
-
-	static int i;
-
-	if(i == 200)
-	{
-		if(data->ON_KEYDOWN_DERECTION == 1)
-		{
-			if(data->KEY_D == 1)
-			{
-				move(data,cos(-data->pa) * 5 ,-sin(data->pa) * 5);
-				ray_colesion(data);
-			}
-		}
-		if(data->ON_KEYDOWN_CAMERA == 1)
-		{
-			if(data->KEY_WRIGHT == 1)
-			{
-				data->pa += 0.02;
-				if(data->pa > 2 * M_PI)
-					data->pa -= 2 * M_PI;
-				move_rotated(data);
-				ray_colesion(data);
-			}
-		}
-		i=0;
-	}
-	i++;
-	return (0);
-}
-
 
 int	main(int ac, char **av)
 {
@@ -174,7 +65,7 @@ int	main(int ac, char **av)
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);
 		mlx_loop_hook(data.mlx, &movement, &data);
-		mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);
+		mlx_hook(data.mlx_win, 17, 0, &mouse, &data);
 	    mlx_loop(data.mlx);
 		free(data.mlx);
 	}
