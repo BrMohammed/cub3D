@@ -57,6 +57,27 @@ int	key(int key, t_data *data)
 		move(data, -sin(data->pa) * 5, -cos(data->pa) * 5);
 		ray_colesion(data);
 	}
+	// if(key == 123)
+	// {
+	// 	data->pa -= 0.02;
+	// 	if(data->pa < 0)
+	// 		data->pa += 2 * M_PI;
+	// 	move_rotated(data);
+	// 	ray_colesion(data);
+	// }
+	// if(key == 124)
+	// {
+	// 	data->pa += 0.02;
+	// 	if(data->pa > 2 * M_PI)
+	// 		data->pa -= 2 * M_PI;
+	// 	move_rotated(data);
+	// 	ray_colesion(data);
+	// }
+	return(0);
+}
+
+int key_rotate(int key, t_data *data)
+{
 	if(key == 123)
 	{
 		data->pa -= 0.02;
@@ -97,6 +118,28 @@ void	check_cub(char *str)
 	}
 }
 
+int	movement(t_data *data)
+{
+	static int	i;
+	//static int hoke ;
+		
+	if (i == 5000)
+	{
+		
+		mlx_hook(data->mlx_win, 2, 1L<<0, key, &data);
+		//mlx_hook(data->mlx_win, 2, 1L<<0, key_rotate, &data);
+		i = 0;
+	}
+	i++;
+	return (0);
+}
+
+int test_key(int key)
+{
+	printf("test = %d\n", key);
+	return(0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -109,7 +152,9 @@ int	main(int ac, char **av)
 	{
 		respone(&data);
 		respone_obj(&data);
-		mlx_hook(data.mlx_win, 2, 1L<<0, key, &data);
+		//mlx_hook(data.mlx_win, 2, 1L<<0, key, &data);
+		//mlx_loop_hook(data.mlx, &movement, &data);
+		mlx_expose_hook(data.mlx_win, test_key, &data);
 		mlx_hook(data.mlx_win, 17, (1L << 17), &mouse, &data);
 	    mlx_loop(data.mlx);
 		free(data.mlx);
