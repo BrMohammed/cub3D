@@ -2,9 +2,7 @@
 
 void destroy(t_data *data)
 {
-    mlx_destroy_image(data->mlx,data->walls);
-    mlx_destroy_image(data->mlx,data->plat);
-	mlx_destroy_image(data->mlx,data->player);
+    mlx_destroy_image(data->mlx, data->img.mlx_img);
 }
 
 void respone2(t_data *data)

@@ -236,7 +236,7 @@ void ray_colesion(t_data *data)
     one_ray(data,left_ray);
     one_ray(data,write_ray);
     point_to_break = 0;	
-    while(point_to_break <= M_PI/6 )
+    while(point_to_break <= M_PI/3 )
     {	
         left_ray += 0.001;
         if(left_ray > 2 * M_PI)
@@ -244,15 +244,15 @@ void ray_colesion(t_data *data)
         one_ray(data,left_ray);
         point_to_break += 0.001;
     }
-    point_to_break = 0;
-    while(point_to_break <= M_PI/6)
-    { 
-        point_to_break += 0.001;
-        if(write_ray <= 0)
-		    write_ray += 2 * M_PI; 				
-        one_ray(data,write_ray);
-        write_ray -= 0.001;
-    }
+    // point_to_break = 0;
+    // while(point_to_break <= M_PI/6)
+    // { 
+    //     point_to_break += 0.001;
+    //     if(write_ray <= 0)
+	// 	    write_ray += 2 * M_PI; 				
+    //     one_ray(data,write_ray);
+    //     write_ray -= 0.001;
+    // }
     one_ray(data,data->pa);
     a[0] = data->player_x + 7.5;
     a[1] = data->player_y + 7.5;

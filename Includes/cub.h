@@ -22,8 +22,30 @@
 #define KEY_A key_select[4]
 #define KEY_D key_select[5]
 
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int width;
+	int height;
+	int color;
+}	t_rect;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img;
+
+
 typedef struct s_data
 {
+	t_img	img;
+	int		cur_img;
+	
 	void		*mlx;
 	void		*mlx_win;
 
@@ -79,4 +101,7 @@ void	destroy_and_refresh(t_data *data);
 int		movement(t_data *data);
 int		key_up(int key, t_data *data);
 int		key_down(int key, t_data *data);
+int 	rander_image(t_img *img, t_rect rect);
+void	img_pix_put(t_img *img, int x, int y, int color);
+
 #endif

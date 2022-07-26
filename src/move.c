@@ -2,8 +2,6 @@
 
 void	destroy_and_refresh(t_data *data)
 {
-	mlx_clear_window(data->mlx, data->mlx_win);
-	destroy(data);
 	respone2(data);
 	respone_obj(data);
 }
@@ -23,8 +21,8 @@ void	move(t_data *data, int y, int x)
 void	move_rotated(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
-	destroy(data);
 	respone2(data);
 	respone_obj(data);
-	mlx_put_image_to_window(data->mlx, data->mlx_win,data->player,data->player_x, data->player_y);
+	rander_image(&data->img, (t_rect){data->player_x, data->player_y,15, 15, 20963});
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 }
