@@ -83,6 +83,10 @@ typedef struct s_data
 	int key_up[2];
 	int key_down[2];
 	int key_select[6];
+
+	int ray_count;
+	int player_y_for_3d;
+	int player_x_for_3d;
 }	t_data;
 
 char	*get_next_line(int fd);

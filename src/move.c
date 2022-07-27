@@ -9,6 +9,8 @@ void	move(t_data *data, int y, int x)
 {
 	data->player_x += x ;
 	data->player_y += y ;
+	data->player_y_for_3d += y;
+	data->player_x_for_3d += x;
 	move_rotated(data);
 }
 void	move_rotated(t_data *data)

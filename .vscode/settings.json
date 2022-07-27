@@ -8,7 +8,8 @@
         "__string": "c",
         "ios": "c",
         "memory": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "iterator": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
