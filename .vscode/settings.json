@@ -3,7 +3,12 @@
         "cub.h": "c",
         "algorithm": "c",
         "signal.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "__bit_reference": "c",
+        "__string": "c",
+        "ios": "c",
+        "memory": "c",
+        "type_traits": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -6,13 +6,13 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
 	int b[2];
     double tpx = 0;
     double tpy = 0;
-    tpy = ((data->player_y + 7.5) - (((y_plus) * 50)));
+    tpy = ((data->player_y + 2) - (((y_plus) * 10)));
     tpx = tpy / -tan(engel);
-    b[1] = (((y_plus) * 50));
-    a[0] = data->player_x + 7.5;
-    a[1] = data->player_y + 7.5;
-    b[0] =   tpx + data->player_x + 7.5;
-    if(b[0] >= x * 50 && b[0] <= (x + 1) * 50)
+    b[1] = (((y_plus) * 10));
+    a[0] = data->player_x + 2;
+    a[1] = data->player_y + 2;
+    b[0] =   tpx + data->player_x + 2;
+    if(b[0] >= x * 10 && b[0] <= (x + 1) * 10)
     {
         *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
         data->px_y = b[0];
@@ -61,13 +61,13 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double en
     double tpx =0;
     double tpy = 0;
 
-    tpx = ((data->player_x + 7.5) - (((x_plus) * 50)));
+    tpx = ((data->player_x + 2) - (((x_plus) * 10)));
     tpy = tpx * tan(engel);
-    b[1] = (data->player_y +  7.5) - tpy;
-    a[0] = data->player_x + 7.5 ;
-    a[1] = data->player_y + 7.5 ;
-    b[0] = (((x_plus) * 50));
-    if(b[1] >= y * 50 && b[1] <= (y + 1) * 50)
+    b[1] = (data->player_y +  2) - tpy;
+    a[0] = data->player_x + 2 ;
+    a[1] = data->player_y + 2 ;
+    b[0] = (((x_plus) * 10));
+    if(b[1] >= y * 10 && b[1] <= (y + 1) * 10)
     {
         *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
         data->px_x = b[0];
@@ -125,7 +125,7 @@ int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,d
      return(0);
 }
 
-void one_ray(t_data *data,double engel)
+double one_ray(t_data *data,double engel)
 {
     int y = 0;
     int x = 0;
@@ -138,6 +138,7 @@ void one_ray(t_data *data,double engel)
     double degre;
     double ray_colesion_y;
     double ray_colesion_x;
+    double end_ray;
 
 
     degre = (engel / pi) * 180;
@@ -145,12 +146,12 @@ void one_ray(t_data *data,double engel)
     ray_colesion_x = 0;
     while(data->result[y]) //know position of player in map
     {
-        if(data->player_y + 7.5 >= y * 50 && data->player_y + 7.5 <= (y + 1) * 50) // player posetion y
+        if(data->player_y + 2 >= y * 10 && data->player_y + 2 <= (y + 1) * 10) // player posetion y
             py = y;
         x = 0;
         while(data->result[y][x])
         {
-            if(data->player_x + 7.5 >= x * 50 && data->player_x + 7.5 <= (x + 1) * 50) //player posetion x
+            if(data->player_x + 2 >= x * 10 && data->player_x + 2 <= (x + 1) * 10) //player posetion x
                 px = x;
             x++;
         }
@@ -202,19 +203,22 @@ void one_ray(t_data *data,double engel)
         }
     }
 
-    a[0] = data->player_x + 7.5;
-    a[1] = data->player_y + 7.5;
+    a[0] = data->player_x + 2;
+    a[1] = data->player_y + 2;
     if( (ray_colesion_x < ray_colesion_y && ray_colesion_x != 0 ) || ray_colesion_y == 0)
     {
         b[0] = data->px_x;
         b[1] = data->py_x ;
+        end_ray = ray_colesion_x;
     }
     else
     {
         b[0] = data->px_y;
         b[1] = data->py_y ;
+        end_ray = ray_colesion_y;
     }
     draw_line(data, a, b, 0Xff0000);
+    return(end_ray);
 }
 
 void ray_colesion(t_data *data)
@@ -226,7 +230,7 @@ void ray_colesion(t_data *data)
     double angel_move = 0;
     double point_to_break;
 
-    angel_move = (M_PI/3) / ((data->result_with/2 ) * 50);
+    angel_move = (M_PI/3) / ((data->result_with) * 50);
     rays =  data->pa;
     rays -= M_PI/6;		
 	if(rays <= 0)
@@ -241,11 +245,11 @@ void ray_colesion(t_data *data)
         point_to_break += angel_move;
         test++;
     }
-    printf("test = %d\n with/2 = %d\n",test,(data->result_with/2 ) * 50);
     one_ray(data,data->pa);
-    a[0] = data->player_x + 7.5;
-    a[1] = data->player_y + 7.5;
-    b[0] = a[0] + cos(data->pa) * 32;
-    b[1] = a[1] + sin(data->pa) * 32;
+    a[0] = data->player_x + 2;
+    a[1] = data->player_y + 2;
+    b[0] = a[0] + cos(data->pa) * 7;
+    b[1] = a[1] + sin(data->pa) * 7;
     draw_line(data, a, b, 0Xffffff);
+   
 }
