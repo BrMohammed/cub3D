@@ -221,16 +221,14 @@ double one_ray(t_data *data,double engel)
         end_ray = ray_colesion_y;
     }
     //draw_line(data, a, b, 0Xff0000);
-    printf("end_ray_b = %f\n",end_ray);
-    end_ray = (((end_ray - 2) / 10)) * 50 + 1;
+    end_ray = (((end_ray - 2 ) / 10)) * 50 ;
     wallHeight = floor(((data->result_hight * 50) / 2) - ( end_ray)) ;
     a[0] = data->ray_count;
     a[1] = ((data->result_hight * 50 )/2) - wallHeight;
     b[0] = data->ray_count;
     b[1] = ((data->result_hight * 50 )/2) + wallHeight;
-    draw_line(data, a, b, 16777215);
-    printf("wallHeight = %d\n",wallHeight);
-    printf("end_ray = %f\n---\n\n",end_ray);
+    if(end_ray > 0)
+        draw_line(data, a, b, 16777215);
     return(end_ray);
 }
 
