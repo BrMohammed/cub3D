@@ -142,6 +142,7 @@ double one_ray(t_data *data,double engel)
     double ray_colesion_y;
     double ray_colesion_x;
     double end_ray;
+    double ca;
 
     int wallHeight;
     degre = (engel / pi) * 180;
@@ -213,12 +214,24 @@ double one_ray(t_data *data,double engel)
         b[0] = data->px_x;
         b[1] = data->py_x ;
         end_ray = ray_colesion_x;
-    }
+        ca = data->pa - engel;
+        if(ca < 0 )
+            ca += 2*M_PI;
+        if(ca > 2*M_PI)
+            ca -= 2*M_PI;
+            end_ray = end_ray * cos(ca);
+        }
     else
     {
         b[0] = data->px_y;
         b[1] = data->py_y ;
         end_ray = ray_colesion_y;
+        ca = data->pa - engel;
+        if(ca < 0 )
+            ca += 2*M_PI;
+        if(ca > 2*M_PI)
+            ca -= 2*M_PI;
+        end_ray = end_ray * cos(ca);
     }
     //draw_line(data, a, b, 0Xff0000);
     end_ray = (((end_ray - 2 ) / 10)) * 50 ;

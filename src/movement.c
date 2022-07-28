@@ -90,13 +90,13 @@ int	movement(t_data *data)
 		{
 			if(data->KEY_WRIGHT == 1)
 			{
-				data->pa += 0.02;
+				data->pa += 0.05;
 				if(data->pa > 2 * M_PI)
 					data->pa -= 2 * M_PI;
 			}
 			if(data->KEY_LEFT == 1)
 			{
-				data->pa -= 0.02;
+				data->pa -= 0.05;
 				if(data->pa < 0)
 					data->pa += 2 * M_PI;
 			}
