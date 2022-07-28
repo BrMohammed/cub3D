@@ -14,8 +14,8 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
     b[0] =   tpx + data->player_x + 2;
     if(b[0] >= x * 10 && b[0] <= (x + 1) * 10)
     {
-        tpy = ((data->player_y_for_3d + 7.5) - (((y_plus) * 50)));
-        tpx = tpy / -tan(engel);
+        // tpy = ((data->player_y_for_3d + 7.5) - (((y_plus) * 50)));
+        // tpx = tpy / -tan(engel);
         *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
         data->px_y = b[0];
         data->py_y =  b[1];
@@ -70,8 +70,8 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double en
     b[0] = (((x_plus) * 10));
     if(b[1] >= y * 10 && b[1] <= (y + 1) * 10)
     {
-        tpx = ((data->player_x_for_3d + 7.5) - (((x_plus) * 50)));
-        tpy = tpx * tan(engel);
+        // tpx = ((data->player_x_for_3d + 7.5) - (((x_plus) * 50)));
+        // tpy = tpx * tan(engel);
         *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
         data->px_x = b[0];
         data->py_x =  b[1];
@@ -220,7 +220,9 @@ double one_ray(t_data *data,double engel)
         b[1] = data->py_y ;
         end_ray = ray_colesion_y;
     }
-   // draw_line(data, a, b, 0Xff0000);
+    //draw_line(data, a, b, 0Xff0000);
+    printf("end_ray_b = %f\n",end_ray);
+    end_ray = (((end_ray - 2) / 10)) * 50 + 1;
     wallHeight = floor(((data->result_hight * 50) / 2) - ( end_ray)) ;
     a[0] = data->ray_count;
     a[1] = ((data->result_hight * 50 )/2) - wallHeight;
@@ -228,7 +230,7 @@ double one_ray(t_data *data,double engel)
     b[1] = ((data->result_hight * 50 )/2) + wallHeight;
     draw_line(data, a, b, 16777215);
     printf("wallHeight = %d\n",wallHeight);
-    printf("end_ray = %f\n",end_ray);
+    printf("end_ray = %f\n---\n\n",end_ray);
     return(end_ray);
 }
 
@@ -237,6 +239,8 @@ void ray_colesion(t_data *data)
     double rays;
     double angel_move = 0;
     double point_to_break;
+    int a[2];
+	int b[2];
 
     angel_move = (M_PI/3) / ((data->result_with) * 50);
     rays =  data->pa;
@@ -255,5 +259,10 @@ void ray_colesion(t_data *data)
         data->ray_count++;
     }
     one_ray(data,data->pa);
+    a[0] = data->player_x + 2;
+    a[1] = data->player_y + 2;
+    b[0] = a[0] + cos(data->pa) * 7;
+    b[1] = a[1] + sin(data->pa) * 7;
+    draw_line(data, a, b, 0Xffffff);
    
 }

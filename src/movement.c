@@ -61,6 +61,7 @@ int	movement(t_data *data)
 	double WE_P;
 	double EA_P;
 	double SO_P;
+	static int i;
 	NO_P = data->pa;
 	EA_P = data->pa - (3*M_PI)/2;
 	SO_P = data->pa + M_PI;
@@ -72,36 +73,38 @@ int	movement(t_data *data)
 		SO_P -= 2 * M_PI;
 	else if (WE_P < 0)
 		WE_P += 2 * M_PI;
-	
-	if(data->ON_KEYDOWN_DERECTION == 1)
+	if(i == 50)
 	{
-
-		if(data->KEY_W == 1 && one_ray(data,NO_P) > 5)
-			move(data, sin(data->pa) * 2, cos(data->pa) * 2);
-		else if(data->KEY_S == 1 && one_ray(data,SO_P) > 5)
-			move(data, -sin(data->pa) * 2, -cos(data->pa) * 2);
-		else if(data->KEY_A == 1 && one_ray(data,WE_P) > 5)
-			move(data,-cos(-data->pa) * 2 ,-sin(-data->pa) * 2);
-		else if(data->KEY_D == 1 && one_ray(data,EA_P) > 5)
-			move(data,cos(-data->pa) * 2 ,-sin(data->pa) * 2);
-		ray_colesion(data);
-	}
-	if(data->ON_KEYDOWN_CAMERA == 1)
-	{
-		if(data->KEY_WRIGHT == 1)
+		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
-			data->pa += 0.02;
-			if(data->pa > 2 * M_PI)
-				data->pa -= 2 * M_PI;
+			if(data->KEY_W == 1 && one_ray(data,NO_P) > 2)
+				move(data, sin(data->pa) * 2, cos(data->pa) * 2);
+			else if(data->KEY_S == 1 && one_ray(data,SO_P) > 2)
+				move(data, -sin(data->pa) * 2, -cos(data->pa) * 2);
+			else if(data->KEY_A == 1 && one_ray(data,WE_P) > 2)
+				move(data,-cos(-data->pa) * 2 ,-sin(-data->pa) * 2);
+			else if(data->KEY_D == 1 && one_ray(data,EA_P) > 2)
+				move(data,cos(-data->pa) * 2 ,-sin(data->pa) * 2);
 		}
-		if(data->KEY_LEFT == 1)
+		if(data->ON_KEYDOWN_CAMERA == 1)
 		{
-			data->pa -= 0.02;
-			if(data->pa < 0)
-				data->pa += 2 * M_PI;
+			if(data->KEY_WRIGHT == 1)
+			{
+				data->pa += 0.02;
+				if(data->pa > 2 * M_PI)
+					data->pa -= 2 * M_PI;
+			}
+			if(data->KEY_LEFT == 1)
+			{
+				data->pa -= 0.02;
+				if(data->pa < 0)
+					data->pa += 2 * M_PI;
+			}
+			move_rotated(data);
+			ray_colesion(data);
 		}
-		move_rotated(data);
-		ray_colesion(data);
+		i = 0;
 	}
+	i++;
 	return (0);
 }

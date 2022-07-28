@@ -7,7 +7,7 @@ void	destroy_and_refresh(t_data *data)
 
 void	move(t_data *data, int y, int x)
 {
-	data->player_x += x ;
+	data->player_x += x;
 	data->player_y += y ;
 	data->player_y_for_3d += y;
 	data->player_x_for_3d += x;
