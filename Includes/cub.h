@@ -105,6 +105,6 @@ int		key_up(int key, t_data *data);
 int		key_down(int key, t_data *data);
 int 	rander_image(t_img *img, t_rect rect);
 void	img_pix_put(t_img *img, int x, int y, int color);
-double 	one_ray(t_data *data,double engel);
+double 	one_ray(t_data *data,double angel);
 
 #endif
