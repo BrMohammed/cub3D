@@ -2,23 +2,39 @@
 
 int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double angel)
 {
-    int a[2];
-	int b[2];
+	double b[2];
     double tpx = 0;
     double tpy = 0;
-    tpy = ((data->player_y + 2) - (((y_plus) * 10)));
-    tpx = tpy / -tan(angel);
+    tpy = ((data->player_y + 2) - (((y_plus ) * 10)));
+    tpx = (tpy / -tan(angel)) ;
     b[1] = (((y_plus) * 10));
-    a[0] = data->player_x + 2 ;
-    a[1] = data->player_y + 2;
-    b[0] =   tpx + data->player_x + 2;
+    b[0] =   (tpx + data->player_x + 2)  + 10;
     if(b[0] >= x * 10 && b[0] <= (x + 1) * 10)
     {
-        // tpy = ((data->player_y_for_3d + 7.5) - (((y_plus) * 50)));
-        // tpx = tpy / -tan(angel);
-        *ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
+        //*ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
+        *ray_colesion_y =  fabs(tpy / sin(angel));
+        printf("c_y = %f\n----\n",*ray_colesion_y);
         data->px_y = b[0];
         data->py_y =  b[1];
+        return(1);
+    }
+    return(0);
+}
+
+int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double angel)
+{
+	int b[2];
+    double tpx =0;
+    double tpy = 0;
+    tpx = ((data->player_x + 2) - (((x_plus) * 10)));
+    tpy = tpx * tan(angel);
+    b[1] = (data->player_y +  2) - tpy;
+    b[0] = (((x_plus) * 10));
+    if(b[1] >= y * 10 && b[1] <= (y + 1) * 10)
+    {
+        *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
+        data->px_x = b[0];
+        data->py_x =  b[1];
         return(1);
     }
     return(0);
@@ -56,29 +72,7 @@ int y_detect(t_data *data,int y, int y_plus,int px,int left_begin_agrement_x_fro
     return(0);
 }
 
-int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double angel)
-{
-    int a[2];
-	int b[2];
-    double tpx =0;
-    double tpy = 0;
-    tpx = ((data->player_x + 2) - (((x_plus) * 10)));
-    tpy = tpx * tan(angel);
-    b[1] = (data->player_y +  2) - tpy;
-    a[0] = data->player_x + 2 ;
-    a[1] = data->player_y + 2 ;
-    b[0] = (((x_plus) * 10));
-    if(b[1] >= y * 10 && b[1] <= (y + 1) * 10)
-    {
-        // tpx = ((data->player_x_for_3d + 7.5) - (((x_plus) * 50)));
-        // tpy = tpx * tan(angel);
-        *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
-        data->px_x = b[0];
-        data->py_x =  b[1];
-        return(1);
-    }
-    return(0);
-}
+
 
 int x_detect(int left_begin_agrement_x_from_player_x,int px,int y,t_data *data,double *ray_colesion_x,double angel)
 {
@@ -141,7 +135,7 @@ double one_ray(t_data *data,double angel)
     double degre;
     double ray_colesion_y;
     double ray_colesion_x;
-    double end_ray;
+    double end_ray = 0;
 
     
     degre = (angel / pi) * 180;
@@ -238,8 +232,8 @@ double one_ray(t_data *data,double angel)
             
         while(y >= 0)
         {
-            if(y_detect(data,y,y + 1,px,left_begin_agrement_x_from_player,&ray_colesion_y,angel) == 1 ||
-                 x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,angel) == 1)
+            if((y_detect(data,y,y + 1,px,left_begin_agrement_x_from_player,&ray_colesion_y,angel) == 1 ||
+                 x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,angel) == 1) )
                 break;
             y--;
         }
@@ -260,8 +254,8 @@ double one_ray(t_data *data,double angel)
         } 
         while(data->result[y])
         {
-            if(y_detect(data,y,y,px,left_begin_agrement_x_from_player,&ray_colesion_y,angel) == 1 || 
-                x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,angel) == 1)
+            if((y_detect(data,y,y,px,left_begin_agrement_x_from_player,&ray_colesion_y,angel) == 1 ||
+                x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,angel) == 1))
                 break;
             y++;
         }
@@ -269,19 +263,20 @@ double one_ray(t_data *data,double angel)
 
     a[0] = data->player_x + 2;
     a[1] = data->player_y + 2;
-    if( (ray_colesion_x <= ray_colesion_y && ray_colesion_x != 0 ) || ray_colesion_y == 0)
-    {
-        b[0] = data->px_x;
-        b[1] = data->py_x ;
-        end_ray = ray_colesion_x;
-    }
-    else
+    if ((ray_colesion_y <= ray_colesion_x && ray_colesion_y != 0 ) || ray_colesion_x == 0)
     {
         b[0] = data->px_y;
         b[1] = data->py_y ;
         end_ray = ray_colesion_y;
     }
-    //draw_line(data, a, b, 0Xff0000);
+    else if( (ray_colesion_x <= ray_colesion_y && ray_colesion_x != 0 ) || ray_colesion_y == 0)
+    {
+        b[0] = data->px_x;
+        b[1] = data->py_x ;
+        end_ray = ray_colesion_x;
+    }
+    
+    draw_line(data, a, b, 0Xff0000);
     return(end_ray);
 }
 
@@ -294,35 +289,36 @@ void ray_colesion(t_data *data)
 	int b[2];
     double distence;
     int wallHeight;
+    int ray_count;
 
     angel_move = (M_PI/3) / ((data->result_with) * 50);
     rays =  data->pa;
     rays -= M_PI/6;		
-	if(rays <= 0)
+	if(rays < 0)
 		rays += 2 * M_PI; 
     point_to_break = 0;	
-    data->ray_count = 0;
+    ray_count = 0;
     while(point_to_break <= M_PI/3 )
     {	
         rays += angel_move;
         if(rays > 2 * M_PI)
 			rays -= 2 * M_PI;
         distence = one_ray(data,rays);
-        double ca = -data->pa + rays;
+        double ca = data->pa - rays;
         if(ca < 0 )
             ca += 2*M_PI;
         if(ca > 2*M_PI)
             ca -= 2*M_PI;
-        distence = ((((distence - 2) / 10)) * 50 ) * cos(ca);
-        wallHeight = floor(((data->result_hight * 50) / 2) - (distence)) ;
-        a[0] = data->ray_count;
+        distence = ((((distence - 2) / 10)) * 50  + 7.5) * cos(ca);
+        wallHeight = fabs(floor(((data->result_hight * 50) / 2) - (distence))) ;
+        a[0] = ray_count;
         a[1] = ((data->result_hight * 50 )/2) + (wallHeight);
-        b[0] = data->ray_count;
+        b[0] = ray_count;
         b[1] = ((data->result_hight * 50 )/2) - (wallHeight );
         if(distence > 0)
             draw_line(data, a, b, 16777215);
         point_to_break += angel_move;
-        data->ray_count++;
+        ray_count++;
     }
     one_ray(data,data->pa);
     a[0] = data->player_x + 2;

@@ -91,5 +91,5 @@ void	respone_obj(t_data *data)
     b[0] = a[0] + cos(data->pa) * 7;
     b[1] = a[1] + sin(data->pa) * 7;
     draw_line(data, a, b, 0Xffffff);
-	///ray_colesion(data);
+	//ray_colesion(data);
 }
