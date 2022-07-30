@@ -12,20 +12,9 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
     b[1] = (((y_plus) * 10));
     b[0] = floor(tpx + data->player_x + 2);
    
-    if(b[0] >= x * 10 && b[0] <= (x + 1) * 10)
+    if(b[0] >= x * 10 && b[0] < (x + 1) * 10)
     { 
-        *ray_colesion_y =  fabs((tpy / sin(angel))) ;
-        // printf("x = %f y = %f\n\n",b[0],b[1]);
-         //*ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
-        // printf("x = %f y = %f\n",b[0],b[1]);
-        // printf("destins_bw_x = %f ----\n",b[0] - data->px_y);
-        // m = tpy / tpx; 
-        // printf("m = %f\n----\n",m);
-        // printf("c_y = %f\n----\n",*ray_colesion_y);
-        // m = tpy - (((data->player_y + 2) - (((y_plus  -1 ) * 10)))); 
-        // printf("m2 = %f\n----\n",m);
-        // printf("data->player_y = %f (y) =  %d \n----\n",(data->player_y + 2) , ((y_plus ) * 10));
-       
+        *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
         data->px_y = b[0];
         data->py_y =  b[1];
         return(1);
@@ -42,12 +31,9 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
     tpy = tpx * tan(angel);
     b[1] = (data->player_y +  2) - tpy;
     b[0] = (((x_plus) * 10));
-    if(b[1] >= y * 10 && b[1] <= (y + 1) * 10)
+    if(b[1] >= y * 10 && b[1] < (y + 1) * 10)
     {
         *ray_colesion_x =  sqrt(pow(tpx,2) + pow(tpy,2));
-        // printf("x = %f y = %f\n",b[0],b[1]);
-        // printf("destins_bw_y = %f ----\n",b[1] - data->py_x);
-        // printf("c_x = %f\n----\n",*ray_colesion_x);
         data->px_x = b[0];
         data->py_x =  b[1];
         return(1);
@@ -169,68 +155,6 @@ double one_ray(t_data *data,double angel)
         }
         y++;
     }
-
-      //// ----  y   ------
-
-    // if((degre <= 360 && degre > 180))
-    // {
-    //     y = py;
-    //     if(degre <= 360 && degre > 270)
-    //         left_begin_agrement_x_from_player = 1;
-    //     if(degre <= 270 && degre > 180)
-    //         left_begin_agrement_x_from_player = 0;
-    //     while(y >= 0)
-    //     {
-    //         if(y_detect(data,y,y + 1,px,left_begin_agrement_x_from_player,&ray_colesion_y,angel) == 1)
-    //             break;
-    //         y--;
-    //     }
-    //  }
-    // else
-    // {
-    //     y = py;
-    //     if(degre <= 180 && degre > 90)
-    //         left_begin_agrement_x_from_player = 0;
-    //     if(degre <= 90 && degre > 0)
-    //         left_begin_agrement_x_from_player = 1;
-    //     while(data->result[y])
-    //     {
-    //         if(y_detect(data,y,y,px,left_begin_agrement_x_from_player,&ray_colesion_y,angel) == 1)
-    //             break;
-    //         y++;
-    //     }
-    // }
-    // //////// ----------- x --------------- just x betwin 270 and 90
-
-    // if(degre >= 0 && degre <= 180)
-    // {
-    //     y = py;
-    //     if(degre >= 0 && degre < 90)
-    //         left_begin_agrement_x_from_player_x = 0;
-    //     else
-    //         left_begin_agrement_x_from_player_x = 1;
-    //     while(data->result[y])
-    //     {
-    //         if (x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,angel) == 1)
-    //             break; 
-    //         y++;
-    //     }
-    // }
-    // else if(degre <= 360 && degre > 180)
-    // {
-        
-    //     y = py;
-    //     if(degre <= 270 && degre > 180)
-    //         left_begin_agrement_x_from_player_x = 1;
-    //     else
-    //         left_begin_agrement_x_from_player_x = 0;
-    //     while(y >= 0)
-    //     {
-    //         if (x_detect(left_begin_agrement_x_from_player_x,px,y,data,&ray_colesion_x,angel) == 1)
-    //             break; 
-    //         y--;
-    //     }
-    // }
     if((degre <= 360 && degre > 180))
     {
         y = py;
@@ -327,18 +251,22 @@ void ray_colesion(t_data *data)
         if(ca > 2*M_PI)
             ca -= 2*M_PI;
         distance = (((((distance - 2) / 10)) * 50) + 7.5) * fabs(cos(ca));
-        wallHeight = floor(((((WIN_H / 2) * 50 ) / (distance ))) * tan((M_PI)/3)) ;
-         printf("%f ---- %f\n" , wallHeight,distance);
+       // distance *= 2.5;
+      wallHeight = floor((((WIN_H  * 50) / (distance ))));
+    //    double distanceprojplan = ((((data->result_with) * 50 )/ 2) * tan((M_PI/6)));
+    //     wallHeight = fabs(((50) / (distance)) * distanceprojplan);
+    //      printf("%f ---- %f ---- %f\n" , wallHeight,distance,distanceprojplan);
+       
         //sma
         a[0] = ray_count;
         a[1] = 0;
         b[0] = ray_count;
-        b[1] = (WIN_H  / 2) - (wallHeight - 200);
+        b[1] = (WIN_H  / 2) - (wallHeight );
         if(distance > 0)
             draw_line(data, a, b, 39679);
         //l2ard
         a[0] = ray_count;
-        a[1] = (WIN_H  / 2) + (wallHeight - 200);
+        a[1] = (WIN_H  / 2) + (wallHeight);
         b[0] = ray_count;
         b[1] = WIN_H ;
         if(distance > 0)
@@ -346,9 +274,9 @@ void ray_colesion(t_data *data)
         
         //WALL
         a[0] = ray_count;
-        a[1] = (WIN_H  / 2) - (wallHeight  + 200);
+        a[1] = (WIN_H  / 2) - (wallHeight);
         b[0] = ray_count;
-        b[1] = (WIN_H  / 2) + (wallHeight - 200);
+        b[1] = (WIN_H  / 2) + (wallHeight);
         if(distance > 0)
             draw_line(data, a, b, data->color);
         ray_count++;

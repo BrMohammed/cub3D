@@ -90,6 +90,8 @@ typedef struct s_data
 	int player_y_for_3d;
 	int player_x_for_3d;
 	int color;
+	int lfo9 ;
+    int ltet ;
 }	t_data;
 
 char	*get_next_line(int fd);

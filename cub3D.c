@@ -76,6 +76,9 @@ int	main(int ac, char **av)
 	(void) ac;
 	if (ac == 2)
 	{
+		data.lfo9 = 100;
+		data.ltet = 100;
+
 		respone(&data);
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
