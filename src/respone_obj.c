@@ -90,6 +90,6 @@ void	respone_obj(t_data *data)
     a[1] = data->player_y + 2;
     b[0] = a[0] + cos(data->pa) * 7;
     b[1] = a[1] + sin(data->pa) * 7;
-    draw_line(data, a, b, 0Xffffff);
+    draw_line(data, a, b, 0Xff0000);
 	//ray_colesion(data);
 }

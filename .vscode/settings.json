@@ -9,7 +9,8 @@
         "ios": "c",
         "memory": "c",
         "type_traits": "c",
-        "iterator": "c"
+        "iterator": "c",
+        "complex": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

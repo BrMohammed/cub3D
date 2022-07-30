@@ -6,11 +6,27 @@ int	mouse(void)
 	return (0);
 }
 
-void	draw_line(t_data *game, int *begin, int *end, int color)
+void	draw_line(t_data *data, int *begin, int *end, int color)
 {
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
+	if (begin[0] < 0)
+		begin[0] = 0;
+	if (begin[1] < 0)
+		begin[1] = 0;
+	if (end[0] < 0)
+		end[0] = 0;
+	if (end[1] < 0)
+		end[1] = 0;
+	if (begin[0] > WIN_W)
+		begin[0] = WIN_W;
+	if (begin[1] > WIN_H)
+		begin[1] = WIN_H;
+	if (end[0] > WIN_W)
+		end[0] = WIN_W;
+	if (end[1] > WIN_H)
+		end[1] = WIN_H;
 
 	pixel[0] = begin[0];
 	pixel[1] = begin[1];
@@ -21,7 +37,7 @@ void	draw_line(t_data *game, int *begin, int *end, int color)
 	delta[1] /= pixels;
 	while (pixels)
 	{
-		rander_image(&game->img, (t_rect){pixel[0], pixel[1],1, 1, color});
+		rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, color});
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;

@@ -5,15 +5,27 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
 	double b[2];
     double tpx = 0;
     double tpy = 0;
-    tpy = ((data->player_y + 2) - (((y_plus ) * 10)));
-    tpx = (tpy / -tan(angel)) ;
+
+   // double  m;
+    tpy =  ((data->player_y + 2) - (((y_plus ) * 10)));
+    tpx =  (tpy / -tan(angel));
     b[1] = (((y_plus) * 10));
-    b[0] =   (tpx + data->player_x + 2)  + 10;
+    b[0] = floor(tpx + data->player_x + 2);
+   
     if(b[0] >= x * 10 && b[0] <= (x + 1) * 10)
-    {
-        //*ray_colesion_y =   sqrt(pow(tpx,2) + pow(tpy,2));
-        *ray_colesion_y =  fabs(tpy / sin(angel));
-        printf("c_y = %f\n----\n",*ray_colesion_y);
+    { 
+        *ray_colesion_y =  fabs((tpy / sin(angel))) ;
+        // printf("x = %f y = %f\n\n",b[0],b[1]);
+         //*ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
+        // printf("x = %f y = %f\n",b[0],b[1]);
+        // printf("destins_bw_x = %f ----\n",b[0] - data->px_y);
+        // m = tpy / tpx; 
+        // printf("m = %f\n----\n",m);
+        // printf("c_y = %f\n----\n",*ray_colesion_y);
+        // m = tpy - (((data->player_y + 2) - (((y_plus  -1 ) * 10)))); 
+        // printf("m2 = %f\n----\n",m);
+        // printf("data->player_y = %f (y) =  %d \n----\n",(data->player_y + 2) , ((y_plus ) * 10));
+       
         data->px_y = b[0];
         data->py_y =  b[1];
         return(1);
@@ -23,7 +35,7 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
 
 int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double angel)
 {
-	int b[2];
+	double b[2];
     double tpx =0;
     double tpy = 0;
     tpx = ((data->player_x + 2) - (((x_plus) * 10)));
@@ -32,7 +44,10 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
     b[0] = (((x_plus) * 10));
     if(b[1] >= y * 10 && b[1] <= (y + 1) * 10)
     {
-        *ray_colesion_x =   sqrt(pow(tpx,2) + pow(tpy,2));
+        *ray_colesion_x =  sqrt(pow(tpx,2) + pow(tpy,2));
+        // printf("x = %f y = %f\n",b[0],b[1]);
+        // printf("destins_bw_y = %f ----\n",b[1] - data->py_x);
+        // printf("c_x = %f\n----\n",*ray_colesion_x);
         data->px_x = b[0];
         data->py_x =  b[1];
         return(1);
@@ -288,7 +303,7 @@ void ray_colesion(t_data *data)
     int a[2];
 	int b[2];
     double distence;
-    int wallHeight;
+    double wallHeight;
     int ray_count;
 
     angel_move = (M_PI/3) / ((data->result_with) * 50);
@@ -298,8 +313,8 @@ void ray_colesion(t_data *data)
 		rays += 2 * M_PI; 
     point_to_break = 0;	
     ray_count = 0;
-    while(point_to_break <= M_PI/3 )
-    {	
+    while(ray_count < ((data->result_with) * 50))
+    {
         rays += angel_move;
         if(rays > 2 * M_PI)
 			rays -= 2 * M_PI;
@@ -309,15 +324,16 @@ void ray_colesion(t_data *data)
             ca += 2*M_PI;
         if(ca > 2*M_PI)
             ca -= 2*M_PI;
-        distence = ((((distence - 2) / 10)) * 50  + 7.5) * cos(ca);
-        wallHeight = fabs(floor(((data->result_hight * 50) / 2) - (distence))) ;
+        distence = (((((distence - 2) / 10)) * 50) + 7.5) * fabs(cos(ca));
+        wallHeight =  floor((((WIN_H ) * 50)  / (distence) )* tan((M_PI)/3));
+        printf("%f ---- %f\n" , wallHeight,distence);
         a[0] = ray_count;
-        a[1] = ((data->result_hight * 50 )/2) + (wallHeight);
+        a[1] = (WIN_H  / 2) - (wallHeight / 2);
         b[0] = ray_count;
-        b[1] = ((data->result_hight * 50 )/2) - (wallHeight );
+        b[1] = (WIN_H  / 2) + (wallHeight / 2);
+        
         if(distence > 0)
             draw_line(data, a, b, 16777215);
-        point_to_break += angel_move;
         ray_count++;
     }
     one_ray(data,data->pa);

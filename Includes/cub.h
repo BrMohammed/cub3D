@@ -21,6 +21,8 @@
 #define KEY_S key_select[3]
 #define KEY_A key_select[4]
 #define KEY_D key_select[5]
+#define WIN_W data->result_with * 50
+#define WIN_H data->result_hight * 50
 
 typedef struct s_rect
 {
