@@ -89,6 +89,7 @@ typedef struct s_data
 	int ray_count;
 	int player_y_for_3d;
 	int player_x_for_3d;
+	int color;
 }	t_data;
 
 char	*get_next_line(int fd);

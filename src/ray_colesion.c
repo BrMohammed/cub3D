@@ -283,12 +283,14 @@ double one_ray(t_data *data,double angel)
         b[0] = data->px_y;
         b[1] = data->py_y ;
         end_ray = ray_colesion_y;
+        data->color = 15722729;
     }
     else if( (ray_colesion_x <= ray_colesion_y && ray_colesion_x != 0 ) || ray_colesion_y == 0)
     {
         b[0] = data->px_x;
         b[1] = data->py_x ;
         end_ray = ray_colesion_x;
+         data->color = 16777215;
     }
     
     draw_line(data, a, b, 0Xff0000);
@@ -302,7 +304,7 @@ void ray_colesion(t_data *data)
     double point_to_break;
     int a[2];
 	int b[2];
-    double distence;
+    double distance;
     double wallHeight;
     int ray_count;
 
@@ -318,22 +320,37 @@ void ray_colesion(t_data *data)
         rays += angel_move;
         if(rays > 2 * M_PI)
 			rays -= 2 * M_PI;
-        distence = one_ray(data,rays);
+        distance = one_ray(data,rays);
         double ca = data->pa - rays;
         if(ca < 0 )
             ca += 2*M_PI;
         if(ca > 2*M_PI)
             ca -= 2*M_PI;
-        distence = (((((distence - 2) / 10)) * 50) + 7.5) * fabs(cos(ca));
-        wallHeight =  floor((((WIN_H ) * 50)  / (distence) )* tan((M_PI)/3));
-        printf("%f ---- %f\n" , wallHeight,distence);
+
+        distance = (((((distance - 2) / 10)) * 50) + 7.5) * fabs(cos(ca));
+        //wallHeight =  floor((((WIN_H ) * 50)  / (distance) )* tan((M_PI)/3));
+        // printf("%f ---- %f\n" , wallHeight,distance);
         a[0] = ray_count;
         a[1] = (WIN_H  / 2) - (wallHeight / 2);
         b[0] = ray_count;
         b[1] = (WIN_H  / 2) + (wallHeight / 2);
+
+
+        // // Wall height
+        wallHeight = floor(((((WIN_H / 2) * 50 ) / (distance ))) * tan((M_PI)/3))  ;
+        wallHeight =  (50 / distance) * ((WIN_W ) * tan(M_PI / 3))  - floor(((((WIN_H / 2) * 50 ) / (distance ))) * tan((M_PI)/3))  ;
+
+        //l7it
+        a[0] = ray_count;
+        a[1] = (WIN_H  / 2) - (wallHeight);
+        b[0] = ray_count;
+        b[1] = (WIN_H  / 2) + (wallHeight);
+        if(distance > 0)
+            draw_line(data, a, b, data->color);
+        printf("%f ---- %f\n" , wallHeight,distance);
         
-        if(distence > 0)
-            draw_line(data, a, b, 16777215);
+        // if(distance > 0)
+        //     draw_line(data, a, b, 16777215);
         ray_count++;
     }
     one_ray(data,data->pa);
