@@ -326,31 +326,31 @@ void ray_colesion(t_data *data)
             ca += 2*M_PI;
         if(ca > 2*M_PI)
             ca -= 2*M_PI;
-
         distance = (((((distance - 2) / 10)) * 50) + 7.5) * fabs(cos(ca));
-        //wallHeight =  floor((((WIN_H ) * 50)  / (distance) )* tan((M_PI)/3));
-        // printf("%f ---- %f\n" , wallHeight,distance);
+        wallHeight = floor(((((WIN_H / 2) * 50 ) / (distance ))) * tan((M_PI)/3)) ;
+         printf("%f ---- %f\n" , wallHeight,distance);
+        //sma
         a[0] = ray_count;
-        a[1] = (WIN_H  / 2) - (wallHeight / 2);
+        a[1] = 0;
         b[0] = ray_count;
-        b[1] = (WIN_H  / 2) + (wallHeight / 2);
-
-
-        // // Wall height
-        wallHeight = floor(((((WIN_H / 2) * 50 ) / (distance ))) * tan((M_PI)/3))  ;
-        wallHeight =  (50 / distance) * ((WIN_W ) * tan(M_PI / 3))  - floor(((((WIN_H / 2) * 50 ) / (distance ))) * tan((M_PI)/3))  ;
-
-        //l7it
+        b[1] = (WIN_H  / 2) - (wallHeight - 200);
+        if(distance > 0)
+            draw_line(data, a, b, 39679);
+        //l2ard
         a[0] = ray_count;
-        a[1] = (WIN_H  / 2) - (wallHeight);
+        a[1] = (WIN_H  / 2) + (wallHeight - 200);
         b[0] = ray_count;
-        b[1] = (WIN_H  / 2) + (wallHeight);
+        b[1] = WIN_H ;
+        if(distance > 0)
+            draw_line(data, a, b, 16711935);
+        
+        //WALL
+        a[0] = ray_count;
+        a[1] = (WIN_H  / 2) - (wallHeight  + 200);
+        b[0] = ray_count;
+        b[1] = (WIN_H  / 2) + (wallHeight - 200);
         if(distance > 0)
             draw_line(data, a, b, data->color);
-        printf("%f ---- %f\n" , wallHeight,distance);
-        
-        // if(distance > 0)
-        //     draw_line(data, a, b, 16777215);
         ray_count++;
     }
     one_ray(data,data->pa);
