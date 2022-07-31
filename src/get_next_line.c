@@ -106,28 +106,3 @@ char	*get_next_line(int fd)
 	index = deletbegin(index);
 	return (temp);
 }
-
-/*
-int main(int ac, char **av)
-{
-	int fd;
-	ssize_t x;
-	if(ac == 2)
-	{
-		fd = open(av[1],O_RDONLY);
-		char	*a;
-		//printf("%s",line);
-		while ((a = get_next_line(fd)) != NULL)
-		{
-			printf("%s",a);
-			free(a);
-		}
-		//printf("%s",get_next_line(fd));
-		//  printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-	 }
-
-} 
-*/

@@ -78,7 +78,11 @@ int	main(int ac, char **av)
 	{
 		data.lfo9 = 100;
 		data.ltet = 100;
-
+		data.demension_hight = 1000;
+		data.demintion_with = 1000;
+		data.box_high = data.demension_hight / data.result_hight;
+		data.box_with = data.demintion_with / data.result_with;
+		printf("%f----%f\n",data.box_high,data.box_with);
 		respone(&data);
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);

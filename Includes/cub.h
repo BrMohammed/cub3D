@@ -57,14 +57,6 @@ typedef struct s_data
 	void		*player;
 	char		*player_path;
 
-	void		*player_left;
-	char		*player_left_path;
-
-	char		*walls_path;
-	void		*walls;
-
-	char		*plat_path;
-	void		*plat;
 	char		**result;
 
 	double		player_y;
@@ -73,15 +65,10 @@ typedef struct s_data
 	double		pdx;
 	double		pdy;
 	double		pa;
-	double		lenght_of_ray;
 
 	int result_hight;
 	int result_with;
 
-	double px_y;
-	double py_y;
-	double px_x;
-	double py_x;
 	int key_up[2];
 	int key_down[2];
 	int key_select[6];
@@ -92,7 +79,39 @@ typedef struct s_data
 	int color;
 	int lfo9 ;
     int ltet ;
+
+	int demension_hight;
+	int demintion_with;
+	double box_high;
+	double box_with;
 }	t_data;
+
+typedef struct s_raycolesion
+{
+	double rays;
+    double angel_move;
+    double point_to_break;
+    int begin[2];
+	int end[2];
+    double distance;
+    double wallHeight;
+    int ray_count;
+	double distanceprojplan;
+}t_raycolesion;
+
+typedef struct s_oneray
+{
+	int y;
+    int x;
+    int px;
+    int py;
+    int left_begin_agrement_x_from_player;
+    int left_begin_agrement_x_from_player_x;
+    double degre;
+    double ray_colesion_y;
+    double ray_colesion_x;
+    double distance;
+}t_oneray;
 
 char	*get_next_line(int fd);
 

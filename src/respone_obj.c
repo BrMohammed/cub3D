@@ -4,13 +4,11 @@ void	respone_obj(t_data *data)
 {
 	int	x;
 	int y;
+	int a[2];
+	int b[2];
 
 	x = 0;
 	y = 0;
-	int a[2];
-	int b[2];
-	// rander_image(&data->img, (t_rect){0, data->result_hight/2 * 50,data->result_with   * 50,   data->result_hight/2 * 50, 16711935});//sma
-	// rander_image(&data->img, (t_rect){0, 0 * 50,data->result_with   * 50,   data->result_hight/2 * 50, 39679});//l2ard
 	while (data->result[y] != '\0')
 	{
 		while (data->result[y][x] != '\0')
