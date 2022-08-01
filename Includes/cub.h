@@ -21,8 +21,8 @@
 #define KEY_S key_select[3]
 #define KEY_A key_select[4]
 #define KEY_D key_select[5]
-#define WIN_W data->result_with * 50
-#define WIN_H data->result_hight * 50
+#define WIN_W data->demintion_with
+#define WIN_H data->demension_hight
 
 typedef struct s_rect
 {
@@ -41,12 +41,24 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
+typedef struct s_img_no
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img_no;
 
 
 typedef struct s_data
 {
 	t_img	img;
+	t_img_no img_no;
 	int		cur_img;
+	char		*NO_PATH;
+	void 		*NO;
+
 	
 	void		*mlx;
 	void		*mlx_win;
@@ -84,6 +96,9 @@ typedef struct s_data
 	int demintion_with;
 	double box_high;
 	double box_with;
+	int mini_map_res;
+	int map_res;
+		int player_mini_res;
 }	t_data;
 
 typedef struct s_raycolesion

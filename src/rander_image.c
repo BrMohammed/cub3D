@@ -17,6 +17,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
 		i -= 8;
 	}
+	
 }
 
 int rander_image(t_img *img, t_rect rect)

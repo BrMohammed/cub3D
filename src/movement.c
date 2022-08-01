@@ -77,23 +77,22 @@ int	movement(t_data *data)
 	{
 		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
-			if(data->KEY_W == 1 && one_ray(data,NO_P) > 2)
+			if(data->KEY_W == 1 && one_ray(data,NO_P) > (data->player_mini_res / 2))
 			{
 				//data->lfo9 += 10;
 				//data->ltet += 20;
-				move(data, sin(data->pa) * 2, cos(data->pa) * 2);
+				move(data, sin(data->pa) * 2, cos(data->pa) * (data->player_mini_res / 2));
 			}
-				
-			else if(data->KEY_S == 1 && one_ray(data,SO_P) > 2)
+			else if(data->KEY_S == 1 && one_ray(data,SO_P) >= ( data->player_mini_res / 2))
 			{
 				//data->lfo9 -= 10;
 				//data->ltet -= 20;
-				move(data, -sin(data->pa) * 2, -cos(data->pa) * 2);
+				move(data, -sin(data->pa) * 2, -cos(data->pa) * (data->player_mini_res / 2));
 			}
-			else if(data->KEY_A == 1 && one_ray(data,WE_P) > 2)
-				move(data,-cos(-data->pa) * 2 ,-sin(-data->pa) * 2);
-			else if(data->KEY_D == 1 && one_ray(data,EA_P) > 2)
-				move(data,cos(-data->pa) * 2 ,-sin(data->pa) * 2);
+			else if(data->KEY_A == 1 && one_ray(data,WE_P) > data->player_mini_res / 2)
+				move(data,-cos(-data->pa) * 2 ,-sin(-data->pa) * (data->player_mini_res / 2));
+			else if(data->KEY_D == 1 && one_ray(data,EA_P) > data->player_mini_res / 2)
+				move(data,cos(-data->pa) * 2 ,-sin(data->pa) * (data->player_mini_res / 2));
 		}
 		if(data->ON_KEYDOWN_CAMERA == 1)
 		{

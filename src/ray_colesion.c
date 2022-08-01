@@ -7,11 +7,11 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
     double tpy = 0;
 
    // double  m;
-    tpy =  ((data->player_y + 2) - (((y_plus ) * 10)));
+    tpy =  ((data->player_y + (data->player_mini_res / 2)) - (((y_plus ) * data->mini_map_res)));
     tpx =  (tpy / -tan(angel));
-    b[1] = (((y_plus) * 10));
-    b[0] = floor(tpx + data->player_x + 2);
-    if(b[0] >= x * 10 && b[0] < (x + 1) * 10)
+    b[1] = (((y_plus) * data->mini_map_res));
+    b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
+    if(b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res)
     { 
         *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
         return(1);
@@ -24,11 +24,11 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
 	double b[2];
     double tpx =0;
     double tpy = 0;
-    tpx = ((data->player_x + 2) - (((x_plus) * 10)));
+    tpx = ((data->player_x + (data->player_mini_res / 2)) - (((x_plus) * data->mini_map_res)));
     tpy = tpx * tan(angel);
     b[1] = (data->player_y +  2) - tpy;
-    b[0] = (((x_plus) * 10));
-    if(b[1] >= y * 10 && b[1] < (y + 1) * 10)
+    b[0] = (((x_plus) * data->mini_map_res));
+    if(b[1] >= y * data->mini_map_res && b[1] < (y + 1) * data->mini_map_res)
     {
         *ray_colesion_x =  sqrt(pow(tpx,2) + pow(tpy,2));
         return(1);
@@ -128,12 +128,12 @@ double one_ray(t_data *data,double angel)
     oneray_var.degre = (angel / pi) * 180;
     while(data->result[ oneray_var.y]) //know position of player in map
     {
-        if(data->player_y + 2 >=  oneray_var.y * 10 && data->player_y + 2 <= ( oneray_var.y + 1) * 10) // player posetion y
+        if(data->player_y + (data->player_mini_res / 2) >=  oneray_var.y * data->mini_map_res && data->player_y + (data->player_mini_res / 2) <= ( oneray_var.y + 1) * data->mini_map_res) // player posetion y
              oneray_var.py =  oneray_var.y;
          oneray_var.x = 0;
         while(data->result[ oneray_var.y][ oneray_var.x])
         {
-            if(data->player_x + 2 >=  oneray_var.x * 10 && data->player_x + 2 <= ( oneray_var.x + 1) * 10) //player posetion x
+            if(data->player_x + (data->player_mini_res / 2) >=  oneray_var.x * data->mini_map_res && data->player_x + (data->player_mini_res / 2) <= ( oneray_var.x + 1) * data->mini_map_res) //player posetion x
                  oneray_var.px =  oneray_var.x;
              oneray_var.x++;
         }
@@ -185,13 +185,19 @@ double one_ray(t_data *data,double angel)
     }
     if (( oneray_var.ray_colesion_y <=  oneray_var.ray_colesion_x &&  oneray_var.ray_colesion_y != 0 ) ||  oneray_var.ray_colesion_x == 0)
     {
-         oneray_var.distance =  oneray_var.ray_colesion_y;
-        data->color = 15722729;
+        oneray_var.distance =  oneray_var.ray_colesion_y;
+        if(oneray_var.degre > 180 && oneray_var.degre <= 360)
+            data->color= 27391; //blue for NO
+        else
+            data->color= 4652872; //gren for SO
     }
     else if( ( oneray_var.ray_colesion_x <=  oneray_var.ray_colesion_y &&  oneray_var.ray_colesion_x != 0 ) ||  oneray_var.ray_colesion_y == 0)
     {
-         oneray_var.distance =  oneray_var.ray_colesion_x;
-        data->color = 16777215;
+        oneray_var.distance =  oneray_var.ray_colesion_x;
+        if(oneray_var.degre >= 270  ||  oneray_var.degre <= 90)
+            data->color= 16777062; //yelow for EA
+         else
+            data->color= 16711716; //reds for WE
     }
     return( oneray_var.distance);
 }
@@ -219,9 +225,9 @@ void ray_colesion(t_data *data)
             betwinenngels += 2*M_PI;
         if(betwinenngels > 2*M_PI)
             betwinenngels -= 2*M_PI;
-        rc_var.distance = ((((( rc_var.distance - 2) / 10)) * 50) + 7.5) * cos(betwinenngels);
-        rc_var.distanceprojplan = ((WIN_H / 2) / tan((M_PI/6)));
-        rc_var.wallHeight = fabs(((50) / ( rc_var.distance)) * rc_var.distanceprojplan);
+        rc_var.distance = (((((rc_var.distance - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) * cos(betwinenngels);
+        rc_var.distanceprojplan = ((WIN_W / 2) * tan((M_PI/6)));
+        rc_var.wallHeight = fabs(((data->map_res * 1.35) / ( rc_var.distance)) * rc_var.distanceprojplan);
         //rc_var.wallHeight = (WIN_H /2) - rc_var.distance;
         //sma
         rc_var.begin[0] =  rc_var.ray_count;
@@ -247,8 +253,8 @@ void ray_colesion(t_data *data)
             draw_line(data, rc_var.begin, rc_var.end, data->color);
          rc_var.ray_count++;
     }
-    rc_var.begin[0] = data->player_x + 2;
-    rc_var.begin[1] = data->player_y + 2;
+    rc_var.begin[0] = data->player_x + (data->player_mini_res / 2);
+    rc_var.begin[1] = data->player_y + (data->player_mini_res / 2);
     rc_var.end[0] = rc_var.begin[0] + cos(data->pa) * 7;
     rc_var.end[1] = rc_var.begin[1] + sin(data->pa) * 7;
     draw_line(data, rc_var.begin, rc_var.end, 0Xffffff);

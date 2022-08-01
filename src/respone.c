@@ -14,8 +14,10 @@ void	respone(t_data *data)
 		y++;
 	}
 	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, x * 50, y * 50, "cub3d");
-	data->img.mlx_img = mlx_new_image(data->mlx,x * 50, y * 50);
+	data->mlx_win = mlx_new_window(data->mlx, data->demintion_with, data->demension_hight, "cub3d");
+	data->img.mlx_img = mlx_new_image(data->mlx,data->demintion_with, data->demension_hight);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
+
+	printf("data.img_no.addr = %s\n",data->img.addr);
 }

@@ -78,12 +78,39 @@ int	main(int ac, char **av)
 	{
 		data.lfo9 = 100;
 		data.ltet = 100;
-		data.demension_hight = 1000;
-		data.demintion_with = 1000;
-		data.box_high = data.demension_hight / data.result_hight;
-		data.box_with = data.demintion_with / data.result_with;
-		printf("%f----%f\n",data.box_high,data.box_with);
+		data.demension_hight = 1500;
+		data.demintion_with = 1500;
+		if((data.demension_hight / data.result_hight) < (data.demintion_with / data.result_with) )
+			data.mini_map_res = (data.demension_hight / data.result_hight) / 5;
+		else
+			data.mini_map_res = (data.demintion_with / data.result_with) / 5;
+		data.map_res = 64;
+		data.player_mini_res = data.mini_map_res / 2;
 		respone(&data);
+
+		data.NO_PATH = "./assets/greystone.xpm";
+		data.img_no.mlx_img = mlx_xpm_file_to_image(data.mlx, data.NO_PATH,
+			&data.map_res, &data.map_res);
+		data.img_no.addr = mlx_get_data_addr(data.img_no.mlx_img, &data.img_no.bpp,
+			&data.img_no.line_len, &data.img_no.endian);
+		
+		for(int y = 0; y < 64; ++y)
+		{
+			for(int x = 0; x < 64; ++x)
+			{
+				char    *pixel;
+				
+				pixel = data.img_no.addr + (y * data.img_no.line_len + x * (4));
+				
+					printf("data.img_no.addr = %d\n",*(int *)pixel);
+				
+			}
+		}
+
+			
+
+		
+		
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);
