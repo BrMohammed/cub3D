@@ -41,33 +41,39 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
-typedef struct s_img_no
+typedef struct s_img_rander
 {
 	void	*mlx_img;
 	char	*addr;
 	int		bpp; /* bits per pixel */
 	int		line_len;
 	int		endian;
-}	t_img_no;
+}	t_img_rander;
 
 
 typedef struct s_data
 {
 	t_img	img;
-	t_img_no img_no;
+	t_img_rander img_rander;
 	int		cur_img;
+
 	char		*NO_PATH;
 	void 		*NO;
+
+	char		*WE_PATH;
+	void 		*WE;
+
+	char		*SO_PATH;
+	void 		*SO;
+
+	char		*EA_PATH;
+	void 		*EA;
 
 	
 	void		*mlx;
 	void		*mlx_win;
 
-	int			img_width;
-	int			img_height;
 
-	void		*player;
-	char		*player_path;
 
 	char		**result;
 
@@ -98,7 +104,10 @@ typedef struct s_data
 	double box_with;
 	int mini_map_res;
 	int map_res;
-		int player_mini_res;
+	int player_mini_res;
+
+	int offcet_x;
+	int offcet_y;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -145,5 +154,7 @@ int		key_down(int key, t_data *data);
 int 	rander_image(t_img *img, t_rect rect);
 void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel);
+int get_pixel(t_data *data,int x, int y);
+void	draw_linev2(t_data *data, int *begin, int *end, int x,int y);
 
 #endif

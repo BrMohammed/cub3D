@@ -157,6 +157,7 @@ char **check_map(char *str,t_data *data)
 	char temp_stack_symbol[2];
 	int count_rows;
 	char *map_contaner;
+	int temp_i = 0;
 
 	fd = open(str,O_RDONLY);
 	stack_symbol_of_lines = ft_strdup("");
@@ -172,7 +173,10 @@ char **check_map(char *str,t_data *data)
 			if(a[i] == '\n')
 				break;
 			if (a[i] == 9 || a[i] == 32)
+			{
 				i++;
+				temp_i = i;
+			}
 			else if (ft_strncmp(&a[i],"NO",2) == 0 || ft_strncmp(&a[i],"SO",2) == 0 || ft_strncmp(&a[i],"WE",2) == 0 || ft_strncmp(&a[i],"EA",2) == 0)
 			{
 				end_of_string = 0;
@@ -191,6 +195,14 @@ char **check_map(char *str,t_data *data)
 				while (a[end_of_string])
 					end_of_string++;
 				a[end_of_string - 1] = '\0';
+				if( ft_strncmp(&a[temp_i],"NO",2) == 0)
+					data->NO_PATH = &a[i];
+				if( ft_strncmp(&a[temp_i],"WE",2) == 0)
+					data->WE_PATH = &a[i];
+				if( ft_strncmp(&a[temp_i],"SO",2) == 0)
+					data->SO_PATH = &a[i];
+				if( ft_strncmp(&a[temp_i],"EA",2) == 0)
+					data->EA_PATH = &a[i];
 				if(open(&a[i], O_RDONLY) < 0)
 				{
 					printf("%s %d\n",&a[i],i);

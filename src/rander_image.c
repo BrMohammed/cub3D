@@ -35,3 +35,12 @@ int rander_image(t_img *img, t_rect rect)
 	}
 	return (0);
 }
+
+
+int get_pixel(t_data *data,int x, int y)
+{
+	char    *pixel;
+
+	pixel = data->img_rander.addr + (y * data->img_rander.line_len + x * (4));
+	return (*(int *)pixel);
+}

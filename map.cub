@@ -1,7 +1,7 @@
-     NO      ./assets/greystone.png
-SO ./south_texture
-WE ./west_texture
-EA ./east_texture
+     NO      ./assets/greystone.xpm
+SO ./assets/greystone.xpm
+WE ./assets/greystone.xpm
+EA ./assets/greystone.xpm
 
 F 220,100,0
 C 225,30,0

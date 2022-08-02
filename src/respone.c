@@ -18,6 +18,4 @@ void	respone(t_data *data)
 	data->img.mlx_img = mlx_new_image(data->mlx,data->demintion_with, data->demension_hight);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
-
-	printf("data.img_no.addr = %s\n",data->img.addr);
 }

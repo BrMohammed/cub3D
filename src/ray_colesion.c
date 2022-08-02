@@ -14,6 +14,8 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
     if(b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res)
     { 
         *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
+        data->offcet_x =  (int)b[0] % (64);
+        data->offcet_y = -1;
         return(1);
     }
     return(0);
@@ -25,12 +27,15 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
     double tpx =0;
     double tpy = 0;
     tpx = ((data->player_x + (data->player_mini_res / 2)) - (((x_plus) * data->mini_map_res)));
-    tpy = tpx * tan(angel);
-    b[1] = (data->player_y +  2) - tpy;
-    b[0] = (((x_plus) * data->mini_map_res));
+    tpy = (tpx * tan(angel));
+    b[1] = floor((data->player_y +  (data->player_mini_res / 2)) - tpy);
+    b[0] = floor(((x_plus) * data->mini_map_res));
     if(b[1] >= y * data->mini_map_res && b[1] < (y + 1) * data->mini_map_res)
     {
         *ray_colesion_x =  sqrt(pow(tpx,2) + pow(tpy,2));
+        data->offcet_y =  floor((int)b[1] % (64));
+        printf("b[1] = %f\n",b[1] * 64);
+        data->offcet_x = -1;
         return(1);
     }
     return(0);
@@ -250,7 +255,13 @@ void ray_colesion(t_data *data)
         rc_var.end[0] =  rc_var.ray_count;
         rc_var.end[1] = (WIN_H  / 2) + ( rc_var.wallHeight);
         if( rc_var.distance > 0)
-            draw_line(data, rc_var.begin, rc_var.end, data->color);
+        {
+            if(data->offcet_x == -1)
+                draw_linev2(data, rc_var.begin, rc_var.end,data->offcet_y,64);
+            else
+                draw_linev2(data, rc_var.begin, rc_var.end,data->offcet_x,64);
+        }
+            
          rc_var.ray_count++;
     }
     rc_var.begin[0] = data->player_x + (data->player_mini_res / 2);
