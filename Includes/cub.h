@@ -108,6 +108,11 @@ typedef struct s_data
 
 	int offcet_x;
 	int offcet_y;
+	int offcet_x1;
+	int offcet_y1;
+	int ray_offset_in_y ;
+	double speed;
+	double angel_speed;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -121,6 +126,7 @@ typedef struct s_raycolesion
     double wallHeight;
     int ray_count;
 	double distanceprojplan;
+	
 }t_raycolesion;
 
 typedef struct s_oneray
@@ -155,6 +161,6 @@ int 	rander_image(t_img *img, t_rect rect);
 void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel);
 int get_pixel(t_data *data,int x, int y);
-void	draw_linev2(t_data *data, int *begin, int *end, int x,int y);
+void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
 
 #endif

@@ -6,12 +6,14 @@ int	mouse(void)
 	return (0);
 }
 
-void	draw_linev2(t_data *data, int *begin, int *end, int x,int y)
+void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 {
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
 	int pixel_color;
+	int y = 0;
+	int temp_y = 0;
 	if (begin[0] < 0)
 		begin[0] = 0;
 	if (begin[1] < 0)
@@ -38,10 +40,12 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,int y)
 	delta[1] /= pixels;
 	while (pixels)
 	{
-		if(y > 0)
+		if(y < data->map_res)
 		{
-			y--;
-			pixel_color = get_pixel(data,y,x);
+			y =  floor((temp_y ) / wall_scall) ;
+			pixel_color = get_pixel(data,x,y);
+			//printf("x = %d,y = %d\n", x,y);
+			temp_y++;
 		}
 		rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
 		pixel[0] += delta[0];
@@ -55,6 +59,7 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
+	
 
 	if (begin[0] < 0)
 		begin[0] = 0;
@@ -130,8 +135,10 @@ int	main(int ac, char **av)
 			data.mini_map_res = (data.demension_hight / data.result_hight) / 5;
 		else
 			data.mini_map_res = (data.demintion_with / data.result_with) / 5;
-		data.map_res = 64;
+		data.map_res = 2000;
 		data.player_mini_res = data.mini_map_res / 2;
+		data.speed = 1.5;
+		data.angel_speed = 0.09;
 		respone(&data);
 
 			data.img_rander.mlx_img = mlx_xpm_file_to_image(data.mlx, data.NO_PATH,

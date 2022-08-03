@@ -10,12 +10,14 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
     tpy =  ((data->player_y + (data->player_mini_res / 2)) - (((y_plus ) * data->mini_map_res)));
     tpx =  (tpy / -tan(angel));
     b[1] = (((y_plus) * data->mini_map_res));
-    b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
+    b[0] = (tpx + data->player_x + (data->player_mini_res / 2));
     if(b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res)
     { 
         *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
-        data->offcet_x =  (int)b[0] % (64);
-        data->offcet_y = -1;
+        b[0] = (((((b[0] - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
+        b[1] = ((((((x * data->mini_map_res) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
+        data->offcet_x1 =  (abs((((int)b[0]) - (int)b[1] )) % data->map_res);
+        data->ray_offset_in_y = 0;
         return(1);
     }
     return(0);
@@ -28,14 +30,15 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
     double tpy = 0;
     tpx = ((data->player_x + (data->player_mini_res / 2)) - (((x_plus) * data->mini_map_res)));
     tpy = (tpx * tan(angel));
-    b[1] = floor((data->player_y +  (data->player_mini_res / 2)) - tpy);
-    b[0] = floor(((x_plus) * data->mini_map_res));
+    b[1] = ((data->player_y +  (data->player_mini_res / 2)) - tpy);
+    b[0] = (((x_plus) * data->mini_map_res));
     if(b[1] >= y * data->mini_map_res && b[1] < (y + 1) * data->mini_map_res)
     {
-        *ray_colesion_x =  sqrt(pow(tpx,2) + pow(tpy,2));
-        data->offcet_y =  floor((int)b[1] % (64));
-        printf("b[1] = %f\n",b[1] * 64);
-        data->offcet_x = -1;
+        *ray_colesion_x =  sqrt((tpx*tpx) +(tpy*tpy));
+        b[0] = (((((((y) * data->mini_map_res) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
+        b[1] = (((((b[1] - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
+        data->offcet_x =  (abs((((int)b[1]) - (int)b[0] )) % data->map_res);
+        data->ray_offset_in_y = 1;
         return(1);
     }
     return(0);
@@ -218,10 +221,10 @@ void ray_colesion(t_data *data)
     rc_var.rays =  data->pa;
     rc_var.rays -= M_PI/6;
 	if(rc_var.rays < 0)
-		rc_var.rays += 2 * M_PI; 
+		rc_var.rays += 2 * M_PI;
     while(rc_var.ray_count < WIN_W)
     {
-        rc_var.rays += rc_var.angel_move;
+        
         if(rc_var.rays > 2 * M_PI)
 			rc_var.rays -= 2 * M_PI;
         rc_var.distance = one_ray(data,rc_var.rays);
@@ -231,19 +234,19 @@ void ray_colesion(t_data *data)
         if(betwinenngels > 2*M_PI)
             betwinenngels -= 2*M_PI;
         rc_var.distance = (((((rc_var.distance - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) * cos(betwinenngels);
-        rc_var.distanceprojplan = ((WIN_W / 2) * tan((M_PI/6)));
-        rc_var.wallHeight = fabs(((data->map_res * 1.35) / ( rc_var.distance)) * rc_var.distanceprojplan);
+        rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
+        rc_var.wallHeight = floor(((data->map_res ) / ( rc_var.distance)) * rc_var.distanceprojplan);
         //rc_var.wallHeight = (WIN_H /2) - rc_var.distance;
         //sma
         rc_var.begin[0] =  rc_var.ray_count;
         rc_var.begin[1] = 0;
         rc_var.end[0] =  rc_var.ray_count;
-        rc_var.end[1] = (WIN_H  / 2) - ( rc_var.wallHeight );
+        rc_var.end[1] = (WIN_H  / 2) - ( rc_var.wallHeight /2);
         if( rc_var.distance > 0)
             draw_line(data, rc_var.begin, rc_var.end, 39679);
         //l2ard
         rc_var.begin[0] =  rc_var.ray_count;
-        rc_var.begin[1] = (WIN_H  / 2) + ( rc_var.wallHeight);
+        rc_var.begin[1] = (WIN_H  / 2) + ( rc_var.wallHeight/2);
         rc_var.end[0] =  rc_var.ray_count;
         rc_var.end[1] = WIN_H ;
         if(rc_var.distance > 0)
@@ -251,17 +254,19 @@ void ray_colesion(t_data *data)
         
         //WALL
         rc_var.begin[0] =  rc_var.ray_count;
-        rc_var.begin[1] = (WIN_H  / 2) - ( rc_var.wallHeight);
+        rc_var.begin[1] = (WIN_H / 2) - ( rc_var.wallHeight / 2);
         rc_var.end[0] =  rc_var.ray_count;
-        rc_var.end[1] = (WIN_H  / 2) + ( rc_var.wallHeight);
+        rc_var.end[1] = (WIN_H / 2) + ( rc_var.wallHeight / 2);
         if( rc_var.distance > 0)
         {
-            if(data->offcet_x == -1)
-                draw_linev2(data, rc_var.begin, rc_var.end,data->offcet_y,64);
+            double wall_scall = (rc_var.wallHeight) / data->map_res;
+             
+            if(data->ray_offset_in_y == 0)
+                draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x1),wall_scall);
             else
-                draw_linev2(data, rc_var.begin, rc_var.end,data->offcet_x,64);
-        }
-            
+                draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x ),wall_scall);
+        } 
+        rc_var.rays += rc_var.angel_move;
          rc_var.ray_count++;
     }
     rc_var.begin[0] = data->player_x + (data->player_mini_res / 2);
