@@ -21,6 +21,8 @@
 #define KEY_S key_select[3]
 #define KEY_A key_select[4]
 #define KEY_D key_select[5]
+#define KEY_UP key_select[6]
+#define KEY_DOWN key_select[7]
 #define WIN_W data->demintion_with
 #define WIN_H data->demension_hight
 
@@ -89,7 +91,7 @@ typedef struct s_data
 
 	int key_up[2];
 	int key_down[2];
-	int key_select[6];
+	int key_select[8];
 
 	int ray_count;
 	int player_y_for_3d;

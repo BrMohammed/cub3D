@@ -19,13 +19,19 @@ int	key_down(int key, t_data *data)
 		else if (key == 1)//s
 			data->KEY_S = 1;
 	}
-	if(key == 123 || key == 124) 
+	//126 up
+	//125 down
+	if(key == 123 || key == 124 || key == 126 || key == 125) 
 	{
 		data->ON_KEYDOWN_CAMERA = 1;
 		if(key == 123) 
 			data->KEY_LEFT = 1;
 		else if(key == 124)
 			data->KEY_WRIGHT = 1;
+		else if(key == 125) 
+			data->KEY_DOWN = 1;
+		else if(key == 126)
+			data->KEY_UP = 1;
 	}
 	return(0);
 }
@@ -44,13 +50,17 @@ int	key_up(int key, t_data *data)
 		else if (key == 1)//s
 			data->KEY_S = 0;
 	}
-	if(key == 123 || key == 124) 
+	if(key == 123 || key == 124 || key == 126 || key == 125) 
 	{
 		data->ON_KEYDOWN_CAMERA = 0;
 		if(key == 123) 
 			data->KEY_LEFT = 0;
 		else if(key == 124)
 			data->KEY_WRIGHT = 0;
+		else if(key == 125) 
+			data->KEY_DOWN = 0;
+		else if(key == 126)
+			data->KEY_UP = 0;
 	}
 	return(0);
 }
@@ -77,21 +87,21 @@ int	movement(t_data *data)
 	{
 		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
-			if(data->KEY_W == 1 && floor(one_ray(data,NO_P)) > floor((data->player_mini_res / 2) + 2))
+			if(data->KEY_W == 1 && floor(one_ray(data,NO_P)) >= floor((data->player_mini_res*1.3)))
 			{
 				//data->lfo9 += 10;
 				//data->ltet += 20;
 				move(data, sin(data->pa) * data->speed, cos(data->pa) * data->speed);
 			}
-			else if(data->KEY_S == 1 && floor(one_ray(data,SO_P)) > floor((data->player_mini_res / 2) + 2))
+			else if(data->KEY_S == 1 && floor(one_ray(data,SO_P)) >= floor(data->player_mini_res*1.3))
 			{
 				//data->lfo9 -= 10;
 				//data->ltet -= 20;
 				move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
 			}
-			else if(data->KEY_A == 1 && floor(one_ray(data,WE_P)) > floor((data->player_mini_res / 2) + 2))
+			if(data->KEY_A == 1 && floor(one_ray(data,WE_P)) >= floor(data->player_mini_res*1.3))
 				move(data,-cos(-data->pa) * data->speed ,-sin(-data->pa) * data->speed);
-			else if(data->KEY_D == 1 && floor(one_ray(data,EA_P)) > floor((data->player_mini_res / 2) + 2))
+			else if(data->KEY_D == 1 && floor(one_ray(data,EA_P)) >= floor(data->player_mini_res*1.3))
 				move(data,cos(-data->pa) * data->speed ,-sin(data->pa) * data->speed);
 		}
 		if(data->ON_KEYDOWN_CAMERA == 1)
@@ -102,12 +112,16 @@ int	movement(t_data *data)
 				if(data->pa > 2 * M_PI)
 					data->pa -= 2 * M_PI;
 			}
-			if(data->KEY_LEFT == 1)
+			else if(data->KEY_LEFT == 1)
 			{
 				data->pa -= data->angel_speed;
 				if(data->pa < 0)
 					data->pa += 2 * M_PI;
 			}
+			if(data->KEY_UP == 1)
+				data->lfo9 += 10;
+			else if(data->KEY_LEFT == 1)
+				data->lfo9 -= 10;
 			move_rotated(data);
 		}
 		i = 0;

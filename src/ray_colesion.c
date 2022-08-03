@@ -214,6 +214,7 @@ void ray_colesion(t_data *data)
 {
     t_raycolesion rc_var;
     double betwinenngels;
+    double wall_scall;
 
     rc_var.angel_move = (M_PI/3) / (WIN_W);
     rc_var.point_to_break = 0;	
@@ -241,12 +242,12 @@ void ray_colesion(t_data *data)
         rc_var.begin[0] =  rc_var.ray_count;
         rc_var.begin[1] = 0;
         rc_var.end[0] =  rc_var.ray_count;
-        rc_var.end[1] = (WIN_H  / 2) - ( rc_var.wallHeight /2);
+        rc_var.end[1] = (WIN_H  / 2) - ( (rc_var.wallHeight /2) - data->lfo9);
         if( rc_var.distance > 0)
             draw_line(data, rc_var.begin, rc_var.end, 39679);
         //l2ard
         rc_var.begin[0] =  rc_var.ray_count;
-        rc_var.begin[1] = (WIN_H  / 2) + ( rc_var.wallHeight/2);
+        rc_var.begin[1] = (WIN_H  / 2) + ( (rc_var.wallHeight/2) - data->lfo9);
         rc_var.end[0] =  rc_var.ray_count;
         rc_var.end[1] = WIN_H ;
         if(rc_var.distance > 0)
@@ -254,12 +255,12 @@ void ray_colesion(t_data *data)
         
         //WALL
         rc_var.begin[0] =  rc_var.ray_count;
-        rc_var.begin[1] = (WIN_H / 2) - ( rc_var.wallHeight / 2);
+        rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2) + data->lfo9);
         rc_var.end[0] =  rc_var.ray_count;
-        rc_var.end[1] = (WIN_H / 2) + ( rc_var.wallHeight / 2);
+        rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) - data->lfo9);
         if( rc_var.distance > 0)
         {
-            double wall_scall = (rc_var.wallHeight) / data->map_res;
+            wall_scall = (rc_var.wallHeight) / data->map_res;
              
             if(data->ray_offset_in_y == 0)
                 draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x1),wall_scall);

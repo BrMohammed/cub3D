@@ -44,7 +44,6 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 		{
 			y =  floor((temp_y ) / wall_scall) ;
 			pixel_color = get_pixel(data,x,y);
-			//printf("x = %d,y = %d\n", x,y);
 			temp_y++;
 		}
 		rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
@@ -127,15 +126,15 @@ int	main(int ac, char **av)
 	(void) ac;
 	if (ac == 2)
 	{
-		data.lfo9 = 100;
-		data.ltet = 100;
+		data.lfo9 = 0;
+		data.ltet = 0;
 		data.demension_hight = 1000;
 		data.demintion_with = 1000;
 		if((data.demension_hight / data.result_hight) < (data.demintion_with / data.result_with) )
-			data.mini_map_res = (data.demension_hight / data.result_hight) / 5;
+			data.mini_map_res = (data.demension_hight / data.result_hight) / 3;
 		else
-			data.mini_map_res = (data.demintion_with / data.result_with) / 5;
-		data.map_res = 2000;
+			data.mini_map_res = (data.demintion_with / data.result_with) / 3;
+		data.map_res = 1000;
 		data.player_mini_res = data.mini_map_res / 2;
 		data.speed = 1.5;
 		data.angel_speed = 0.09;
