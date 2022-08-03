@@ -23,6 +23,7 @@
 #define KEY_D key_select[5]
 #define KEY_UP key_select[6]
 #define KEY_DOWN key_select[7]
+#define KEY_SPACE key_select[8]
 #define WIN_W data->demintion_with
 #define WIN_H data->demension_hight
 
@@ -91,14 +92,13 @@ typedef struct s_data
 
 	int key_up[2];
 	int key_down[2];
-	int key_select[8];
+	int key_select[9];
 
 	int ray_count;
 	int player_y_for_3d;
 	int player_x_for_3d;
 	int color;
-	int lfo9 ;
-    int ltet ;
+	
 
 	int demension_hight;
 	int demintion_with;
@@ -115,6 +115,12 @@ typedef struct s_data
 	int ray_offset_in_y ;
 	double speed;
 	double angel_speed;
+	double is_jumping_up;
+	double is_jumping_down;
+	double jump_force;
+	double gravity;
+	double lfo9 ;
+    double lte7t ;
 }	t_data;
 
 typedef struct s_raycolesion

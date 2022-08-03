@@ -11,7 +11,10 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	{
 		/* big endian, MSB is the leftmost bit */
 		if (img->endian != 0)
+		{
 			*pixel++ = (color >> i) & 0xFF;
+		}
+			
 		/* little endian, LSB is the leftmost bit */
 		else
 			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
@@ -39,8 +42,30 @@ int rander_image(t_img *img, t_rect rect)
 
 int get_pixel(t_data *data,int x, int y)
 {
-	char    *pixel;
+	//char    *buffer;
+	char    *buffer2;
+	//int pixel;
+	int color;
 
-	pixel = data->img_rander.addr + (y * data->img_rander.line_len + x * (4));
-	return (*(int *)pixel);
+	// buffer = data->img_rander.addr;
+	buffer2 = data->img_rander.addr + (y * data->img_rander.line_len + x * (4));
+	// pixel = (y * data->img_rander.line_len + x * (4));
+
+    // if (data->img_rander.endian != 0)        // Most significant (Alpha) byte first
+    // {
+    //     buffer[pixel + 0] = ((*(int*)buffer2) >> 24);
+    //     buffer[pixel + 1] = ((*(int*)buffer2) >> 16) & 0xFF;
+    //     buffer[pixel + 2] = ((*(int*)buffer2) >> 8) & 0xFF;
+    //     buffer[pixel + 3] = ((*(int*)buffer2)) & 0xFF;
+    // }
+    // else   // Least significant (Blue) byte first
+    // {
+		
+    //     buffer[pixel + 0] = ((*(int*)buffer2)) & 0xFF;
+    //     buffer[pixel + 1] = ((*(int*)buffer2) >> 8) & 0xFF;
+    //     buffer[pixel + 2] = ((*(int*)buffer2) >> 16) & 0xFF;
+    //     buffer[pixel + 3] = ((*(int*)buffer2) >> 24);
+    // }
+	color = *(int*)buffer2;
+	return (color);
 }

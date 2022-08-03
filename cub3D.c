@@ -126,8 +126,8 @@ int	main(int ac, char **av)
 	(void) ac;
 	if (ac == 2)
 	{
-		data.lfo9 = 0;
-		data.ltet = 0;
+		data.lfo9 = 10;
+		data.lte7t = 10;
 		data.demension_hight = 1000;
 		data.demintion_with = 1000;
 		if((data.demension_hight / data.result_hight) < (data.demintion_with / data.result_with) )
@@ -138,6 +138,10 @@ int	main(int ac, char **av)
 		data.player_mini_res = data.mini_map_res / 2;
 		data.speed = 1.5;
 		data.angel_speed = 0.09;
+		data.is_jumping_up = 0;
+		data.is_jumping_down = 0;
+		data.jump_force = 60;
+		data.gravity = 5;
 		respone(&data);
 
 			data.img_rander.mlx_img = mlx_xpm_file_to_image(data.mlx, data.NO_PATH,

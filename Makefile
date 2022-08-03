@@ -2,7 +2,7 @@ NAME = cub3D
 
 CC = gcc
 
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g ##-Ofast
 
 MLX =  -lmlx -framework OpenGL -framework AppKit
 

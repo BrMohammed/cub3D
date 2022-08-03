@@ -225,7 +225,7 @@ void ray_colesion(t_data *data)
 		rc_var.rays += 2 * M_PI;
     while(rc_var.ray_count < WIN_W)
     {
-        
+        rc_var.rays += rc_var.angel_move;
         if(rc_var.rays > 2 * M_PI)
 			rc_var.rays -= 2 * M_PI;
         rc_var.distance = one_ray(data,rc_var.rays);
@@ -247,7 +247,7 @@ void ray_colesion(t_data *data)
             draw_line(data, rc_var.begin, rc_var.end, 39679);
         //l2ard
         rc_var.begin[0] =  rc_var.ray_count;
-        rc_var.begin[1] = (WIN_H  / 2) + ( (rc_var.wallHeight/2) - data->lfo9);
+        rc_var.begin[1] = (WIN_H  / 2) + ( (rc_var.wallHeight/2) - data->lte7t);
         rc_var.end[0] =  rc_var.ray_count;
         rc_var.end[1] = WIN_H ;
         if(rc_var.distance > 0)
@@ -255,9 +255,9 @@ void ray_colesion(t_data *data)
         
         //WALL
         rc_var.begin[0] =  rc_var.ray_count;
-        rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2) + data->lfo9);
+        rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2) - data->lfo9);
         rc_var.end[0] =  rc_var.ray_count;
-        rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) - data->lfo9);
+        rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) - data->lte7t);
         if( rc_var.distance > 0)
         {
             wall_scall = (rc_var.wallHeight) / data->map_res;
@@ -267,7 +267,7 @@ void ray_colesion(t_data *data)
             else
                 draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x ),wall_scall);
         } 
-        rc_var.rays += rc_var.angel_move;
+        
          rc_var.ray_count++;
     }
     rc_var.begin[0] = data->player_x + (data->player_mini_res / 2);

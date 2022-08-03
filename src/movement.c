@@ -7,14 +7,16 @@ int	key_down(int key, t_data *data)
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	if (key == 2 || key == 0 || key == 13 || key == 1)
+	if(key == 49)
+			data->KEY_SPACE = 1;
+	if ((key == 2 || key == 0 || key == 13 || key == 1 ))
 	{
 		data->ON_KEYDOWN_DERECTION = 1;
 		if (key == 2 ) //d
 			data->KEY_D = 1;
 		else if ( key == 0 )//a
 			data->KEY_A = 1;
-		else if (key == 13 )//w
+		if (key == 13 )//w
 			data->KEY_W = 1;
 		else if (key == 1)//s
 			data->KEY_S = 1;
@@ -28,7 +30,7 @@ int	key_down(int key, t_data *data)
 			data->KEY_LEFT = 1;
 		else if(key == 124)
 			data->KEY_WRIGHT = 1;
-		else if(key == 125) 
+		if(key == 125) 
 			data->KEY_DOWN = 1;
 		else if(key == 126)
 			data->KEY_UP = 1;
@@ -38,14 +40,15 @@ int	key_down(int key, t_data *data)
 
 int	key_up(int key, t_data *data)
 {
+	//49 = space
 	if ((key == 2 || key == 0 || key == 13 || key == 1 ))
 	{
-		data->ON_KEYDOWN_DERECTION = 0;
+		 data->ON_KEYDOWN_DERECTION = 0;
 		if (key == 2) //d
 			data->KEY_D = 0;
 		else if ( key == 0 )//a
 			data->KEY_A = 0;
-		else if (key == 13 )//w
+	    if (key == 13 )//w
 			data->KEY_W = 0;
 		else if (key == 1)//s
 			data->KEY_S = 0;
@@ -57,7 +60,7 @@ int	key_up(int key, t_data *data)
 			data->KEY_LEFT = 0;
 		else if(key == 124)
 			data->KEY_WRIGHT = 0;
-		else if(key == 125) 
+		if(key == 125) 
 			data->KEY_DOWN = 0;
 		else if(key == 126)
 			data->KEY_UP = 0;
@@ -83,22 +86,38 @@ int	movement(t_data *data)
 		SO_P -= 2 * M_PI;
 	else if (WE_P < 0)
 		WE_P += 2 * M_PI;
-	if(i == 50)
+	if(i == 5)
 	{
+		if(data->KEY_SPACE  == 1)
+		{
+				// jump;
+			if( data->is_jumping_up <= data->gravity && data->is_jumping_down == 0)
+			{
+				data->lfo9 += data->jump_force;
+				data->lte7t -= data->jump_force;
+				data->is_jumping_up++;
+			}
+			if( data->is_jumping_up == data->gravity && data->is_jumping_down >= 0)
+			{
+				data->lfo9 -= data->jump_force;
+				data->lte7t += data->jump_force;
+				data->is_jumping_down++;
+			}
+			if(data->is_jumping_down == data->gravity && data->is_jumping_up == data->gravity)
+			{
+				data->KEY_SPACE = 0;
+				data->is_jumping_up = 0;
+				data->is_jumping_down = 0;
+			}
+			//move_rotated(data);
+		}
 		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
+		
 			if(data->KEY_W == 1 && floor(one_ray(data,NO_P)) >= floor((data->player_mini_res*1.3)))
-			{
-				//data->lfo9 += 10;
-				//data->ltet += 20;
 				move(data, sin(data->pa) * data->speed, cos(data->pa) * data->speed);
-			}
 			else if(data->KEY_S == 1 && floor(one_ray(data,SO_P)) >= floor(data->player_mini_res*1.3))
-			{
-				//data->lfo9 -= 10;
-				//data->ltet -= 20;
 				move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
-			}
 			if(data->KEY_A == 1 && floor(one_ray(data,WE_P)) >= floor(data->player_mini_res*1.3))
 				move(data,-cos(-data->pa) * data->speed ,-sin(-data->pa) * data->speed);
 			else if(data->KEY_D == 1 && floor(one_ray(data,EA_P)) >= floor(data->player_mini_res*1.3))
@@ -118,12 +137,16 @@ int	movement(t_data *data)
 				if(data->pa < 0)
 					data->pa += 2 * M_PI;
 			}
-			if(data->KEY_UP == 1)
-				data->lfo9 += 10;
-			else if(data->KEY_LEFT == 1)
-				data->lfo9 -= 10;
-			move_rotated(data);
+			if(data->KEY_UP  == 1)
+			{
+				
+			}
+			else if(data->KEY_DOWN == 1)
+			{
+				
+			}
 		}
+		move_rotated(data);
 		i = 0;
 	}
 	i++;
