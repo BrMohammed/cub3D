@@ -234,9 +234,9 @@ void ray_colesion(t_data *data)
             betwinenngels += 2*M_PI;
         if(betwinenngels > 2*M_PI)
             betwinenngels -= 2*M_PI;
-        rc_var.distance = (((((rc_var.distance - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) * cos(betwinenngels);
+        rc_var.distance = ((((((rc_var.distance * cos(betwinenngels)) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
         rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
-        rc_var.wallHeight = floor(((data->map_res ) / ( rc_var.distance)) * rc_var.distanceprojplan);
+        rc_var.wallHeight = (((data->map_res ) / ( rc_var.distance)) * rc_var.distanceprojplan);
         //rc_var.wallHeight = (WIN_H /2) - rc_var.distance;
         //sma
         rc_var.begin[0] =  rc_var.ray_count;

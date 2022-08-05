@@ -16,14 +16,6 @@ void	respone_obj(t_data *data)
 			if (data->result[y][x] == 'N' || data->result[y][x] == 'S' ||
 				data->result[y][x] == 'W' || data->result[y][x] == 'E')
 			{
-				if(data->result[y][x] == 'N')
-					data->pa = (3 * M_PI) / 2;
-				if(data->result[y][x] == 'S')
-					data->pa = (M_PI) / 2;
-				if(data->result[y][x] == 'E')
-					data->pa = 0;
-				if(data->result[y][x] == 'W')
-					data->pa = (M_PI);
 				data->player_y = y * data->mini_map_res;
 				data->player_x = x * data->mini_map_res;
 				data->player_y_for_3d = y * data->map_res;
@@ -75,7 +67,8 @@ void	respone_obj(t_data *data)
 				data->player_x = x * data->mini_map_res;
 				data->player_y_for_3d = y * data->map_res;
 				data->player_x_for_3d = x * data->map_res;
-				rander_image(&data->img, (t_rect){data->player_x, data->player_y,data->player_mini_res, data->player_mini_res, 20963});
+				printf("y = %d x = %d\n",y * data->mini_map_res,x * data->mini_map_res);
+				rander_image02(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,10, 10, 11796399},data);
 				data->result[y][x] = '0';
 				mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 			}

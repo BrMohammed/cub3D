@@ -13,27 +13,27 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 	double	pixel[2];
 	int pixel_color;
 	int y = 0;
-	int temp_y = 0;
-	if (begin[0] < 0)
-		begin[0] = 0;
-	if (begin[1] < 0)
-		begin[1] = 0;
-	if (end[0] < 0)
-		end[0] = 0;
-	if (end[1] < 0)
-		end[1] = 0;
-	if (begin[0] > WIN_W)
-		begin[0] = WIN_W;
-	if (begin[1] > WIN_H)
-		begin[1] = WIN_H;
-	if (end[0] > WIN_W)
-		end[0] = WIN_W;
-	if (end[1] > WIN_H)
-		end[1] = WIN_H;
+	double  temp_y = 0;
+	// if (begin[0] < 0)
+	// 	begin[0] = 0;
+	// if (begin[1] < 0)
+	// 	begin[1] = 0;
+	// if (end[0] < 0)
+	// 	end[0] = 0;
+	// if (end[1] < 0)
+	// 	end[1] = 0;
+	// if (begin[0] > WIN_W)
+	// 	begin[0] = WIN_W;
+	// if (begin[1] > WIN_H)
+	// 	begin[1] = WIN_H;
+	// if (end[0] > WIN_W)
+	// 	end[0] = WIN_W;
+	// if (end[1] > WIN_H)
+	// 	end[1] = WIN_H;
 
 	pixel[0] = begin[0];
 	pixel[1] = begin[1];
-	delta[0] = end[0] - begin[0];
+	delta[0] = (end[0] - begin[0]);
 	delta[1] = end[1] - begin[1];
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
@@ -43,10 +43,11 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 		if(y < data->map_res)
 		{
 			y =  floor((temp_y ) / wall_scall) ;
-			pixel_color = get_pixel(data,x,y);
+				pixel_color = get_pixel(data,x,y);
 			temp_y++;
 		}
-		rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
+		if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H)
+			rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;
@@ -60,22 +61,22 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	double	pixel[2];
 	
 
-	if (begin[0] < 0)
-		begin[0] = 0;
-	if (begin[1] < 0)
-		begin[1] = 0;
-	if (end[0] < 0)
-		end[0] = 0;
-	if (end[1] < 0)
-		end[1] = 0;
-	if (begin[0] > WIN_W)
-		begin[0] = WIN_W;
-	if (begin[1] > WIN_H)
-		begin[1] = WIN_H;
-	if (end[0] > WIN_W)
-		end[0] = WIN_W;
-	if (end[1] > WIN_H)
-		end[1] = WIN_H;
+	// if (begin[0] < 0)
+	// 	begin[0] = 0;
+	// if (begin[1] < 0)
+	// 	begin[1] = 0;
+	// if (end[0] < 0)
+	// 	end[0] = 0;
+	// if (end[1] < 0)
+	// 	end[1] = 0;
+	// if (begin[0] > WIN_W)
+	// 	begin[0] = WIN_W;
+	// if (begin[1] > WIN_H)
+	// 	begin[1] = WIN_H;
+	// if (end[0] > WIN_W)
+	// 	end[0] = WIN_W;
+	// if (end[1] > WIN_H)
+	// 	end[1] = WIN_H;
 
 	pixel[0] = begin[0];
 	pixel[1] = begin[1];
@@ -86,8 +87,8 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	delta[1] /= pixels;
 	while (pixels)
 	{
-		
-		rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, color});
+		if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H)
+			rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, color});
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;
@@ -136,8 +137,8 @@ int	main(int ac, char **av)
 			data.mini_map_res = (data.demintion_with / data.result_with) / 3;
 		data.map_res = 1000;
 		data.player_mini_res = data.mini_map_res / 2;
-		data.speed = 1.5;
-		data.angel_speed = 0.09;
+		data.speed = 3;
+		data.angel_speed = 0.15707963267;
 		data.is_jumping_up = 0;
 		data.is_jumping_down = 0;
 		data.jump_force = 60;
@@ -148,6 +149,13 @@ int	main(int ac, char **av)
 		&data.map_res, &data.map_res);
 	data.img_rander.addr = mlx_get_data_addr(data.img_rander.mlx_img, &data.img_rander.bpp,
 		&data.img_rander.line_len, &data.img_rander.endian);
+
+		char *path = "./assets/derection.xpm";
+		data.img_rander_derection.mlx_img = mlx_xpm_file_to_image(data.mlx, path,
+		&data.h_temp, &data.w_temp);
+		data.img_rander_derection.addr = mlx_get_data_addr(data.img_rander_derection.mlx_img, &data.img_rander_derection.bpp,
+		&data.img_rander_derection.line_len, &data.img_rander_derection.endian);
+
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);

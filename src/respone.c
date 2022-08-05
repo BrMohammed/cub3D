@@ -5,6 +5,7 @@ void	respone(t_data *data)
 	int	x;
 	int	y;
 
+
 	x = 0;
 	y = 0;
 	while (data->result[y])
