@@ -38,8 +38,8 @@ void	respone_obj(t_data *data)
 			else if (data->result[y][x] == 48 || data->result[y][x] == 'N' || data->result[y][x] == 'S' ||
 					data->result[y][x] == 'W' || data->result[y][x] == 'E')
 					rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 11796399});
-			else
-				rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 0});
+			// else
+			// 	rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 0});
 			x++;
 		}
 		x = 0;
@@ -63,14 +63,9 @@ void	respone_obj(t_data *data)
 					data->pa = 0;
 				if(data->result[y][x] == 'W')
 					data->pa = (M_PI);
-				data->player_y = y * data->mini_map_res;
-				data->player_x = x * data->mini_map_res;
-				data->player_y_for_3d = y * data->map_res;
-				data->player_x_for_3d = x * data->map_res;
-				printf("y = %d x = %d\n",y * data->mini_map_res,x * data->mini_map_res);
-				rander_image02(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,10, 10, 11796399},data);
+				rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->player_mini_res, data->player_mini_res, 22735});
 				data->result[y][x] = '0';
-				mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+				//mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 			}
 			x++;
 		}
@@ -81,6 +76,6 @@ void	respone_obj(t_data *data)
     a[1] = data->player_y + (data->player_mini_res / 2);
     b[0] = a[0] + cos(data->pa) * 7;
     b[1] = a[1] + sin(data->pa) * 7;
-    draw_line(data, a, b, 0Xff0000);
+   draw_line(data, a, b, 0Xff0000);
 	//ray_colesion(data);
 }

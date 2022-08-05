@@ -137,24 +137,18 @@ int	main(int ac, char **av)
 			data.mini_map_res = (data.demintion_with / data.result_with) / 3;
 		data.map_res = 1000;
 		data.player_mini_res = data.mini_map_res / 2;
-		data.speed = 3;
+		data.speed = 2;
 		data.angel_speed = 0.15707963267;
 		data.is_jumping_up = 0;
 		data.is_jumping_down = 0;
-		data.jump_force = 60;
-		data.gravity = 5;
+		data.jump_force = 40;
+		data.gravity = 4;
 		respone(&data);
 
 			data.img_rander.mlx_img = mlx_xpm_file_to_image(data.mlx, data.NO_PATH,
 		&data.map_res, &data.map_res);
 	data.img_rander.addr = mlx_get_data_addr(data.img_rander.mlx_img, &data.img_rander.bpp,
 		&data.img_rander.line_len, &data.img_rander.endian);
-
-		char *path = "./assets/derection.xpm";
-		data.img_rander_derection.mlx_img = mlx_xpm_file_to_image(data.mlx, path,
-		&data.h_temp, &data.w_temp);
-		data.img_rander_derection.addr = mlx_get_data_addr(data.img_rander_derection.mlx_img, &data.img_rander_derection.bpp,
-		&data.img_rander_derection.line_len, &data.img_rander_derection.endian);
 
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);

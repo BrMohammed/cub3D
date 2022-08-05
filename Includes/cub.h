@@ -182,7 +182,5 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel);
 int get_pixel(t_data *data,int x, int y);
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
-int rander_image02(t_img *img, t_rect rect, t_data *data);
-int get_pixel2(t_data *data,int x, int y);
 
 #endif
