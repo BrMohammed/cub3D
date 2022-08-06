@@ -114,13 +114,13 @@ int	movement(t_data *data)
 		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
 		
-			if(data->KEY_W == 1 && floor(one_ray(data,NO_P)) >= floor((data->player_mini_res*1.3)))
+			if(data->KEY_W == 1 &&( floor(one_ray(data,NO_P)) >= floor((data->player_mini_res*1.3)) || floor(one_ray_for_sprite(data,NO_P)) >= floor((data->player_mini_res*1.3))))
 				move(data, sin(data->pa) * data->speed, cos(data->pa) * data->speed);
-			else if(data->KEY_S == 1 && floor(one_ray(data,SO_P)) >= floor(data->player_mini_res*1.3))
+			else if(data->KEY_S == 1 && (floor(one_ray(data,SO_P)) >= floor(data->player_mini_res*1.3) || floor(one_ray_for_sprite(data,SO_P)) >= floor(data->player_mini_res*1.3)))
 				move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
-			if(data->KEY_A == 1 && floor(one_ray(data,WE_P)) >= floor(data->player_mini_res*1.3))
+			if(data->KEY_A == 1 && (floor(one_ray(data,WE_P)) >= floor(data->player_mini_res*1.3) || floor(one_ray_for_sprite(data,WE_P)) >= floor(data->player_mini_res*1.3)))
 				move(data,-cos(-data->pa) * data->speed ,-sin(-data->pa) * data->speed);
-			else if(data->KEY_D == 1 && floor(one_ray(data,EA_P)) >= floor(data->player_mini_res*1.3))
+			else if(data->KEY_D == 1 && (floor(one_ray(data,EA_P)) >= floor(data->player_mini_res*1.3) || floor(one_ray_for_sprite(data,EA_P)) >= floor(data->player_mini_res*1.3)))
 				move(data,cos(-data->pa) * data->speed ,-sin(data->pa) * data->speed);
 		}
 		if(data->ON_KEYDOWN_CAMERA == 1)

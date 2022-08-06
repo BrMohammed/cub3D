@@ -191,6 +191,8 @@ double one_ray(t_data *data,double angel)
              oneray_var.y++;
         }
     }
+
+    
     if (( oneray_var.ray_colesion_y <=  oneray_var.ray_colesion_x &&  oneray_var.ray_colesion_y != 0 ) ||  oneray_var.ray_colesion_x == 0)
     {
         oneray_var.distance =  oneray_var.ray_colesion_y;
@@ -270,9 +272,5 @@ void ray_colesion(t_data *data)
         
          rc_var.ray_count++;
     }
-    rc_var.begin[0] = data->player_x + (data->player_mini_res / 2);
-    rc_var.begin[1] = data->player_y + (data->player_mini_res / 2);
-    rc_var.end[0] = rc_var.begin[0] + cos(data->pa) * 7;
-    rc_var.end[1] = rc_var.begin[1] + sin(data->pa) * 7;
-    draw_line(data, rc_var.begin, rc_var.end, 0Xffffff);
+    ray_colesion_for_sprite(data);
 }

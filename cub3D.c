@@ -137,12 +137,12 @@ int	main(int ac, char **av)
 			data.mini_map_res = (data.demintion_with / data.result_with) / 3;
 		data.map_res = 1000;
 		data.player_mini_res = data.mini_map_res / 2;
-		data.speed = 2;
+		data.speed = 4;
 		data.angel_speed = 0.15707963267;
 		data.is_jumping_up = 0;
 		data.is_jumping_down = 0;
 		data.jump_force = 40;
-		data.gravity = 4;
+		data.gravity = 3;
 		respone(&data);
 
 			data.img_rander.mlx_img = mlx_xpm_file_to_image(data.mlx, data.NO_PATH,
@@ -150,6 +150,9 @@ int	main(int ac, char **av)
 	data.img_rander.addr = mlx_get_data_addr(data.img_rander.mlx_img, &data.img_rander.bpp,
 		&data.img_rander.line_len, &data.img_rander.endian);
 
+		data.test_path = "./assets/point.xpm";
+		data.test = mlx_xpm_file_to_image(data.mlx, data.test_path,
+		&data.p_w, &data.p_h);
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);

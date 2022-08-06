@@ -82,6 +82,9 @@ typedef struct s_data
 	char		*EA_PATH;
 	void 		*EA;
 
+	char *test_path;
+	void *test;
+
 	
 	void		*mlx;
 	void		*mlx_win;
@@ -131,8 +134,13 @@ typedef struct s_data
 	double gravity;
 	double lfo9 ;
     double lte7t ;
-	int h_temp;
-	int w_temp;
+	int p_h;
+	int p_w;
+	int px_x;
+	int py_x;
+	int px_y;
+	int py_y;
+
 }	t_data;
 
 typedef struct s_raycolesion
@@ -146,6 +154,7 @@ typedef struct s_raycolesion
     double wallHeight;
     int ray_count;
 	double distanceprojplan;
+
 	
 }t_raycolesion;
 
@@ -182,5 +191,6 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel);
 int get_pixel(t_data *data,int x, int y);
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
-
+void ray_colesion_for_sprite(t_data *data);
+double one_ray_for_sprite(t_data *data,double angel);
 #endif
