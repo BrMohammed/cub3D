@@ -54,6 +54,15 @@ typedef struct s_img_rander
 	int		endian;
 }	t_img_rander;
 
+typedef struct s_img__sprite
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img_sprite;
+
 typedef struct s_img_rander_derection
 {
 	void	*mlx_img;
@@ -68,6 +77,7 @@ typedef struct s_data
 	t_img	img;
 	t_img_rander img_rander;
 	t_img_rander_derection img_rander_derection;
+	t_img_sprite img_sprite;
 	int		cur_img;
 
 	char		*NO_PATH;
@@ -141,6 +151,15 @@ typedef struct s_data
 	int px_y;
 	int py_y;
 
+	int one_of;
+	int sprite_x;
+	int sprite_y;
+	int pos_of_sprite_x;
+	int pos_of_sprite_y;
+
+	char *path_sprite;
+	void *sprite_buf;
+
 }	t_data;
 
 typedef struct s_raycolesion
@@ -170,6 +189,8 @@ typedef struct s_oneray
     double ray_colesion_y;
     double ray_colesion_x;
     double distance;
+
+
 }t_oneray;
 
 char	*get_next_line(int fd);
@@ -189,8 +210,9 @@ int		key_down(int key, t_data *data);
 int 	rander_image(t_img *img, t_rect rect);
 void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel);
-int get_pixel(t_data *data,int x, int y);
+int get_pixel(char *addr,int line_len,int x, int y);
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
 void ray_colesion_for_sprite(t_data *data);
 double one_ray_for_sprite(t_data *data,double angel);
+void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall);
 #endif

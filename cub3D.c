@@ -6,6 +6,62 @@ int	mouse(void)
 	return (0);
 }
 
+void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
+{
+	double	delta[2];
+	int		pixels;
+	double	pixel[2];
+	int pixel_color;
+	int y = 0;
+	double  temp_y = 0;
+	int x = 0;
+	double  temp_x = 0;
+
+	pixel[0] = begin[0];
+	pixel[1] = begin[1];
+	delta[0] = (end[0] - begin[0]);
+	delta[1] = end[1] - begin[1];
+	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
+	delta[0] /= pixels;
+	delta[1] /= pixels;
+	while(x < 150)
+	{
+		x =  floor((temp_x ) / wall_scall) ;
+		pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
+		delta[0] /= pixels;
+		delta[1] /= pixels;
+		y  = 0;
+		temp_y = 0;
+		while (pixels)
+		{
+			
+			if(y < 150)
+			{
+				y =  floor((temp_y ) / wall_scall) ;
+				
+				pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
+				temp_y++;printf("x = %d y = %d\n",x,y);
+			}
+			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0)
+			{
+				
+				rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
+			}	
+			pixel[0] += delta[0];
+			pixel[1] += delta[1];
+			--pixels;
+		}
+		begin[0]++;
+		end[0]++;
+		pixel[0] = begin[0];
+		pixel[1] = begin[1];
+		delta[0] = (end[0] - begin[0]);
+		delta[1] = end[1] - begin[1];
+		temp_x++;
+	}
+	
+}
+
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 {
 	double	delta[2];
@@ -40,10 +96,11 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 	delta[1] /= pixels;
 	while (pixels)
 	{
+
 		if(y < data->map_res)
 		{
 			y =  floor((temp_y ) / wall_scall) ;
-				pixel_color = get_pixel(data,x,y);
+				pixel_color = get_pixel(data->img_rander.addr,data->img_rander.line_len,x,y);
 			temp_y++;
 		}
 		if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H)
@@ -153,6 +210,13 @@ int	main(int ac, char **av)
 		data.test_path = "./assets/point.xpm";
 		data.test = mlx_xpm_file_to_image(data.mlx, data.test_path,
 		&data.p_w, &data.p_h);
+
+		data.path_sprite = "./assets/sprite.xpm";
+		data.img_sprite.mlx_img = mlx_xpm_file_to_image(data.mlx, data.path_sprite,
+		&data.p_w, &data.p_h);
+		data.img_sprite.addr = mlx_get_data_addr(data.img_sprite.mlx_img, &data.img_sprite.bpp,
+		&data.img_sprite.line_len, &data.img_sprite.endian);
+		
 		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);

@@ -39,7 +39,11 @@ void	respone_obj(t_data *data)
 					data->result[y][x] == 'W' || data->result[y][x] == 'E')
 					rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 11796399});
 			else if (data->result[y][x] == 50 )
+			{
 				rander_image(&data->img, (t_rect){x * 10, y * 10,10, 10, 13422336});
+				data->pos_of_sprite_x =  x * 10;
+				data->pos_of_sprite_y =  y * 10;
+			}
 			x++;
 		}
 		x = 0;

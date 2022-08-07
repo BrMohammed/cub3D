@@ -5,6 +5,7 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
 	double b[2];
     double tpx = 0;
     double tpy = 0;
+    (void)x;
 
    // double  m;
     tpy =  ((data->player_y + 2) - (((y_plus ) * 10)));
@@ -12,7 +13,7 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
     b[1] = (((y_plus) * 10));
     b[0] = floor(tpx + data->player_x + 2);
    
-    if(b[0] >= x * 10 && b[0] < (x + 1) * 10)
+    if(b[0] == data->pos_of_sprite_x && b[1] == data->pos_of_sprite_y)
     { 
         // tpx += ( (( x ) * 10) - b[1])  / 2;
         // tpy += ( (( x ) * 10) - b[1])  / 2;
@@ -30,11 +31,12 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_
 	double b[2];
     double tpx =0;
     double tpy = 0;
+    (void)y;
     tpx = ((data->player_x + 2) - (((x_plus) * 10)));
     tpy = tpx * tan(angel);
     b[1] = (data->player_y +  2) - tpy;
     b[0] = (((x_plus) * 10));
-    if(b[1] >= y * 10 && b[1] < (y + 1) * 10)
+    if(b[0] == data->pos_of_sprite_x && b[1] == data->pos_of_sprite_y)
     {
         // tpx += ( (( y ) * 10) - b[1])  / 2;
         // tpy += ( (( y ) * 10) - b[1])  / 2;
@@ -56,11 +58,8 @@ int y_detect_for_sprite(t_data *data,int y, int y_plus,int px,int left_begin_agr
     {
         while (data->result[y][x])
         {
-            if(data->result[y][x] == '2') //wall detect posetion
-            {
                 if(y_detect_loop_for_sprite(data,y_plus,x,ray_colesion_y,angel) == 1)
                     return(1);
-            }
             x++;
         }
     }
@@ -68,11 +67,8 @@ int y_detect_for_sprite(t_data *data,int y, int y_plus,int px,int left_begin_agr
     {
         while (x >= 0)
         {
-            if(data->result[y][x] == '2') //wall detect posetion
-            {
                if(y_detect_loop_for_sprite(data,y_plus,x,ray_colesion_y,angel) == 1)
                     return(1);
-            }
             x--;
         }
     }
@@ -100,11 +96,8 @@ int x_detect_for_sprite(int left_begin_agrement_x_from_player_x,int px,int y,t_d
             else
                 x_plus = x + 1;
             
-            if(data->result[y][x] == '2') //sprite detect posetion
-            {
                 if(x_detect_for_sprite_loop(x_plus,y,data,ray_colesion_x,angel) == 1)
                     return(1);
-            }
             x--;
         }
     }
@@ -118,11 +111,9 @@ int x_detect_for_sprite(int left_begin_agrement_x_from_player_x,int px,int y,t_d
                x_plus = x + 1;
             else
                 x_plus = x;
-            if(data->result[y][x] == '2') //wall detect posetion
-            {
+            
                 if(x_detect_for_sprite_loop(x_plus,y,data,ray_colesion_x,angel) == 1)
                     return(1);
-            }
             x++;
         }
     }
@@ -234,23 +225,18 @@ void ray_colesion_for_sprite(t_data *data)
 {
     double rays;
     double angel_move = 0;
-    double point_to_break;
     int a[2];
 	int b[2];
     double distance;
     double wallHeight;
     int ray_count;
-    static double dest_temp;
-    static int last_px ;
-    static int last_py ;
-    static int loop_break;
+    double wall_scall;
 
     angel_move = (M_PI/3) / WIN_W;
     rays =  data->pa;
     rays -= M_PI/6;		
 	if(rays < 0)
 		rays += 2 * M_PI;
-    point_to_break = 0;	
     ray_count = 0;
     int image_size = 0;
     while(ray_count < WIN_W)
@@ -260,41 +246,26 @@ void ray_colesion_for_sprite(t_data *data)
         if(rays > 2 * M_PI)
 			rays -= 2 * M_PI;
         distance = one_ray_for_sprite(data,rays);
-     
         double ca = data->pa - rays;
         if(ca < 0 )
             ca += 2*M_PI;
         if(ca > 2*M_PI)
             ca -= 2*M_PI;
         distance = (((((distance * fabs(cos(ca))) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2) ;
-        if(dest_temp == 0 && distance > 0)
-            dest_temp = distance;
        double distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
-        wallHeight = (((data->map_res ) / (dest_temp)) * distanceprojplan);
-        
+        wallHeight = (((data->map_res ) / (distance)) * distanceprojplan);
         // //WALL
         a[0] = ray_count;
         a[1] = (WIN_H / 2) - (wallHeight / 2);
         b[0] = ray_count;
         b[1] = (WIN_H / 2) + (wallHeight / 2);
-        if(distance > 0 && image_size < wallHeight/2)
+        if(distance > 0 && image_size < 1)
         {
-            draw_line(data, a, b, data->color);
+            wall_scall = (wallHeight) / data->map_res;
+            draw_linev3(data, a, b,wall_scall);
             image_size++;
-            loop_break++;
+            //draw_line(data, a, b, data->color);
         }
         ray_count++;
     }
-    if(last_px != data->player_x || last_py != data->player_y)
-    {
-        last_px = data->player_x;
-        last_py = data->player_y;
-        dest_temp = 0;
-    }
-    // one_ray_for_sprite(data,data->pa);
-    // a[0] = data->player_x + 2;
-    // a[1] = data->player_y + 2;
-    // b[0] = a[0] + cos(data->pa) * 7;
-    // b[1] = a[1] + sin(data->pa) * 7;
-    // draw_line(data, a, b, 0Xffffff);
 }
