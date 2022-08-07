@@ -13,7 +13,7 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
     b[1] = (((y_plus) * 10));
     b[0] = floor(tpx + data->player_x + 2);
    
-    if(b[0] == data->pos_of_sprite_x && b[1] == data->pos_of_sprite_y)
+    if(b[0] == data->pos_of_sprite_x + 5 && b[1] == data->pos_of_sprite_y + 5)
     { 
         // tpx += ( (( x ) * 10) - b[1])  / 2;
         // tpy += ( (( x ) * 10) - b[1])  / 2;
@@ -234,16 +234,45 @@ void ray_colesion_for_sprite(t_data *data)
 
     angel_move = (M_PI/3) / WIN_W;
     rays =  data->pa;
-    rays -= M_PI/6;		
-	if(rays < 0)
-		rays += 2 * M_PI;
-    ray_count = 0;
+    ray_count = WIN_W/2;
     int image_size = 0;
-    while(ray_count < WIN_W)
+    while(ray_count > 0)
+    {
+        
+        rays -= angel_move;
+        if(rays < 0)
+			rays += 2 * M_PI;
+        distance = one_ray_for_sprite(data,rays);
+        double ca = data->pa - rays;
+        if(ca < 0 )
+            ca += 2*M_PI;
+        if(ca > 2*M_PI)
+            ca -= 2*M_PI;
+        distance = (((((distance ) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2) ;
+       double distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
+        wallHeight = (((data->map_res ) / (distance)) * distanceprojplan);
+        // //WALL
+        a[0] = ray_count;
+        a[1] = (WIN_H / 2) - (wallHeight / 2);
+        b[0] = ray_count;
+        b[1] = (WIN_H / 2) + (wallHeight / 2);
+        if(distance > 0 && image_size < 1)
+        {
+            wall_scall = (wallHeight) / 200;
+            draw_linev3(data, a, b,wall_scall);
+            image_size++;
+            //draw_line(data, a, b, data->color);
+        }
+        ray_count--;
+    }
+    ray_count = WIN_W / 2 ;
+    rays = data->pa;
+    image_size = 0;
+    while(ray_count < WIN_W )
     {
         
         rays += angel_move;
-        if(rays > 2 * M_PI)
+        if(rays > 2*M_PI)
 			rays -= 2 * M_PI;
         distance = one_ray_for_sprite(data,rays);
         double ca = data->pa - rays;
@@ -261,7 +290,7 @@ void ray_colesion_for_sprite(t_data *data)
         b[1] = (WIN_H / 2) + (wallHeight / 2);
         if(distance > 0 && image_size < 1)
         {
-            wall_scall = (wallHeight) / data->map_res;
+            wall_scall = (wallHeight) / 200;
             draw_linev3(data, a, b,wall_scall);
             image_size++;
             //draw_line(data, a, b, data->color);

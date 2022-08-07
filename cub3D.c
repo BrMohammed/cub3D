@@ -24,7 +24,8 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
 	delta[1] /= pixels;
-	while(x < 150)
+
+	while(x < 199)
 	{
 		x =  floor((temp_x ) / wall_scall) ;
 		pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
@@ -35,12 +36,13 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
 		while (pixels)
 		{
 			
-			if(y < 150)
+			if(y < 200)
 			{
 				y =  floor((temp_y ) / wall_scall) ;
 				
 				pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
-				temp_y++;printf("x = %d y = %d\n",x,y);
+				//printf("x = %d y = %d\n",x,y);
+				temp_y++;
 			}
 			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0)
 			{
