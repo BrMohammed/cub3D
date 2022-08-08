@@ -6,7 +6,7 @@ int	mouse(void)
 	return (0);
 }
 
-void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
+void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence)
 {
 	double	delta[2];
 	int		pixels;
@@ -24,6 +24,7 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
 	delta[1] /= pixels;
+
 
 	while(x < 199)
 	{
@@ -44,10 +45,14 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
 				//printf("x = %d y = %d\n",x,y);
 				temp_y++;
 			}
-			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0)
+			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
 			{
+				if(distence <= tabl_of_distences[begin[0]])
+				{
+					rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
+				}
+				// printf("dectence = %f   tabl_of_distences = %f \n",distence,tabl_of_distences[begin[0]]);
 				
-				rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
 			}	
 			pixel[0] += delta[0];
 			pixel[1] += delta[1];
@@ -72,22 +77,6 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 	int pixel_color;
 	int y = 0;
 	double  temp_y = 0;
-	// if (begin[0] < 0)
-	// 	begin[0] = 0;
-	// if (begin[1] < 0)
-	// 	begin[1] = 0;
-	// if (end[0] < 0)
-	// 	end[0] = 0;
-	// if (end[1] < 0)
-	// 	end[1] = 0;
-	// if (begin[0] > WIN_W)
-	// 	begin[0] = WIN_W;
-	// if (begin[1] > WIN_H)
-	// 	begin[1] = WIN_H;
-	// if (end[0] > WIN_W)
-	// 	end[0] = WIN_W;
-	// if (end[1] > WIN_H)
-	// 	end[1] = WIN_H;
 
 	pixel[0] = begin[0];
 	pixel[1] = begin[1];

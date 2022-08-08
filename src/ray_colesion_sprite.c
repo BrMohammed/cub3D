@@ -9,12 +9,12 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
     (void)y_plus;
 
    // double  m;
-    tpy =  ((data->player_y + 2) - data->pos_of_sprite_y);
+    tpy =  ((data->player_y + (data->player_mini_res / 2))  - data->pos_of_sprite_y);
     tpx =  (tpy / -tan(angel));
     b[1] = data->pos_of_sprite_y;
-    b[0] = floor(tpx + data->player_x + 2 );
+	b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
    
-    if(b[0] == data->pos_of_sprite_x   && b[1] == data->pos_of_sprite_y)
+    if(b[0] == data->pos_of_sprite_x)
     { 
         *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy)) ;
         data->px_y = b[0] ;
@@ -31,18 +31,15 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_
     double tpy = 0;
     (void)y;
     (void)x_plus;
-    tpx = ((data->player_x + 2) - data->pos_of_sprite_x);
+    tpx = (	(data->player_x + (data->player_mini_res / 2)) - data->pos_of_sprite_x);
     tpy = tpx * tan(angel);
-    b[1] = (data->player_y +  2) - tpy;
+	b[1] = ((data->player_y +  (data->player_mini_res / 2)) - tpy);
     b[0] = data->pos_of_sprite_x;
-    if(b[0] == data->pos_of_sprite_x   && b[1] == data->pos_of_sprite_y )
+    if(b[1] == data->pos_of_sprite_y )
     {
-        // tpx += ( (( y ) * 10) - b[1])  / 2;
-        // tpy += ( (( y ) * 10) - b[1])  / 2;
         *ray_colesion_x =  sqrt((tpx*tpx) +(tpy*tpy)) ;
-          //*ray_colesion_x +=( (( y ) * 10) - b[1])  / 2;
-        data->px_x = b[0]  ; //+ ( (( y ) * 10) - b[1])  / 2
-        data->py_x =  b[1]; //+ ( (( y ) * 10) - b[1])  / 2
+        data->px_x = b[0]  ; 
+        data->py_x =  b[1]; 
         return(1);
     }
     return(0);
@@ -220,54 +217,54 @@ double one_ray_for_sprite(t_data *data,double angel)
     return(end_ray);
 }
 
-void ray_colesion_for_sprite(t_data *data)
+double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
 {
-    double rays;
-    double angel_move = 0;
-    int a[2];
-	int b[2];
-    double distance;
-    double wallHeight;
-    int ray_count;
+    t_raycolesion rc_var;
     double wall_scall;
+    int image_size;
+    double large;
+    double betwinenngels;
+    double dest_temp;
 
-    angel_move = (M_PI/3 - 0.3) / WIN_W;
-    rays =  data->pa - 0.3;
-    rays -= M_PI/6 - 0.3;
-	if(rays < 0)
-		rays += 2 * M_PI;
-    ray_count = -300;
-    int image_size = 0;
-    double large = 0;
-    
-    while(large < (M_PI/3) + 0.3)
+    rc_var.angel_move = (M_PI/3 - 0.2) / WIN_W;
+    rc_var.rays =  data->pa - 0.2;
+    rc_var.rays -= M_PI/6 - 0.2;
+	if(rc_var.rays < 0)
+		rc_var.rays += 2 * M_PI;
+    rc_var.ray_count = -200;
+    image_size = 0;
+    large = 0;
+    betwinenngels = 0;
+    dest_temp = 0;
+    while(large < (M_PI/3) + 0.2)
     {
-        rays += angel_move;
-        if(rays > 2 * M_PI)
-			rays -= 2 * M_PI;
-        distance = one_ray_for_sprite(data,rays);
-        double ca = data->pa - rays;
-        if(ca < 0 )
-            ca += 2*M_PI;
-        if(ca > 2*M_PI)
-            ca -= 2*M_PI;
-        distance = (((((distance * fabs(cos(ca))) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2) ;
-       double distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
-        wallHeight = (((data->map_res ) / (distance)) * distanceprojplan);
+        rc_var.rays += rc_var.angel_move;
+        if(rc_var.rays > 2 * M_PI)
+			rc_var.rays -= 2 * M_PI;
+        rc_var.distance = one_ray_for_sprite(data,rc_var.rays);
+        betwinenngels = data->pa - rc_var.rays;
+        if(betwinenngels < 0 )
+            betwinenngels += 2*M_PI;
+        if(betwinenngels > 2*M_PI)
+            betwinenngels -= 2*M_PI;
+        rc_var.distance = ((((((rc_var.distance * cos(betwinenngels)) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
+        rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
+        rc_var.wallHeight = (((data->map_res ) / (rc_var.distance)) * rc_var.distanceprojplan);
         // //WALL
-        wall_scall = (wallHeight) / 200;
-        a[0] = ray_count - ( wall_scall * 100);
-        
-        a[1] = (WIN_H / 2) - (wallHeight / 2);
-        b[0] = ray_count - (  wall_scall * 100);
-        b[1] = (WIN_H / 2) + (wallHeight / 2);
-        if(distance > 0 && image_size < 1)
+        wall_scall = (rc_var.wallHeight) / 200;
+        rc_var.begin[0] = rc_var.ray_count - ( wall_scall * 100);
+        rc_var.begin[1] = (WIN_H / 2) - (rc_var.wallHeight / 2);
+        rc_var.end[0] = rc_var.ray_count - ( wall_scall * 100);
+        rc_var.end[1] = (WIN_H / 2) + (rc_var.wallHeight / 2);
+        if(rc_var.distance > 0 && image_size < 1)
         {
-            // printf("%f****%f\n",(((wall_scall))),wallHeight);
-            draw_linev3(data, a, b,wall_scall);
+            //   printf("dest = %f\n",rc_var.distance );
+            dest_temp = rc_var.distance ;
+            draw_linev3(data, rc_var.begin, rc_var.end,wall_scall,tabl_of_distences,rc_var.distance);
             image_size++;
         }
-        large += angel_move;
-       ray_count++;
+        large += rc_var.angel_move;
+       rc_var.ray_count++;
     }
+    return(dest_temp);
 }

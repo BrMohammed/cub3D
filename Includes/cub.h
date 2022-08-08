@@ -212,7 +212,7 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel);
 int get_pixel(char *addr,int line_len,int x, int y);
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
-void ray_colesion_for_sprite(t_data *data);
+double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
-void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall);
+void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);
 #endif
