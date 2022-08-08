@@ -6,11 +6,12 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
     double tpx = 0;
     double tpy = 0;
     (void)x;
+    (void)y_plus;
 
    // double  m;
-    tpy =  ((data->player_y + 2) - (((y_plus ) * 10)) - 5);
+    tpy =  ((data->player_y + 2) - data->pos_of_sprite_y);
     tpx =  (tpy / -tan(angel));
-    b[1] = (((y_plus) * 10) + 5);
+    b[1] = data->pos_of_sprite_y;
     b[0] = floor(tpx + data->player_x + 2 );
    
     if(b[0] == data->pos_of_sprite_x   && b[1] == data->pos_of_sprite_y)
@@ -29,10 +30,11 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_
     double tpx =0;
     double tpy = 0;
     (void)y;
-    tpx = ((data->player_x + 2) - (((x_plus) * 10)) + 5);
+    (void)x_plus;
+    tpx = ((data->player_x + 2) - data->pos_of_sprite_x);
     tpy = tpx * tan(angel);
     b[1] = (data->player_y +  2) - tpy;
-    b[0] = (((x_plus) * 10) + 5);
+    b[0] = data->pos_of_sprite_x;
     if(b[0] == data->pos_of_sprite_x   && b[1] == data->pos_of_sprite_y )
     {
         // tpx += ( (( y ) * 10) - b[1])  / 2;
@@ -253,13 +255,15 @@ void ray_colesion_for_sprite(t_data *data)
        double distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
         wallHeight = (((data->map_res ) / (distance)) * distanceprojplan);
         // //WALL
-        a[0] = ray_count;
+        wall_scall = (wallHeight) / 200;
+        a[0] = ray_count - ( wall_scall * 100);
+        
         a[1] = (WIN_H / 2) - (wallHeight / 2);
-        b[0] = ray_count;
+        b[0] = ray_count - (  wall_scall * 100);
         b[1] = (WIN_H / 2) + (wallHeight / 2);
         if(distance > 0 && image_size < 1)
         {
-            wall_scall = (wallHeight) / 200;
+            // printf("%f****%f\n",(((wall_scall))),wallHeight);
             draw_linev3(data, a, b,wall_scall);
             image_size++;
         }

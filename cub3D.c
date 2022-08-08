@@ -17,9 +17,9 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
 	int x = 0;
 	double  temp_x = 0;
 
-	pixel[0] = begin[0] - 100;
+	pixel[0] = begin[0] ;
 	pixel[1] = begin[1] ;
-	delta[0] = ((end[0]- 100) - begin[0]);
+	delta[0] = ((end[0]) - begin[0]);
 	delta[1] = end[1] - begin[1];
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
