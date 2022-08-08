@@ -41,8 +41,8 @@ void	respone_obj(t_data *data)
 			else if (data->result[y][x] == 50 )
 			{
 				rander_image(&data->img, (t_rect){x * 10, y * 10,10, 10, 13422336});
-				data->pos_of_sprite_x =  x * 10 + 5;
-				data->pos_of_sprite_y =  y * 10 + 5;
+				data->pos_of_sprite_x =  (x * 10) + 5;
+				data->pos_of_sprite_y =  (y * 10)  + 5;
 			}
 			x++;
 		}

@@ -17,9 +17,9 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall)
 	int x = 0;
 	double  temp_x = 0;
 
-	pixel[0] = begin[0];
-	pixel[1] = begin[1];
-	delta[0] = (end[0] - begin[0]);
+	pixel[0] = begin[0] - 100;
+	pixel[1] = begin[1] ;
+	delta[0] = ((end[0]- 100) - begin[0]);
 	delta[1] = end[1] - begin[1];
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
@@ -197,7 +197,7 @@ int	main(int ac, char **av)
 		data.map_res = 1000;
 		data.player_mini_res = data.mini_map_res / 2;
 		data.speed = 4;
-		data.angel_speed = 0.15707963267;
+		data.angel_speed = 0.15707963267 / 2;
 		data.is_jumping_up = 0;
 		data.is_jumping_down = 0;
 		data.jump_force = 40;
