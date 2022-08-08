@@ -26,7 +26,7 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 	delta[1] /= pixels;
 
 
-	while(x < 199)
+	while(x < data->map_res - 1)
 	{
 		x =  floor((temp_x ) / wall_scall) ;
 		pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
@@ -36,19 +36,17 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 		temp_y = 0;
 		while (pixels)
 		{
-			
-			if(y < 200)
+			if(y < data->map_res - 1)
 			{
 				y =  floor((temp_y ) / wall_scall) ;
-				
 				pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
-				//printf("x = %d y = %d\n",x,y);
 				temp_y++;
 			}
 			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
 			{
 				if(distence <= tabl_of_distences[begin[0]])
 				{
+					
 					rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color});
 				}
 				// printf("dectence = %f   tabl_of_distences = %f \n",distence,tabl_of_distences[begin[0]]);
@@ -107,24 +105,6 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
-	
-
-	// if (begin[0] < 0)
-	// 	begin[0] = 0;
-	// if (begin[1] < 0)
-	// 	begin[1] = 0;
-	// if (end[0] < 0)
-	// 	end[0] = 0;
-	// if (end[1] < 0)
-	// 	end[1] = 0;
-	// if (begin[0] > WIN_W)
-	// 	begin[0] = WIN_W;
-	// if (begin[1] > WIN_H)
-	// 	begin[1] = WIN_H;
-	// if (end[0] > WIN_W)
-	// 	end[0] = WIN_W;
-	// if (end[1] > WIN_H)
-	// 	end[1] = WIN_H;
 
 	pixel[0] = begin[0];
 	pixel[1] = begin[1];
@@ -202,7 +182,7 @@ int	main(int ac, char **av)
 		data.test = mlx_xpm_file_to_image(data.mlx, data.test_path,
 		&data.p_w, &data.p_h);
 
-		data.path_sprite = "./assets/sprite.xpm";
+		data.path_sprite = "./assets/tree.xpm";
 		data.img_sprite.mlx_img = mlx_xpm_file_to_image(data.mlx, data.path_sprite,
 		&data.p_w, &data.p_h);
 		data.img_sprite.addr = mlx_get_data_addr(data.img_sprite.mlx_img, &data.img_sprite.bpp,

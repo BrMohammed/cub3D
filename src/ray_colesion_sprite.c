@@ -226,17 +226,16 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
     double betwinenngels;
     double dest_temp;
 
-    rc_var.angel_move = (M_PI/3 - 0.2) / WIN_W;
-    rc_var.rays =  data->pa - 0.2;
-    rc_var.rays -= M_PI/6 - 0.2;
+    rc_var.angel_move = (M_PI/3) / WIN_W;
+    rc_var.rays =  data->pa;
+    rc_var.rays -= M_PI/6;
 	if(rc_var.rays < 0)
 		rc_var.rays += 2 * M_PI;
-    rc_var.ray_count = -200;
+    rc_var.ray_count = 0;
     image_size = 0;
     large = 0;
     betwinenngels = 0;
-    dest_temp = 0;
-    while(large < (M_PI/3) + 0.2)
+    while(large < (M_PI/3))
     {
         rc_var.rays += rc_var.angel_move;
         if(rc_var.rays > 2 * M_PI)
@@ -247,24 +246,24 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
             betwinenngels += 2*M_PI;
         if(betwinenngels > 2*M_PI)
             betwinenngels -= 2*M_PI;
+
         rc_var.distance = ((((((rc_var.distance * cos(betwinenngels)) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
         rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
         rc_var.wallHeight = (((data->map_res ) / (rc_var.distance)) * rc_var.distanceprojplan);
         // //WALL
-        wall_scall = (rc_var.wallHeight) / 200;
-        rc_var.begin[0] = rc_var.ray_count - ( wall_scall * 100);
+        wall_scall = rc_var.wallHeight / data->map_res;
+        rc_var.begin[0] = rc_var.ray_count - (wall_scall * data->map_res/2);
         rc_var.begin[1] = (WIN_H / 2) - (rc_var.wallHeight / 2);
-        rc_var.end[0] = rc_var.ray_count - ( wall_scall * 100);
+        rc_var.end[0] = rc_var.ray_count - (wall_scall * data->map_res/2);
         rc_var.end[1] = (WIN_H / 2) + (rc_var.wallHeight / 2);
         if(rc_var.distance > 0 && image_size < 1)
         {
-            //   printf("dest = %f\n",rc_var.distance );
-            dest_temp = rc_var.distance ;
+            dest_temp = rc_var.distance;
             draw_linev3(data, rc_var.begin, rc_var.end,wall_scall,tabl_of_distences,rc_var.distance);
             image_size++;
         }
         large += rc_var.angel_move;
-       rc_var.ray_count++;
+        rc_var.ray_count++;
     }
     return(dest_temp);
 }
