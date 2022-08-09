@@ -7,19 +7,24 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
     double tpy = 0;
     (void)x;
     (void)y_plus;
+    int i;
 
    // double  m;
-    tpy =  ((data->player_y + (data->player_mini_res / 2))  - data->pos_of_sprite_y);
-    tpx =  (tpy / -tan(angel));
-    b[1] = data->pos_of_sprite_y;
-	b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
-   
-    if(b[0] == data->pos_of_sprite_x)
-    { 
-        *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy)) ;
-        data->px_y = b[0] ;
-        data->py_y =  b[1] ; 
-        return(1);
+    i = 0;
+    while(i < data->counter_of_sprites)
+    {  
+        tpy =  ((data->player_y + (data->player_mini_res / 2))  - data->pos_of_sprite_y[i]);
+        tpx =  (tpy / -tan(angel));
+        b[1] = data->pos_of_sprite_y[i];
+	    b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
+        if(b[0] == data->pos_of_sprite_x[i])
+        { 
+            *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy)) ;
+            data->px_y = b[0] ;
+            data->py_y =  b[1] ; 
+            return(1);
+        }
+        i++;
     }
     return(0);
 }
@@ -31,16 +36,23 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_
     double tpy = 0;
     (void)y;
     (void)x_plus;
-    tpx = (	(data->player_x + (data->player_mini_res / 2)) - data->pos_of_sprite_x);
-    tpy = tpx * tan(angel);
-	b[1] = ((data->player_y +  (data->player_mini_res / 2)) - tpy);
-    b[0] = data->pos_of_sprite_x;
-    if(b[1] == data->pos_of_sprite_y )
+    int i;
+
+    i = 0;
+    while(i < data->counter_of_sprites)
     {
-        *ray_colesion_x =  sqrt((tpx*tpx) +(tpy*tpy)) ;
-        data->px_x = b[0]  ; 
-        data->py_x =  b[1]; 
-        return(1);
+        tpx = (	(data->player_x + (data->player_mini_res / 2)) - data->pos_of_sprite_x[i]);
+        tpy = tpx * tan(angel);
+        b[1] = ((data->player_y +  (data->player_mini_res / 2)) - tpy);
+        b[0] = data->pos_of_sprite_x[i];
+        if(b[1] == data->pos_of_sprite_y[i] )
+        {
+            *ray_colesion_x =  sqrt((tpx*tpx) +(tpy*tpy)) ;
+            data->px_x = b[0]  ; 
+            data->py_x =  b[1]; 
+            return(1);
+        }
+        i++;
     }
     return(0);
 }
@@ -246,7 +258,7 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
             betwinenngels += 2*M_PI;
         if(betwinenngels > 2*M_PI)
             betwinenngels -= 2*M_PI;
-        rc_var.distance = ((((((rc_var.distance ) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
+        rc_var.distance = ((((((rc_var.distance )) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2) ;
         rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
         rc_var.wallHeight = (((data->map_res ) / (rc_var.distance)) * rc_var.distanceprojplan);
         // //WALL
@@ -255,7 +267,7 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
         rc_var.begin[1] = (WIN_H / 2) - (rc_var.wallHeight / 2);
         rc_var.end[0] = rc_var.ray_count - (wall_scall * data->map_res/2);
         rc_var.end[1] = (WIN_H / 2) + (rc_var.wallHeight / 2);
-        if(rc_var.distance > 0 && image_size < 1)
+        if(rc_var.distance > 0)
         {
             dest_temp = rc_var.distance;
             draw_linev3(data, rc_var.begin, rc_var.end,wall_scall,tabl_of_distences,rc_var.distance);

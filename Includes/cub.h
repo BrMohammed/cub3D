@@ -154,11 +154,12 @@ typedef struct s_data
 	int one_of;
 	int sprite_x;
 	int sprite_y;
-	int pos_of_sprite_x;
-	int pos_of_sprite_y;
+	int *pos_of_sprite_x;
+	int *pos_of_sprite_y;
 
 	char *path_sprite;
 	void *sprite_buf;
+	int counter_of_sprites;
 
 }	t_data;
 
