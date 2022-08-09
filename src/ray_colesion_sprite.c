@@ -13,13 +13,14 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesio
     i = 0;
     while(i < data->counter_of_sprites)
     {  
-        tpy =  ((data->player_y + (data->player_mini_res / 2))  - data->pos_of_sprite_y[i]);
+        tpy =  (((data->player_y + (data->player_mini_res / 2))  - (((y_plus - 1 ) * data->mini_map_res) + ( data->pos_of_sprite_y[i] % data->mini_map_res))));
         tpx =  (tpy / -tan(angel));
-        b[1] = data->pos_of_sprite_y[i];
-	    b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
-        if(b[0] == data->pos_of_sprite_x[i])
+        b[1] = floor(data->player_y + (data->player_mini_res / 2) - tpy);
+	    b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));//
+        if(b[0] == data->pos_of_sprite_x[i] && b[1] == data->pos_of_sprite_y[i] && b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res && b[1] >= (y_plus - 1) * data->mini_map_res && b[1] < (y_plus) * data->mini_map_res)
         { 
-            *ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy)) ;
+            *ray_colesion_y =   floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
+           //printf("b[1] = %f y = %d *ray_colesion_x = %f\n ",b[1],data->pos_of_sprite_y[i],*ray_colesion_y);
             data->px_y = b[0] ;
             data->py_y =  b[1] ; 
             return(1);
@@ -35,19 +36,18 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_
     double tpx =0;
     double tpy = 0;
     (void)y;
-    (void)x_plus;
     int i;
 
     i = 0;
     while(i < data->counter_of_sprites)
     {
-        tpx = (	(data->player_x + (data->player_mini_res / 2)) - data->pos_of_sprite_x[i]);
-        tpy = tpx * tan(angel);
-        b[1] = ((data->player_y +  (data->player_mini_res / 2)) - tpy);
-        b[0] = data->pos_of_sprite_x[i];
-        if(b[1] == data->pos_of_sprite_y[i] )
+        tpx = (	(data->player_x + (data->player_mini_res / 2)) - ((x_plus - 1) * data->mini_map_res + ( data->pos_of_sprite_x[i] % data->mini_map_res)));
+        tpy = ( tpx * tan(angel));
+        b[1] = floor((data->player_y +  (data->player_mini_res / 2)) - tpy);//
+        b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));
+        if(b[1] == data->pos_of_sprite_y[i] && b[0] == data->pos_of_sprite_x[i] && b[0] >= (x_plus - 1) * data->mini_map_res && b[0] < (x_plus) * data->mini_map_res && b[1] >= (y) * data->mini_map_res && b[1] < (y + 1) * data->mini_map_res)
         {
-            *ray_colesion_x =  sqrt((tpx*tpx) +(tpy*tpy)) ;
+            *ray_colesion_x = floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
             data->px_x = b[0]  ; 
             data->py_x =  b[1]; 
             return(1);
@@ -211,7 +211,7 @@ double one_ray_for_sprite(t_data *data,double angel)
     {
         b[0] = data->px_y;
         b[1] = data->py_y ;
-        end_ray = ray_colesion_y * cos(angel - data->pa);
+        end_ray = ray_colesion_y;
         data->color = 15722729;
         if(end_ray != 0)
          draw_line(data, a, b, 0Xff0000);
@@ -253,6 +253,7 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
         if(rc_var.rays > 2 * M_PI)
 			rc_var.rays -= 2 * M_PI;
         rc_var.distance = one_ray_for_sprite(data,rc_var.rays);
+        dest_temp = rc_var.distance;
         betwinenngels = data->pa - rc_var.rays;
         if(betwinenngels < 0 )
             betwinenngels += 2*M_PI;
@@ -267,11 +268,11 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
         rc_var.begin[1] = (WIN_H / 2) - (rc_var.wallHeight / 2);
         rc_var.end[0] = rc_var.ray_count - (wall_scall * data->map_res/2);
         rc_var.end[1] = (WIN_H / 2) + (rc_var.wallHeight / 2);
-        if(rc_var.distance > 0)
+        if(rc_var.distance > 0 && image_size != dest_temp && image_size != dest_temp + 1 & image_size != dest_temp - 1)
         {
-            dest_temp = rc_var.distance;
+            printf("dest_temp = %f\n",dest_temp);
+            image_size = dest_temp;
             draw_linev3(data, rc_var.begin, rc_var.end,wall_scall,tabl_of_distences,rc_var.distance);
-            image_size++;
         }
         large += rc_var.angel_move;
         rc_var.ray_count++;
