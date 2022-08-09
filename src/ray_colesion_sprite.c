@@ -228,14 +228,14 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
 
     rc_var.angel_move = (M_PI/3) / WIN_W;
     rc_var.rays =  data->pa;
-    rc_var.rays -= M_PI/6;
+    rc_var.rays -= M_PI/6 + 0.2;
 	if(rc_var.rays < 0)
 		rc_var.rays += 2 * M_PI;
-    rc_var.ray_count = 0;
+    rc_var.ray_count = -200;
     image_size = 0;
     large = 0;
     betwinenngels = 0;
-    while(large < (M_PI/3))
+    while(large < M_PI/3 + 0.4)
     {
         rc_var.rays += rc_var.angel_move;
         if(rc_var.rays > 2 * M_PI)
@@ -246,8 +246,7 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
             betwinenngels += 2*M_PI;
         if(betwinenngels > 2*M_PI)
             betwinenngels -= 2*M_PI;
-
-        rc_var.distance = ((((((rc_var.distance * cos(betwinenngels)) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
+        rc_var.distance = ((((((rc_var.distance ) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
         rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
         rc_var.wallHeight = (((data->map_res ) / (rc_var.distance)) * rc_var.distanceprojplan);
         // //WALL
