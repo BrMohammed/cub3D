@@ -92,8 +92,8 @@ typedef struct s_data
 	char		*EA_PATH;
 	void 		*EA;
 
-	char *test_path;
-	void *test;
+	char *point_map_path;
+	void *point_map;
 
 	
 	void		*mlx;
@@ -216,4 +216,9 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
 void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);
+void initial_var(t_data *data);
+void destroy(t_data *data);
+void respone2(t_data *data);
+void inisial_path(t_data *data);
+
 #endif

@@ -57,11 +57,4 @@ void	respone(t_data *data)
 		x = 0;
 		y++;
 	}
-	i = 0;
-	while(i < data->counter_of_sprites)
-	{
-		printf("data->pos_of_sprite_x = %d\n",data->pos_of_sprite_x[i]);
-		printf("data->pos_of_sprite_y = %d\n",data->pos_of_sprite_y[i]);
-		i++;
-	}
 }

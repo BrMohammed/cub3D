@@ -67,9 +67,7 @@ void	respone_obj(t_data *data)
 					data->pa = 0;
 				if(data->result[y][x] == 'W')
 					data->pa = (M_PI);
-				//rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->player_mini_res, data->player_mini_res, 22735});
 				data->result[y][x] = '0';
-				mlx_put_image_to_window(data->mlx, data->mlx_win, data->test, 0, 0);
 			}
 			x++;
 		}

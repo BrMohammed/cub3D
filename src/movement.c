@@ -86,7 +86,7 @@ int	movement(t_data *data)
 		SO_P -= 2 * M_PI;
 	else if (WE_P < 0)
 		WE_P += 2 * M_PI;
-	if(i == 5)
+	if(i == 1)
 	{
 		if(data->KEY_SPACE  == 1)
 		{
@@ -115,7 +115,7 @@ int	movement(t_data *data)
 		{
 		
 			if(data->KEY_W == 1 &&( floor(one_ray(data,NO_P)) >= floor((data->player_mini_res*1.3)) || floor(one_ray_for_sprite(data,NO_P)) >= floor((data->player_mini_res*1.3))))
-				move(data, sin(data->pa) * data->speed, cos(data->pa) * data->speed);
+				move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
 			else if(data->KEY_S == 1 && (floor(one_ray(data,SO_P)) >= floor(data->player_mini_res*1.3) || floor(one_ray_for_sprite(data,SO_P)) >= floor(data->player_mini_res*1.3)))
 				move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
 			if(data->KEY_A == 1 && (floor(one_ray(data,WE_P)) >= floor(data->player_mini_res*1.3) || floor(one_ray_for_sprite(data,WE_P)) >= floor(data->player_mini_res*1.3)))

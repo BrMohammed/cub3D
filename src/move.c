@@ -2,6 +2,8 @@
 
 void	destroy_and_refresh(t_data *data)
 {
+	destroy(data);
+	respone2(data);
 	respone_obj(data);
 }
 
@@ -16,7 +18,6 @@ void	move(t_data *data, int y, int x)
 void	move_rotated(t_data *data)
 {
 	destroy_and_refresh(data);
-	//rander_image(&data->img, (t_rect){data->player_x,  data->player_y,data->player_mini_res, data->player_mini_res, 22735});
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->test, data->player_x - (data->player_mini_res / 1.7),  data->player_y - (data->player_mini_res / 1.7));
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->point_map, data->player_x - (data->player_mini_res / 1.7),  data->player_y - (data->player_mini_res / 1.7));
 }
