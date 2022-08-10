@@ -1,13 +1,49 @@
 #include "../Includes/cub.h"
 
 
+void arow_draw(t_data *data)
+{
+	int a[2];
+	int b[2];
+
+	a[0] = data->player_x + (data->player_mini_res / 2);
+    a[1] = data->player_y + (data->player_mini_res / 2);
+	int a0 = a[0];
+	int a1 = a[1];
+	double point;
+    b[0] = a[0] + cos(data->pa) * 6;
+    b[1] = a[1] + sin(data->pa) * 6;
+   	draw_line(data, a, b, 0Xff0000);
+	point = data->pa + M_PI/3.5;
+	if(point > 2 * M_PI)
+			point -= 2 * M_PI;
+	a[0] =  a0  + (cos(point) * 3);
+    a[1] = a1  + (sin(point) * 3);
+   	draw_line(data, a, b, 0Xff0000);
+	point = data->pa + M_PI/2.5;
+	if(point > 2 * M_PI)
+			point -= 2 * M_PI;
+	a[0] =  a0  + (cos(point) * 3);
+    a[1] = a1  + (sin(point) * 3);
+   	draw_line(data, a, b, 0Xff0000);
+	point = data->pa - M_PI/3.5;
+    if(point < 0 )
+        point += 2*M_PI;
+	a[0] = a0 + (cos(point) * 3);
+    a[1] = a1 + (sin(point) * 3);
+   	draw_line(data, a, b, 0Xff0000);
+	point = data->pa - M_PI/4;
+    if(point < 0 )
+        point += 2*M_PI;
+	a[0] = a0 + (cos(point) * 3);
+    a[1] = a1 + (sin(point) * 3);
+   	draw_line(data, a, b, 0Xff0000);
+}
 
 void	respone_obj(t_data *data)
 {
 	int	x;
 	int y;
-	int a[2];
-	int b[2];
 
 	x = 0;
 	y = 0;
@@ -74,38 +110,6 @@ void	respone_obj(t_data *data)
 		x = 0;
 		y++;
 	}
-	  //arow
-	a[0] = data->player_x + (data->player_mini_res / 2);
-    a[1] = data->player_y + (data->player_mini_res / 2);
-	int a0 = a[0];
-	int a1 = a[1];
-	double point;
-    b[0] = a[0] + cos(data->pa) * 6;
-    b[1] = a[1] + sin(data->pa) * 6;
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa + M_PI/3.5;
-	if(point > 2 * M_PI)
-			point -= 2 * M_PI;
-	a[0] =  a0  + (cos(point) * 3);
-    a[1] = a1  + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa + M_PI/2.5;
-	if(point > 2 * M_PI)
-			point -= 2 * M_PI;
-	a[0] =  a0  + (cos(point) * 3);
-    a[1] = a1  + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa - M_PI/3.5;
-    if(point < 0 )
-        point += 2*M_PI;
-	a[0] = a0 + (cos(point) * 3);
-    a[1] = a1 + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa - M_PI/4;
-    if(point < 0 )
-        point += 2*M_PI;
-	a[0] = a0 + (cos(point) * 3);
-    a[1] = a1 + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
+	arow_draw(data);
 	//ray_colesion(data);
 }

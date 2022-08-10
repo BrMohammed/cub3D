@@ -19,6 +19,7 @@ void initial_var(t_data *data)
     data->is_jumping_down = 0;
     data->jump_force = 40;
     data->gravity = 3;
+    data->coin_res = 400;
 }
 
 void inisial_path(t_data *data)
@@ -32,7 +33,7 @@ void inisial_path(t_data *data)
     data->point_map = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
     &data->p_w, &data->p_h);
 
-    data->path_sprite = "./assets/tree.xpm";
+    data->path_sprite = "./assets/YellowCoin/xpm/1.xpm";
     data->img_sprite.mlx_img = mlx_xpm_file_to_image(data->mlx, data->path_sprite,
     &data->p_w, &data->p_h);
     data->img_sprite.addr = mlx_get_data_addr(data->img_sprite.mlx_img, &data->img_sprite.bpp,

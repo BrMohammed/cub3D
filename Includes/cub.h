@@ -129,6 +129,7 @@ typedef struct s_data
 	double box_with;
 	int mini_map_res;
 	int map_res;
+	int coin_res;
 	int player_mini_res;
 
 	int offcet_x;

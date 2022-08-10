@@ -20,7 +20,7 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 	delta[1] /= pixels;
 
 
-	while(x < data->map_res - 1)
+	while(x < data->coin_res - 1)
 	{
 		x =  floor((temp_x ) / wall_scall) ;
 		pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
@@ -30,7 +30,7 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 		temp_y = 0;
 		while (pixels)
 		{
-			if(y < data->map_res - 1)
+			if(y < data->coin_res - 1)
 			{
 				y =  floor((temp_y ) / wall_scall) ;
 				pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
