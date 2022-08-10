@@ -55,6 +55,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (c == 0)
 		return (NULL);
 	loop_full_c (s1, s2, c);
-	free((char *)s1);
+	//free((char *)s1);
 	return (c);
 }

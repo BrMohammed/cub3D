@@ -42,7 +42,7 @@ void inisial_path(t_data *data)
 
 void destroy(t_data *data)
 {
-    //mlx_clear_window(data->mlx, data->mlx_win);
+    mlx_clear_window(data->mlx, data->mlx_win);
     mlx_destroy_image(data->mlx,data->point_map);
 
 }

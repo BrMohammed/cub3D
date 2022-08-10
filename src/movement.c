@@ -75,6 +75,10 @@ int	movement(t_data *data)
 	double EA_P;
 	double SO_P;
 	static int i;
+	static int index_of_anim;
+	char *path_begin;
+	char *path_end;
+
 	NO_P = data->pa;
 	EA_P = data->pa - (3*M_PI)/2;
 	SO_P = data->pa + M_PI;
@@ -86,8 +90,20 @@ int	movement(t_data *data)
 		SO_P -= 2 * M_PI;
 	else if (WE_P < 0)
 		WE_P += 2 * M_PI;
+	path_begin = "./assets/YellowCoin/xpm/";
+	path_end = ".xpm";
+	if(index_of_anim == 0)
+		index_of_anim = 1;
 	if(i == 1)
 	{
+		//coin_animation
+		data->path_sprite = ft_strjoin(path_begin,ft_itoa(index_of_anim));
+		data->path_sprite = ft_strjoin(data->path_sprite,path_end);
+		data->img_sprite.mlx_img = mlx_xpm_file_to_image(data->mlx, data->path_sprite,
+		&data->p_w, &data->p_h);
+		data->img_sprite.addr = mlx_get_data_addr(data->img_sprite.mlx_img, &data->img_sprite.bpp,
+		&data->img_sprite.line_len, &data->img_sprite.endian);
+		index_of_anim++;
 		if(data->KEY_SPACE  == 1)
 		{
 				// jump;
@@ -149,6 +165,8 @@ int	movement(t_data *data)
 		move_rotated(data);
 		i = 0;
 	}
+	if(index_of_anim == 31)
+		index_of_anim = 0;
 	i++;
 	return (0);
 }
