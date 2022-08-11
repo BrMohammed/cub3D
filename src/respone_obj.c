@@ -72,13 +72,13 @@ void	respone_obj(t_data *data)
 		while (data->result[y][x] != '\0')
 		{
 			if (data->result[y][x] == 49 )
-				rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 9524926});
+				rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 9524926},data);
 			else if (data->result[y][x] == 48 || data->result[y][x] == 'N' || data->result[y][x] == 'S' ||
 					data->result[y][x] == 'W' || data->result[y][x] == 'E')
-					rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 11796399});
+					rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 11796399},data);
 			else if (data->result[y][x] == 50 )
 			{
-				rander_image(&data->img, (t_rect){x * 10, y * 10,10, 10, 13422336});
+				rander_image(&data->img, (t_rect){x * 10, y * 10,10, 10, 13422336},data);
 			}
 			x++;
 		}

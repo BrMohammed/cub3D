@@ -254,7 +254,7 @@ void ray_colesion(t_data *data)
 		rc_var.begin[0] =  rc_var.ray_count;
 		rc_var.begin[1] = (WIN_H  / 2) + ( (rc_var.wallHeight/2) - data->lte7t);
 		rc_var.end[0] =  rc_var.ray_count;
-		rc_var.end[1] = WIN_H ;
+		rc_var.end[1] = WIN_H;
 		if(rc_var.distance > 0)
 			draw_line(data, rc_var.begin, rc_var.end, 3360865);
 		
