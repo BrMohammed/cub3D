@@ -162,6 +162,8 @@ typedef struct s_data
 	void *sprite_buf;
 	int counter_of_sprites;
 	int begin_game;
+	int **table_pos_of_sprite_x;
+	int **table_pos_of_sprite_y;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -211,7 +213,7 @@ int		key_up(int key, t_data *data);
 int		key_down(int key, t_data *data);
 int 	rander_image(t_img *img, t_rect rect,t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color,t_data *data);
-double 	one_ray(t_data *data,double angel);
+double 	one_ray(t_data *data,double angel,int ray_count);
 int get_pixel(char *addr,int line_len,int x, int y);
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
@@ -221,5 +223,7 @@ void initial_var(t_data *data);
 void destroy(t_data *data);
 void respone2(t_data *data);
 void inisial_path(t_data *data);
+int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double angel,int ray_count);
+int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesion_y,double angel,int ray_count);
 
 #endif

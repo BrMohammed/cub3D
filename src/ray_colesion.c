@@ -1,17 +1,18 @@
 #include "../Includes/cub.h"
 
-int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double angel,double tpx,double tpy)
+int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double angel)
 {
 	double b[2];
-
+	double tpx = 0;
+	double tpy = 0;
 
    // double  m;
+	tpy =  ((data->player_y + (data->player_mini_res / 2)) - (((y_plus ) * data->mini_map_res)));
+	tpx =  (tpy / -tan(angel));
 	b[1] = (((y_plus) * data->mini_map_res));
 	b[0] = (tpx + data->player_x + (data->player_mini_res / 2));
 	if(b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res)
 	{ 
-		tpy =  ((data->player_y + (data->player_mini_res / 2)) - (((y_plus ) * data->mini_map_res)));
-		tpx =  (tpy / -tan(angel));
 		*ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
 		b[0] = (((((b[0] - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
 		b[1] = ((((((x * data->mini_map_res) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
@@ -43,46 +44,41 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
 	return(0);
 }
 
-int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel)
+int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_count)
 {
-    int x;
-    double tpx =0;
-	double tpy = 0;
-	double posetion_of_x;
+	int x;
    
-    x = oneray_var->px;
-    tpy =  ((data->player_y + (data->player_mini_res / 2)) - (((y_plus ) * data->mini_map_res)));
-	tpx =  (tpy / -tan(angel));
-    posetion_of_x = (tpx + data->player_x + (data->player_mini_res / 2));
-    posetion_of_x = floor(posetion_of_x / data->mini_map_res);
-    if(oneray_var->left_begin_agrement_x_from_player == 1)
-    { 
-        if(posetion_of_x < data->result_with && posetion_of_x > 0 && posetion_of_x >= oneray_var->px)
-        {
-            x = (int)posetion_of_x;
-            if(data->result[oneray_var->y][x] == '1') //wall detect posetion
-            {
-                if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel,tpx,tpy) == 1)
-                    return(1);
-            }
-        }
-    }
-    else
-    {
-       if(posetion_of_x < data->result_with && posetion_of_x > 0 && posetion_of_x <= oneray_var->px)
-       {
-            x = (int)posetion_of_x;
-            if(data->result[oneray_var->y][x] == '1') //wall detect posetion
-            {
-               if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel,tpx,tpy) == 1)
-                    return(1);
-            }
-       }
-    }
-    return(0);
+	x = oneray_var->px;
+	if(oneray_var->left_begin_agrement_x_from_player == 1)
+	{
+		while (data->result[oneray_var->y][x])
+		{
+			y_detect_loop_for_sprite(data,y_plus,x,&oneray_var->ray_colesion_y,angel,ray_count);
+			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
+			{
+				if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
+					return(1);
+			}
+			x++;
+		}
+	}
+	else
+	{
+		while (x >= 0)
+		{
+			y_detect_loop_for_sprite(data,y_plus,x,&oneray_var->ray_colesion_y,angel,ray_count);
+			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
+			{
+			   if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
+					return(1);
+			}
+			x--;
+		}
+	}
+	return(0);
 }
 
-int x_detect(t_oneray *oneray_var,t_data *data,double angel)
+int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 {
 	int x;
 	int x_plus;
@@ -100,7 +96,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 			   x_plus = x;
 			else
 				x_plus = x + 1;
-			
+			x_detect_for_sprite_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -119,6 +115,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 			   x_plus = x + 1;
 			else
 				x_plus = x;
+			x_detect_for_sprite_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -130,7 +127,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 	 return(0);
 }
 
-double one_ray(t_data *data,double angel)
+double one_ray(t_data *data,double angel,int ray_count)
 {
 	t_oneray oneray_var;
 
@@ -170,8 +167,8 @@ double one_ray(t_data *data,double angel)
 			
 		while( oneray_var.y >= 0)
 		{
-			if((y_detect(data, &oneray_var, oneray_var.y + 1,angel) == 1 ||
-				 x_detect(&oneray_var,data,angel) == 1) )
+			if((y_detect(data, &oneray_var, oneray_var.y + 1,angel,ray_count) == 1 ||
+				 x_detect(&oneray_var,data,angel,ray_count) == 1) )
 				break;
 			 oneray_var.y--;
 		}
@@ -192,8 +189,8 @@ double one_ray(t_data *data,double angel)
 		} 
 		while(data->result[ oneray_var.y])
 		{
-			if(y_detect(data, &oneray_var, oneray_var.y,angel) == 1 ||
-				x_detect(&oneray_var,data,angel) == 1)
+			if(y_detect(data, &oneray_var, oneray_var.y,angel,ray_count) == 1 ||
+				x_detect(&oneray_var,data,angel,ray_count) == 1)
 				break;
 			 oneray_var.y++;
 		}
@@ -238,7 +235,7 @@ void ray_colesion(t_data *data)
 		rc_var.rays += rc_var.angel_move;
 		if(rc_var.rays > 2 * M_PI)
 			rc_var.rays -= 2 * M_PI;
-		rc_var.distance = one_ray(data,rc_var.rays);
+		rc_var.distance = one_ray(data,rc_var.rays,rc_var.ray_count);
 		if(rc_var.distance > 0)
 		{
 			betwinenngels = data->pa - rc_var.rays;
