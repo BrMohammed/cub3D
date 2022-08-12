@@ -13,13 +13,14 @@ void initial_var(t_data *data)
     data->mini_map_res = (data->demintion_with / data->result_with) / 3;
     data->map_res = 1000;
     data->player_mini_res = data->mini_map_res / 2;
-    data->speed = 4;
+    data->speed = 2;
     data->angel_speed = 0.15707963267 / 2;
     data->is_jumping_up = 0;
     data->is_jumping_down = 0;
     data->jump_force = 40;
     data->gravity = 3;
     data->coin_res = 400;
+    data->begin_game = 0;
 }
 
 void inisial_path(t_data *data)

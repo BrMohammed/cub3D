@@ -161,7 +161,7 @@ typedef struct s_data
 	char *path_sprite;
 	void *sprite_buf;
 	int counter_of_sprites;
-
+	int begin_game;
 }	t_data;
 
 typedef struct s_raycolesion

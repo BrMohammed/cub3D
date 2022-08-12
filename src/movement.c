@@ -94,7 +94,7 @@ int	movement(t_data *data)
 	path_end = ".xpm";
 	if(index_of_anim == 0)
 		index_of_anim = 1;
-	if(i == 1)
+	if(i == 50)
 	{
 		//coin_animation
 		data->path_sprite = ft_strjoin(path_begin,ft_itoa(index_of_anim));

@@ -242,6 +242,8 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
 			rc_var.rays -= 2 * M_PI;
         rc_var.distance = one_ray_for_sprite(data,rc_var.rays);
         dest_temp = rc_var.distance;
+		if(rc_var.distance > 0 && image_size != dest_temp && image_size != dest_temp + 1 & image_size != dest_temp - 1)
+        {
         betwinenngels = data->pa - rc_var.rays;
         if(betwinenngels < 0 )
             betwinenngels += 2*M_PI;
@@ -256,8 +258,7 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
         rc_var.begin[1] = (WIN_H / 2) - (rc_var.wallHeight / 2) + (rc_var.wallHeight/1.2);
         rc_var.end[0] = rc_var.ray_count - (wall_scall * data->coin_res/2);
         rc_var.end[1] = (WIN_H / 2) + (rc_var.wallHeight / 2) + (rc_var.wallHeight/1.2);
-        if(rc_var.distance > 0 && image_size != dest_temp && image_size != dest_temp + 1 & image_size != dest_temp - 1)
-        {
+        
             image_size = dest_temp;
             draw_linev3(data, rc_var.begin, rc_var.end,wall_scall,tabl_of_distences,rc_var.distance);
         }

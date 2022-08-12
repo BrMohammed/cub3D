@@ -47,7 +47,7 @@ void	respone_obj(t_data *data)
 
 	x = 0;
 	y = 0;
-	while (data->result[y] != '\0')
+	while (data->result[y] != '\0' &&  data->begin_game == 0)
 	{
 		while (data->result[y][x] != '\0')
 		{
@@ -77,18 +77,15 @@ void	respone_obj(t_data *data)
 					data->result[y][x] == 'W' || data->result[y][x] == 'E')
 					rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 11796399},data);
 			else if (data->result[y][x] == 50 )
-			{
 				rander_image(&data->img, (t_rect){x * 10, y * 10,10, 10, 13422336},data);
-			}
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	
 	x = 0;
 	y = 0;
-	while (data->result[y] != '\0')
+	while (data->result[y] != '\0' &&  data->begin_game == 0)
 	{
 		while (data->result[y][x] != '\0')
 		{
@@ -110,6 +107,7 @@ void	respone_obj(t_data *data)
 		x = 0;
 		y++;
 	}
+	 data->begin_game = 1;
 	arow_draw(data);
 	//ray_colesion(data);
 }
