@@ -78,7 +78,7 @@ int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_
 	return(0);
 }
 
-int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
+int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 {
 	int x;
 	int x_plus;
@@ -96,7 +96,6 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 			   x_plus = x;
 			else
 				x_plus = x + 1;
-			x_detect_for_sprite_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -115,7 +114,6 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 			   x_plus = x + 1;
 			else
 				x_plus = x;
-			x_detect_for_sprite_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -164,11 +162,10 @@ double one_ray(t_data *data,double angel,int ray_count)
 			oneray_var.left_begin_agrement_x_from_player = 0;
 			oneray_var.left_begin_agrement_x_from_player_x = 1;
 		}
-			
 		while( oneray_var.y >= 0)
 		{
 			if((y_detect(data, &oneray_var, oneray_var.y + 1,angel,ray_count) == 1 ||
-				 x_detect(&oneray_var,data,angel,ray_count) == 1) )
+				 x_detect(&oneray_var,data,angel) == 1) )
 				break;
 			 oneray_var.y--;
 		}
@@ -190,7 +187,7 @@ double one_ray(t_data *data,double angel,int ray_count)
 		while(data->result[ oneray_var.y])
 		{
 			if(y_detect(data, &oneray_var, oneray_var.y,angel,ray_count) == 1 ||
-				x_detect(&oneray_var,data,angel,ray_count) == 1)
+				x_detect(&oneray_var,data,angel) == 1)
 				break;
 			 oneray_var.y++;
 		}
@@ -279,5 +276,5 @@ void ray_colesion(t_data *data)
 		tabl_of_distences[rc_var.ray_count] = rc_var.distance;
 		rc_var.ray_count++;
 	}
-	ray_colesion_for_sprite(data,tabl_of_distences);
+	//ray_colesion_for_sprite(data,tabl_of_distences);
 }

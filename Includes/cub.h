@@ -162,7 +162,6 @@ typedef struct s_data
 	void *sprite_buf;
 	int counter_of_sprites;
 	int begin_game;
-	int **table_pos_of_sprite_x;
 	int **table_pos_of_sprite_y;
 }	t_data;
 
