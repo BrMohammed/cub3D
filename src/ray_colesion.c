@@ -47,13 +47,14 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
 int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_count)
 {
 	int x;
+	(void)ray_count;
    
 	x = oneray_var->px;
 	if(oneray_var->left_begin_agrement_x_from_player == 1)
 	{
 		while (data->result[oneray_var->y][x])
 		{
-			y_detect_loop_for_sprite(data,y_plus,x,&oneray_var->ray_colesion_y,angel,ray_count);
+			y_detect_loop_for_sprite(data,y_plus,x,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
@@ -66,7 +67,7 @@ int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_
 	{
 		while (x >= 0)
 		{
-			y_detect_loop_for_sprite(data,y_plus,x,&oneray_var->ray_colesion_y,angel,ray_count);
+			y_detect_loop_for_sprite(data,y_plus,x,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 			   if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
@@ -78,7 +79,7 @@ int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_
 	return(0);
 }
 
-int x_detect(t_oneray *oneray_var,t_data *data,double angel)
+int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 {
 	int x;
 	int x_plus;
@@ -96,6 +97,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 			   x_plus = x;
 			else
 				x_plus = x + 1;
+			x_detect_for_sprite_loop(x_plus,oneray_var->y,data,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -114,6 +116,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 			   x_plus = x + 1;
 			else
 				x_plus = x;
+			x_detect_for_sprite_loop(x_plus,oneray_var->y,data,angel,ray_count);
 			if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 			{
 				if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -128,6 +131,8 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel)
 double one_ray(t_data *data,double angel,int ray_count)
 {
 	t_oneray oneray_var;
+	int a[2];
+	int b[2];
 
 	oneray_var.y = 0;
 	oneray_var.x = 0;
@@ -165,7 +170,7 @@ double one_ray(t_data *data,double angel,int ray_count)
 		while( oneray_var.y >= 0)
 		{
 			if((y_detect(data, &oneray_var, oneray_var.y + 1,angel,ray_count) == 1 ||
-				 x_detect(&oneray_var,data,angel) == 1) )
+				 x_detect(&oneray_var,data,angel,ray_count) == 1) )
 				break;
 			 oneray_var.y--;
 		}
@@ -187,7 +192,7 @@ double one_ray(t_data *data,double angel,int ray_count)
 		while(data->result[ oneray_var.y])
 		{
 			if(y_detect(data, &oneray_var, oneray_var.y,angel,ray_count) == 1 ||
-				x_detect(&oneray_var,data,angel) == 1)
+				x_detect(&oneray_var,data,angel,ray_count) == 1)
 				break;
 			 oneray_var.y++;
 		}
@@ -210,6 +215,11 @@ double one_ray(t_data *data,double angel,int ray_count)
 		 else
 			data->color= 16711716; //reds for WE
 	}
+	a[0] = data->player_x + 2;
+    a[1] = data->player_y + 2;
+	b[0] = data->px_x;
+    b[1] = data->py_x;
+	//draw_line(data, a, b, 0Xff0000);
 	return( oneray_var.distance);
 }
 
@@ -276,5 +286,5 @@ void ray_colesion(t_data *data)
 		tabl_of_distences[rc_var.ray_count] = rc_var.distance;
 		rc_var.ray_count++;
 	}
-	//ray_colesion_for_sprite(data,tabl_of_distences);
+	ray_colesion_for_sprite(data,tabl_of_distences);
 }

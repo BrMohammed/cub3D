@@ -163,6 +163,7 @@ typedef struct s_data
 	int counter_of_sprites;
 	int begin_game;
 	int **table_pos_of_sprite_y;
+	int **table_pos_of_sprite_x;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -222,7 +223,7 @@ void initial_var(t_data *data);
 void destroy(t_data *data);
 void respone2(t_data *data);
 void inisial_path(t_data *data);
-int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double angel,int ray_count);
-int y_detect_loop_for_sprite(t_data *data, int y_plus,int x, double *ray_colesion_y,double angel,int ray_count);
+int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray_count);
+int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_count);
 
 #endif

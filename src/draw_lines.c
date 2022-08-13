@@ -74,12 +74,13 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
 	delta[1] /= pixels;
-	while (pixels)
+	while (pixels && x < data->map_res)
 	{
 
 		if(y < data->map_res)
 		{
 			y =  floor((temp_y ) / wall_scall) ;
+			if(y < data->map_res && x < data->map_res)
 				pixel_color = get_pixel(data->img_rander.addr,data->img_rander.line_len,x,y);
 			temp_y++;
 		}
