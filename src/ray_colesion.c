@@ -6,7 +6,6 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
 	double tpx = 0;
 	double tpy = 0;
 
-   // double  m;
 	tpy =  ((data->player_y + (data->player_mini_res / 2)) - (((y_plus ) * data->mini_map_res)));
 	tpx =  (tpy / -tan(angel));
 	b[1] = (((y_plus) * data->mini_map_res));
@@ -28,6 +27,7 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
 	double b[2];
 	double tpx =0;
 	double tpy = 0;
+	
 	tpx = ((data->player_x + (data->player_mini_res / 2)) - (((x_plus) * data->mini_map_res)));
 	tpy = (tpx * tan(angel));
 	b[1] = ((data->player_y +  (data->player_mini_res / 2)) - tpy);
@@ -216,9 +216,9 @@ double one_ray(t_data *data,double angel,int ray_count)
 			data->color= 16711716; //reds for WE
 	}
 	a[0] = data->player_x + 2;
-    a[1] = data->player_y + 2;
+	a[1] = data->player_y + 2;
 	b[0] = data->px_x;
-    b[1] = data->py_x;
+	b[1] = data->py_x;
 	//draw_line(data, a, b, 0Xff0000);
 	return( oneray_var.distance);
 }

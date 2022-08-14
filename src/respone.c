@@ -5,7 +5,7 @@ void	respone(t_data *data)
 {
 	int	x;
 	int	y;
-	int i = 0;
+	int i;
 
 
 	x = 0;
@@ -24,7 +24,6 @@ void	respone(t_data *data)
 	x = 0;
 	y = 0;
 	i = 0;
-
 	while (data->result[y] != '\0')
 	{
 		while (data->result[y][x] != '\0')
@@ -36,8 +35,6 @@ void	respone(t_data *data)
 		x = 0;
 		y++;
 	}
-	x = 0;
-	y = 0;
 	data->counter_of_sprites = i;
 	data->table_pos_of_sprite_y = (int**)malloc(sizeof(int*) * (i));
 	data->table_pos_of_sprite_x = (int**)malloc(sizeof(int*) * (i));
@@ -55,8 +52,9 @@ void	respone(t_data *data)
 		data->table_pos_of_sprite_x[i][1] = 0;
 		i++;
 	}
-
 	i = 0;
+	x = 0;
+	y = 0;
 	while (data->result[y] != '\0')
 	{
 		while (data->result[y][x] != '\0')
