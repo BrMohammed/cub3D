@@ -20,7 +20,6 @@ void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,cha
 	delta[0] /= pixels;
 	delta[1] /= pixels;
 
-	high = 10;
 	while(x < high)
 	{
 		pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
@@ -32,17 +31,17 @@ void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,cha
 			if(y > 0)
 			{
 				pixel_color = get_pixel(addr,line_len,x ,y);
+				new_ang = data->pa + M_PI/2;
+				if(new_ang > M_PI*2)
+					new_ang -= M_PI*2;
+				p0 = (((pixel[0] - (data->player_x + (data->player_mini_res / 2))) * 
+							cos(new_ang)) - (sin(new_ang) * (pixel[1] - (data->player_y + (data->player_mini_res / 2)))))  +  (data->player_x + (data->player_mini_res / 2));
+				p1 = (((pixel[0] - (data->player_x + (data->player_mini_res / 2))) * 
+							sin(new_ang)) + (cos(new_ang) * (pixel[1] -  (data->player_y + (data->player_mini_res / 2))))) +  (data->player_y + (data->player_mini_res / 2)) ;
+				if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
+					rander_image(&data->img, (t_rect){p0 ,p1 ,1, 1, pixel_color},data);
 				y--;
 			}
-			new_ang = data->pa + M_PI/2;
-			if(new_ang > M_PI*2)
-				new_ang -= M_PI*2;
-			p0 = (((pixel[0] - (data->player_x + (5))) * 
-						cos(new_ang)) - (sin(new_ang) * (pixel[1] - (data->player_y + (5)))))  +  (data->player_x + (5));
-			p1 = (((pixel[0] - (data->player_x + (5))) * 
-						sin(new_ang)) + (cos(new_ang) * (pixel[1] -  (data->player_y + (5))))) +  (data->player_y + (5)) ;
-			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
-				rander_image(&data->img, (t_rect){p0   ,p1 ,1, 1, pixel_color},data);
 			pixel[0] += delta[0];
 			pixel[1] += delta[1];
 			--pixels;
@@ -91,15 +90,16 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 			{
 				y =  floor((temp_y ) / wall_scall) ;
 				pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
+				if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
+				{
+					if(distence <= tabl_of_distences[begin[0]])
+					{
+						rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color},data);
+					}
+				}	
 				temp_y++;
 			}
-			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
-			{
-				if(distence <= tabl_of_distences[begin[0]])
-				{
-					rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color},data);
-				}
-			}	
+			
 			pixel[0] += delta[0];
 			pixel[1] += delta[1];
 			--pixels;
@@ -139,10 +139,11 @@ void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall)
 			y =  floor((temp_y ) / wall_scall) ;
 			if(y < data->map_res && x < data->map_res)
 				pixel_color = get_pixel(data->img_rander.addr,data->img_rander.line_len,x,y);
+			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H)
+				rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color},data);
 			temp_y++;
 		}
-		if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H)
-			rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color},data);
+		
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;

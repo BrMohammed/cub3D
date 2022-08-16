@@ -13,8 +13,9 @@ void initial_var(t_data *data)
     data->mini_map_res = (data->demintion_with / data->result_with) / 3;
     data->map_res = 1000;
     data->player_mini_res = data->mini_map_res / 2;
+  //  printf("%d\n",data->player_mini_res);
     data->speed = 3;
-    data->angel_speed = 0.15707963267 / 2;
+    data->angel_speed = 0.15707963267 ;
     data->is_jumping_up = 0;
     data->is_jumping_down = 0;
     data->jump_force = 40;
@@ -30,7 +31,7 @@ void inisial_path(t_data *data)
     data->img_rander.addr = mlx_get_data_addr(data->img_rander.mlx_img, &data->img_rander.bpp,
     &data->img_rander.line_len, &data->img_rander.endian);
 
-    data->point_map_path = "./assets/arow.xpm";
+    data->point_map_path = "./assets/arow5.xpm";
     data->img_mini_player.mlx_img  = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
     &data->p_w, &data->p_h);
      data->img_mini_player.addr = mlx_get_data_addr(data->img_mini_player.mlx_img, &data->img_mini_player.bpp,
