@@ -13,17 +13,21 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray
 	i = 0;
 	while(i < data->counter_of_sprites)
 	{  
-		tpy =  (((data->player_y + (data->player_mini_res / 2))  - (((y_plus) * data->mini_map_res) + ( data->pos_of_sprite_y[i] % data->mini_map_res))));
-		tpx =  (tpy / -tan(angel));
-		b[1] = floor(data->player_y + (data->player_mini_res / 2) - tpy);
-		b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));//
-		if(b[0] == data->pos_of_sprite_x[i] && b[1] == data->pos_of_sprite_y[i] && b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res )
-		{  
-			data->px_y = b[0] ;
-			data->py_y =  b[1] ;
-			data->table_formation_of_spritesy[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
-			data->table_formation_of_spritesy[i][1] = ray_count;
+		if(data->pos_of_sprite_y[i] != 0 && data->pos_of_sprite_x[i] != 0)
+		{
+			tpy =  (((data->player_y + (data->player_mini_res / 2))  - (((y_plus) * data->mini_map_res) + ( data->pos_of_sprite_y[i] % data->mini_map_res))));
+			tpx =  (tpy / -tan(angel));
+			b[1] = floor(data->player_y + (data->player_mini_res / 2) - tpy);
+			b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));//
+			if(b[0] == data->pos_of_sprite_x[i] && b[1] == data->pos_of_sprite_y[i] && b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res )
+			{  
+				data->px_y = b[0] ;
+				data->py_y =  b[1] ;
+				data->table_formation_of_spritesy[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
+				data->table_formation_of_spritesy[i][1] = ray_count;
+			}
 		}
+		
 		i++;
 	}
 	return(0);

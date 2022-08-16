@@ -45,6 +45,40 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_number
+{
+	void	*number0;
+	char	*number0_path;
+
+	void	*number1;
+	char	*number1_path;
+
+	void	*number2;
+	char	*number2_path;
+
+	void	*number3;
+	char	*number3_path;
+
+	void	*number4;
+	char	*number4_path;
+
+	void	*number5;
+	char	*number5_path;
+
+	void	*number6;
+	char	*number6_path;
+
+	void	*number7;
+	char	*number7_path;
+
+	void	*number8;
+	char	*number8_path;
+
+	void	*number9;
+	char	*number9_path;
+
+}	t_number;
+
 typedef struct s_img_rander
 {
 	void	*mlx_img;
@@ -174,6 +208,10 @@ typedef struct s_data
 	int begin_game;
 	int **table_formation_of_spritesy;
 	int **table_formation_of_spritesx;
+	t_number	number;
+	int coin_count;
+	int			img_width;
+	int			img_height;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -237,4 +275,5 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray
 int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_count);
 int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data);
 void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len);
+void	number_b(t_data *data);
 #endif

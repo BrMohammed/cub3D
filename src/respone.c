@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:42 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/14 21:03:21 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/17 00:25:19 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,5 @@ void	respone(t_data *data)
 			&data->img.line_len, &data->img.endian);
 	aloccation_sprites(data);
 	aloccation_sprites_and_storage(data);
+	
 }
