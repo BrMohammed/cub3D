@@ -1,5 +1,62 @@
 #include "../Includes/cub.h"
 
+void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len)
+{
+	double	delta[2];
+	int		pixels;
+	double	pixel[2];
+	int pixel_color;
+	int y = 0;
+	int x = 0;
+	double p0;
+	double p1;
+	double new_ang;
+
+	pixel[0] = begin[0] ;
+	pixel[1] = begin[1] ;
+	delta[0] = ((end[0]) - begin[0]);
+	delta[1] = end[1] - begin[1];
+	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
+	delta[0] /= pixels;
+	delta[1] /= pixels;
+
+	high = 10;
+	while(x < high)
+	{
+		pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
+		delta[0] /= pixels;
+		delta[1] /= pixels;
+		y  = high - 1;
+		while (pixels)
+		{
+			if(y > 0)
+			{
+				pixel_color = get_pixel(addr,line_len,x ,y);
+				y--;
+			}
+			new_ang = data->pa + M_PI/2;
+			if(new_ang > M_PI*2)
+				new_ang -= M_PI*2;
+			p0 = (((pixel[0] - (data->player_x + (5))) * 
+						cos(new_ang)) - (sin(new_ang) * (pixel[1] - (data->player_y + (5)))))  +  (data->player_x + (5));
+			p1 = (((pixel[0] - (data->player_x + (5))) * 
+						sin(new_ang)) + (cos(new_ang) * (pixel[1] -  (data->player_y + (5))))) +  (data->player_y + (5)) ;
+			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
+				rander_image(&data->img, (t_rect){p0   ,p1 ,1, 1, pixel_color},data);
+			pixel[0] += delta[0];
+			pixel[1] += delta[1];
+			--pixels;
+		}
+		begin[0]++;
+		end[0]++;
+		pixel[0] = begin[0];
+		pixel[1] = begin[1];
+		delta[0] = (end[0] - begin[0]);
+		delta[1] = end[1] - begin[1];
+		x++;
+	}
+}
+
 void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence)
 {
 	double	delta[2];

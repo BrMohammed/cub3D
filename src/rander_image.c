@@ -19,10 +19,23 @@ int rander_image(t_img *img, t_rect rect,t_data *data)
 	{
 		j = rect.x;
 		while (j < rect.x + rect.width)
-		{
-			
 			img_pix_put(img, j++, i, rect.color,data);
-		}
+		++i;
+	}
+	return (0);
+}
+
+int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data)
+{
+	int	i;
+	int j;
+
+	i = rect.y;
+	while (i < rect.y + rect.height)
+	{
+		j = rect.x;
+		while (j < rect.x + rect.width)
+			img_pix_put(img, j++, i, rect.color,data);
 		++i;
 	}
 	return (0);

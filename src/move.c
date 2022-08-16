@@ -2,7 +2,7 @@
 
 void	destroy_and_refresh(t_data *data)
 {
-	destroy(data);
+	//destroy(data);
 	respone2(data);
 	respone_obj(data);
 }
@@ -17,7 +17,14 @@ void	move(t_data *data, int y, int x)
 }
 void	move_rotated(t_data *data)
 {
+	int begin[2];
+	int end[2];
 	destroy_and_refresh(data);
+	begin[0] =  (data->player_x - (data->player_mini_res / 1.7)) ;
+	begin[1] = (data->player_y - (data->player_mini_res / 1.7)) + 10;
+	end[0] = data->player_x - (data->player_mini_res / 1.7);
+	end[1]= (data->player_y - (data->player_mini_res / 1.7));
+	draw_linev4_for_static_imgs(data, begin,end,data->player_mini_res,data->img_mini_player.addr,data->img_mini_player.line_len);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->point_map, data->player_x - (data->player_mini_res / 1.7),  data->player_y - (data->player_mini_res / 1.7));
+	//mlx_put_image_to_window(data->mlx, data->mlx_win, data->point_map, data->player_x - (data->player_mini_res / 1.7),  data->player_y - (data->player_mini_res / 1.7));
 }

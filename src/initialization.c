@@ -30,9 +30,11 @@ void inisial_path(t_data *data)
     data->img_rander.addr = mlx_get_data_addr(data->img_rander.mlx_img, &data->img_rander.bpp,
     &data->img_rander.line_len, &data->img_rander.endian);
 
-    data->point_map_path = "./assets/point.xpm";
-    data->point_map = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
+    data->point_map_path = "./assets/arow.xpm";
+    data->img_mini_player.mlx_img  = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
     &data->p_w, &data->p_h);
+     data->img_mini_player.addr = mlx_get_data_addr(data->img_mini_player.mlx_img, &data->img_mini_player.bpp,
+    &data->img_mini_player.line_len, &data->img_mini_player.endian);
 
     data->path_sprite = "./assets/YellowCoin/xpm/1.xpm";
     data->img_sprite.mlx_img = mlx_xpm_file_to_image(data->mlx, data->path_sprite,

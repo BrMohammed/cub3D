@@ -21,8 +21,8 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray
 		{  
 			data->px_y = b[0] ;
 			data->py_y =  b[1] ;
-			data->table_pos_of_sprite_y[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
-			data->table_pos_of_sprite_y[i][1] = ray_count;
+			data->table_formation_of_spritesy[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
+			data->table_formation_of_spritesy[i][1] = ray_count;
 		}
 		i++;
 	}
@@ -49,8 +49,8 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_
 		{
 			data->px_x = b[0]; 
 			data->py_x =  b[1];
-			data->table_pos_of_sprite_x[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy)));
-			data->table_pos_of_sprite_x[i][1] = ray_count;
+			data->table_formation_of_spritesx[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy)));
+			data->table_formation_of_spritesx[i][1] = ray_count;
 		}
 		i++;
 	}
@@ -67,16 +67,16 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
 
 	while(i < data->counter_of_sprites)
 	{
-		if ((data->table_pos_of_sprite_y[i][0] <=  data->table_pos_of_sprite_x[i][0] &&  data->table_pos_of_sprite_y[i][0] != 0 ) ||  data->table_pos_of_sprite_x[i][0] == 0)
-			rc_var.distance = data->table_pos_of_sprite_y[i][0];
-		else if( (data->table_pos_of_sprite_x[i][0] <= data->table_pos_of_sprite_y[i][0] && data->table_pos_of_sprite_x[i][0] != 0 ) || data->table_pos_of_sprite_y[i][0] == 0)
-			rc_var.distance = data->table_pos_of_sprite_x[i][0] ;
+		if ((data->table_formation_of_spritesy[i][0] <=  data->table_formation_of_spritesx[i][0] &&  data->table_formation_of_spritesy[i][0] != 0 ) ||  data->table_formation_of_spritesx[i][0] == 0)
+			rc_var.distance = data->table_formation_of_spritesy[i][0];
+		else if( (data->table_formation_of_spritesx[i][0] <= data->table_formation_of_spritesy[i][0] && data->table_formation_of_spritesx[i][0] != 0 ) || data->table_formation_of_spritesy[i][0] == 0)
+			rc_var.distance = data->table_formation_of_spritesx[i][0] ;
 		if(rc_var.distance > 0)
 		{
 			rc_var.distance = ((((((rc_var.distance ) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
-			rc_var.ray_count = data->table_pos_of_sprite_y[i][1]; 
-			if(data->table_pos_of_sprite_y[i][1] == 0)
-				rc_var.ray_count = data->table_pos_of_sprite_x[i][1]; 
+			rc_var.ray_count = data->table_formation_of_spritesy[i][1]; 
+			if(data->table_formation_of_spritesy[i][1] == 0)
+				rc_var.ray_count = data->table_formation_of_spritesx[i][1]; 
 			rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
 			rc_var.wallHeight = (((data->coin_res ) / (rc_var.distance)) * rc_var.distanceprojplan);
 			// //WALL
@@ -87,10 +87,10 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
 			rc_var.end[1] = (WIN_H / 2) + (rc_var.wallHeight / 2) + (rc_var.wallHeight/1.2);
 			draw_linev3(data, rc_var.begin, rc_var.end,wall_scall,tabl_of_distences,rc_var.distance);
 		}
-		data->table_pos_of_sprite_y[i][0] = 0;
-		data->table_pos_of_sprite_y[i][1] = 0;
-		data->table_pos_of_sprite_x[i][0] = 0;
-		data->table_pos_of_sprite_x[i][1] = 0;
+		data->table_formation_of_spritesy[i][0] = 0;
+		data->table_formation_of_spritesy[i][1] = 0;
+		data->table_formation_of_spritesx[i][0] = 0;
+		data->table_formation_of_spritesx[i][1] = 0;
 		i++;
 	}
 	return(rc_var.distance);

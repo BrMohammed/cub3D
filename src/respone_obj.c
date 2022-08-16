@@ -1,58 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   respone_obj.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
+/*   Updated: 2022/08/16 18:13:48 by brmohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Includes/cub.h"
 
-
-void arow_draw(t_data *data)
-{
-	int a[2];
-	int b[2];
-
-	a[0] = data->player_x + (data->player_mini_res / 2);
-    a[1] = data->player_y + (data->player_mini_res / 2);
-	int a0 = a[0];
-	int a1 = a[1];
-	double point;
-    b[0] = a[0] + cos(data->pa) * 6;
-    b[1] = a[1] + sin(data->pa) * 6;
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa + M_PI/3.5;
-	if(point > 2 * M_PI)
-			point -= 2 * M_PI;
-	a[0] =  a0  + (cos(point) * 3);
-    a[1] = a1  + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa + M_PI/2.5;
-	if(point > 2 * M_PI)
-			point -= 2 * M_PI;
-	a[0] =  a0  + (cos(point) * 3);
-    a[1] = a1  + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa - M_PI/3.5;
-    if(point < 0 )
-        point += 2*M_PI;
-	a[0] = a0 + (cos(point) * 3);
-    a[1] = a1 + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-	point = data->pa - M_PI/4;
-    if(point < 0 )
-        point += 2*M_PI;
-	a[0] = a0 + (cos(point) * 3);
-    a[1] = a1 + (sin(point) * 3);
-   	draw_line(data, a, b, 0Xff0000);
-}
-
-void	respone_obj(t_data *data)
+void	initial_player_posetion(t_data *data)
 {
 	int	x;
-	int y;
+	int	y;
 
 	x = 0;
 	y = 0;
-	while (data->result[y] != '\0' &&  data->begin_game == 0)
+	while (data->result[y] != '\0' && data->begin_game == 0)
 	{
 		while (data->result[y][x] != '\0')
 		{
-			if (data->result[y][x] == 'N' || data->result[y][x] == 'S' ||
-				data->result[y][x] == 'W' || data->result[y][x] == 'E')
+			if (ft_strchr("NWSE", data->result[y][x]))
 			{
 				data->player_y = y * data->mini_map_res;
 				data->player_x = x * data->mini_map_res;
@@ -65,49 +36,69 @@ void	respone_obj(t_data *data)
 		y++;
 	}
 	ray_colesion(data);
-	x = 0;
+}
+
+void	rander_mimimap(t_data *data)
+{
+	int	x;
+	int	y;
+
 	y = 0;
 	while (data->result[y] != '\0')
 	{
+		x = 0;
 		while (data->result[y][x] != '\0')
 		{
-			if (data->result[y][x] == 49 )
-				rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 9524926},data);
-			else if (data->result[y][x] == 48 || data->result[y][x] == 'N' || data->result[y][x] == 'S' ||
-					data->result[y][x] == 'W' || data->result[y][x] == 'E')
-					rander_image(&data->img, (t_rect){x * data->mini_map_res, y * data->mini_map_res,data->mini_map_res, data->mini_map_res, 11796399},data);
-			else if (data->result[y][x] == 50 )
-				rander_image(&data->img, (t_rect){x * 10, y * 10,10, 10, 13422336},data);
+			if (data->result[y][x] == 49)
+				rander_image(&data->img, (t_rect){x * data->mini_map_res,
+					y * data->mini_map_res,
+					data->mini_map_res, data->mini_map_res, 9524926}, data);
+			else if (ft_strchr("NWSE0", data->result[y][x]))
+				rander_image(&data->img, (t_rect){x * data->mini_map_res,
+					y * data->mini_map_res,
+					data->mini_map_res, data->mini_map_res, 11796399}, data);
+			else if (data->result[y][x] == 50)
+				rander_image(&data->img, (t_rect){x * 10, y * 10, 10,
+					10, 13422336}, data);
 			x++;
 		}
-		x = 0;
 		y++;
 	}
-	x = 0;
+}
+
+void	camera_posetion(t_data *data)
+{
+	int	x;
+	int	y;
+
 	y = 0;
-	while (data->result[y] != '\0' &&  data->begin_game == 0)
+	while (data->result[y] != '\0' && data->begin_game == 0)
 	{
+		x = 0;
 		while (data->result[y][x] != '\0')
 		{
-			if (data->result[y][x] == 'N' || data->result[y][x] == 'S' ||
-				data->result[y][x] == 'W' || data->result[y][x] == 'E')
+			if (ft_strchr("NWSE", data->result[y][x]))
 			{
-				if(data->result[y][x] == 'N')
+				if (data->result[y][x] == 'N')
 					data->pa = (3 * M_PI) / 2;
-				if(data->result[y][x] == 'S')
+				if (data->result[y][x] == 'S')
 					data->pa = (M_PI) / 2;
-				if(data->result[y][x] == 'E')
+				if (data->result[y][x] == 'E')
 					data->pa = 0;
-				if(data->result[y][x] == 'W')
+				if (data->result[y][x] == 'W')
 					data->pa = (M_PI);
 				data->result[y][x] = '0';
 			}
 			x++;
 		}
-		x = 0;
 		y++;
 	}
-	 data->begin_game = 1;
-	arow_draw(data);
-	//ray_colesion(data);
+}
+
+void	respone_obj(t_data *data)
+{
+	initial_player_posetion(data);
+	camera_posetion(data);
+	rander_mimimap(data);
+	data->begin_game = 1;
 }

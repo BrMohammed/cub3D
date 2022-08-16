@@ -63,6 +63,15 @@ typedef struct s_img__sprite
 	int		endian;
 }	t_img_sprite;
 
+typedef struct s_img__mini_player
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img_mini_player;
+
 typedef struct s_img_rander_derection
 {
 	void	*mlx_img;
@@ -78,6 +87,7 @@ typedef struct s_data
 	t_img_rander img_rander;
 	t_img_rander_derection img_rander_derection;
 	t_img_sprite img_sprite;
+	t_img_mini_player img_mini_player;
 	int		cur_img;
 
 	char		*NO_PATH;
@@ -162,8 +172,8 @@ typedef struct s_data
 	void *sprite_buf;
 	int counter_of_sprites;
 	int begin_game;
-	int **table_pos_of_sprite_y;
-	int **table_pos_of_sprite_x;
+	int **table_formation_of_spritesy;
+	int **table_formation_of_spritesx;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -225,5 +235,6 @@ void respone2(t_data *data);
 void inisial_path(t_data *data);
 int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray_count);
 int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_count);
-
+int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data);
+void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len);
 #endif

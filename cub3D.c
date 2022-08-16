@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
+/*   Updated: 2022/08/14 21:01:30 by brmohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Includes/cub.h"
 
 int	mouse(void)
@@ -33,7 +45,7 @@ int	main(int ac, char **av)
 
 	if (av[1])
 		check_cub(av[1]);
-	data.result = check_map(av[1],&data);
+	data.result = check_map(av[1], &data);
 	(void) ac;
 	if (ac == 2)
 	{
@@ -45,7 +57,7 @@ int	main(int ac, char **av)
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);
 		mlx_loop_hook(data.mlx, &movement, &data);
 		mlx_hook(data.mlx_win, 17, 0, &mouse, &data);
-	    mlx_loop(data.mlx);
+		mlx_loop(data.mlx);
 		mlx_destroy_image(data.mlx, data.img.mlx_img);
 		free(data.mlx);
 	}
