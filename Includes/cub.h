@@ -24,6 +24,7 @@
 #define KEY_UP key_select[6]
 #define KEY_DOWN key_select[7]
 #define KEY_SPACE key_select[8]
+#define KEY_ENTER key_select[9]
 #define WIN_W data->demintion_with
 #define WIN_H data->demension_hight
 
@@ -162,7 +163,7 @@ typedef struct s_data
 
 	int key_up[2];
 	int key_down[2];
-	int key_select[9];
+	int key_select[10];
 
 	int ray_count;
 	int player_y_for_3d;
@@ -215,6 +216,7 @@ typedef struct s_data
 	int coin_count;
 	int			img_width;
 	int			img_height;
+	char **result_back_up;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -279,4 +281,5 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_
 int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data);
 void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len);
 void	number_b(t_data *data);
+void	aloccation_sprites_and_storage(t_data *data);
 #endif

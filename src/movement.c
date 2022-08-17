@@ -9,7 +9,7 @@ int	key_down(int key, t_data *data)
 	}
 	if(key == 49)
 			data->KEY_SPACE = 1;
-	if ((key == 2 || key == 0 || key == 13 || key == 1 ))
+	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36))
 	{
 		data->ON_KEYDOWN_DERECTION = 1;
 		if (key == 2 ) //d
@@ -20,6 +20,8 @@ int	key_down(int key, t_data *data)
 			data->KEY_W = 1;
 		else if (key == 1)//s
 			data->KEY_S = 1;
+		if (key == 36) //d
+			data->KEY_ENTER = 1; //enter
 	}
 	//126 up
 	//125 down
@@ -41,7 +43,8 @@ int	key_down(int key, t_data *data)
 int	key_up(int key, t_data *data)
 {
 	//49 = space
-	if ((key == 2 || key == 0 || key == 13 || key == 1 ))
+	//key = 36
+	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36))
 	{
 		 data->ON_KEYDOWN_DERECTION = 0;
 		if (key == 2) //d
@@ -52,6 +55,8 @@ int	key_up(int key, t_data *data)
 			data->KEY_W = 0;
 		else if (key == 1)//s
 			data->KEY_S = 0;
+		if (key == 36) //d
+			data->KEY_ENTER = 0; //enter
 	}
 	if(key == 123 || key == 124 || key == 126 || key == 125) 
 	{
@@ -105,6 +110,7 @@ int	movement(t_data *data)
 		data->img_sprite.addr = mlx_get_data_addr(data->img_sprite.mlx_img, &data->img_sprite.bpp,
 		&data->img_sprite.line_len, &data->img_sprite.endian);
 		index_of_anim++;
+		
 		if(data->KEY_SPACE  == 1)
 		{
 				// jump;
@@ -130,7 +136,18 @@ int	movement(t_data *data)
 		}
 		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
-				
+			if(data->coin_count == data->counter_of_sprites && data->KEY_ENTER == 1)
+			{
+				int i = 0;
+				while (data->result[i])
+				{
+					free(data->result[i]);
+					data->result[i] = ft_strdup(data->result_back_up[i])  ;
+					i++;
+				}
+				aloccation_sprites_and_storage(data);
+				initial_var(data); 
+			}
 			if(data->KEY_W == 1 && ( floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*1.7))))
 				move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
 			else if(data->KEY_S == 1 && (floor(one_ray(data,SO_P,0)) >= floor(data->player_mini_res*1.7)))

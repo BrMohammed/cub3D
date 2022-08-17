@@ -2,8 +2,8 @@
 
 void	destroy_and_refresh(t_data *data)
 {
-	//destroy(data);
-	respone2(data);
+	destroy(data);
+	//respone2(data);
 	respone_obj(data);
 }
 
@@ -13,7 +13,6 @@ void	move(t_data *data, int y, int x)
 	data->player_y += y ;
 	data->player_y_for_3d += y;
 	data->player_x_for_3d += x;
-	//move_rotated(data);
 }
 static void	condetion_number(t_data *data, int *t, char *c, int *i)
 {
@@ -66,6 +65,7 @@ void	move_show_count(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->number.slash, t, 20);
 	t += 80;
+	free(c);
 	c = ft_itoa(data->coin_count);
 	i = 0;
 	while (c[i] != '\0')
@@ -81,25 +81,43 @@ void	move_rotated(t_data *data)
 	int begin[2];
 	int end[2];
 	int i;
+	static int color_increment;
+
 	destroy_and_refresh(data);
 	begin[0] =  (data->player_x) ;
 	begin[1] = (data->player_y + (data->player_mini_res));
 	end[0] = data->player_x ;
 	end[1]= data->player_y ;
 	draw_linev4_for_static_imgs(data, begin,end,data->player_mini_res,data->img_mini_player.addr,data->img_mini_player.line_len);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+	if(data->coin_count != data->counter_of_sprites)
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 	i = 0;
 	while(i < data->counter_of_sprites)
 	{
-		if(data->pos_of_sprite_y[i] + (data->mini_map_res / 2) > data->player_y && data->pos_of_sprite_y[i] - (data->mini_map_res / 2) < data->player_y
-			&& data->pos_of_sprite_x[i] + (data->mini_map_res / 2) > data->player_x && data->pos_of_sprite_x[i] - (data->mini_map_res / 2) < data->player_x)
+		if(data->pos_of_sprite_y[i] + (data->mini_map_res) > data->player_y && data->pos_of_sprite_y[i] - (data->mini_map_res) < data->player_y
+			&& data->pos_of_sprite_x[i] + (data->mini_map_res) > data->player_x && data->pos_of_sprite_x[i] - (data->mini_map_res ) < data->player_x)
 		{
 			data->result[(data->pos_of_sprite_y[i] -(( data->pos_of_sprite_y[i] % data->mini_map_res))) / 10][(data->pos_of_sprite_x[i] -(( data->pos_of_sprite_x[i] % data->mini_map_res))) / 10] = '0';
 			data->pos_of_sprite_y[i] = 0;
 			data->pos_of_sprite_x[i] = 0;
 			data->coin_count++;
 		}
+		if(data->coin_count == data->counter_of_sprites)
+			destroy(data);
 		i++;
 	}
-	move_show_count(data);
+	
+	if(data->coin_count != data->counter_of_sprites)
+	{
+		move_show_count(data);
+		color_increment = 90000;
+	}
+	if(data->coin_count == data->counter_of_sprites)
+	{
+		color_increment += 20;
+		mlx_string_put(data->mlx, data->mlx_win,WIN_W/2 - 100,  WIN_H/2, color_increment , "press enter to retry");
+	}
+	if (color_increment == 16777215)
+		color_increment = 90000;
+	
 }

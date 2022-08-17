@@ -89,7 +89,8 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 			if(y < data->coin_res - 1)
 			{
 				y =  floor((temp_y ) / wall_scall) ;
-				pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
+				if(y < data->coin_res && x < data->coin_res)
+					pixel_color = get_pixel(data->img_sprite.addr,data->img_sprite.line_len,x,y);
 				if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
 				{
 					if(distence <= tabl_of_distences[begin[0]])

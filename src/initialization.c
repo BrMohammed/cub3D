@@ -13,7 +13,6 @@ void initial_var(t_data *data)
     data->mini_map_res = (data->demintion_with / data->result_with) / 3;
     data->map_res = 1000;
     data->player_mini_res = data->mini_map_res / 2;
-  //  printf("%d\n",data->player_mini_res);
     data->speed = 3;
     data->angel_speed = 0.15707963267 ;
     data->is_jumping_up = 0;
@@ -22,6 +21,7 @@ void initial_var(t_data *data)
     data->gravity = 3;
     data->coin_res = 400;
     data->begin_game = 0;
+    data->coin_count = 0;
 }
 
 void inisial_path(t_data *data)
@@ -53,7 +53,7 @@ void inisial_path(t_data *data)
 	data->number.number8_path = "./assets/8.xpm";
 	data->number.number9_path = "./assets/9.xpm";
     data->number.slash_path = "./assets/slash.xpm";
-    data->coin_count = 0;
+
     number_b(data);
 }
 void	number_b(t_data *data)
@@ -85,12 +85,12 @@ void	number_b(t_data *data)
 void destroy(t_data *data)
 {
     mlx_clear_window(data->mlx, data->mlx_win);
-    mlx_destroy_image(data->mlx,data->point_map);
+   // mlx_destroy_image(data->mlx,data->point_map);
 
 }
 
-void respone2(t_data *data)
-{
-    data->point_map = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
-    &data->p_w, &data->p_h);
-}
+// void respone2(t_data *data)
+// {
+//     // data->point_map = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
+//     // &data->p_w, &data->p_h);
+// }

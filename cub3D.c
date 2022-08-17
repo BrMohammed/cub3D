@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/14 21:01:30 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:16:24 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av)
 	if (av[1])
 		check_cub(av[1]);
 	data.result = check_map(av[1], &data);
+	data.result_back_up = check_map(av[1], &data);
 	(void) ac;
 	if (ac == 2)
 	{
@@ -62,4 +63,6 @@ int	main(int ac, char **av)
 		free(data.mlx);
 	}
 	return (0);
+	    // #1 0x10958da6c in draw_linev2 draw_lines.c:142
+		// #1 0x10b72d25d in draw_linev3 draw_lines.c:93
 }
