@@ -17,54 +17,62 @@ void	move(t_data *data, int y, int x)
 }
 static void	condetion_number(t_data *data, int *t, char *c, int *i)
 {
+	if (c[*i] == '0')
+			mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->number.number0, *t, 20);
+		if (c[*i] == '1')
+			mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->number.number1, *t, 20);
 	if (c[*i] == '2')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number2, *t, 0);
+			data->number.number2, *t, 20);
 	if (c[*i] == '3')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number3, *t, 0);
+			data->number.number3, *t, 20);
 	if (c[*i] == '4')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number4, *t, 0);
+			data->number.number4, *t, 20);
 	if (c[*i] == '5')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number5, *t, 0);
+			data->number.number5, *t, 20);
 	if (c[*i] == '6')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number6, *t, 0);
+			data->number.number6, *t, 20);
 	if (c[*i] == '7')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number7, *t, 0);
+			data->number.number7, *t, 20);
 	if (c[*i] == '8')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number8, *t, 0);
+			data->number.number8, *t, 20);
 	if (c[*i] == '9')
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.number9, *t, 0);
+			data->number.number9, *t, 20);
 }
 void	move_show_count(t_data *data)
 {
 	char	*c;
 	int		i;
 	int		t;
-	int		v;
 
 	i = 0;
-	t = 0;
-	v = 0;
+	t = WIN_W/2 - 80;
+	c = ft_itoa(data->counter_of_sprites);
+	while(c[i] != '\0')
+	{
+		condetion_number(data, &t, c, &i);
+		t += 80;
+		i++;
+	}
+	mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->number.slash, t, 20);
+	t += 80;
 	c = ft_itoa(data->coin_count);
+	i = 0;
 	while (c[i] != '\0')
 	{	
-		if (c[i] == '0')
-			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->number.number0, t, 0);
-		if (c[i] == '1')
-			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->number.number1, t, 0);
 		condetion_number(data, &t, c, &i);
-		t += 40;
+		t += 80;
 		i++;
-		v += 80;
 	}
 	free(c);
 }

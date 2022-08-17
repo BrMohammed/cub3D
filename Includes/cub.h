@@ -77,6 +77,9 @@ typedef struct s_number
 	void	*number9;
 	char	*number9_path;
 
+	void	*slash;
+	char	*slash_path;
+
 }	t_number;
 
 typedef struct s_img_rander
