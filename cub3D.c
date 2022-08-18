@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/17 21:34:59 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:30:49 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int ac, char **av)
 		initial_var(&data);
 		respone(&data);
 		inisial_path(&data);
-		respone_obj(&data);
+		//respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);
 		mlx_loop_hook(data.mlx, &movement, &data);

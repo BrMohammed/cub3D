@@ -25,7 +25,6 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray
 				data->table_formation_of_spritesy[i][1] = ray_count;
 			}
 		}
-		
 		i++;
 	}
 	return(0);

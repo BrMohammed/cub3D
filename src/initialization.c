@@ -54,6 +54,7 @@ void inisial_path(t_data *data)
 	data->number.number8_path = "./assets/8.xpm";
 	data->number.number9_path = "./assets/9.xpm";
     data->number.slash_path = "./assets/slash.xpm";
+    data->number.logo_path = "./assets/logo.xpm";
 
     number_b(data);
 }
@@ -81,6 +82,8 @@ void	number_b(t_data *data)
 			data->number.number9_path, &data->img_width, &data->img_height);
     data->number.slash = mlx_xpm_file_to_image(data->mlx,
 			data->number.slash_path, &data->img_width, &data->img_height);
+    data->number.logo = mlx_xpm_file_to_image(data->mlx,
+			data->number.logo_path, &data->img_width, &data->img_height);
 }
 
 void destroy(t_data *data)

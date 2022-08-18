@@ -81,6 +81,9 @@ typedef struct s_number
 	void	*slash;
 	char	*slash_path;
 
+	void	*logo;
+	char	*logo_path;
+
 }	t_number;
 
 typedef struct s_img_rander

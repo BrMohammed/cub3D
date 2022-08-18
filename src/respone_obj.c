@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/17 21:22:00 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:34:07 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	initial_player_posetion(t_data *data)
 
 	x = 0;
 	y = 0;
-	while (data->result[y] != '\0' && data->begin_game == 0)
+	while (data->result[y] != '\0' )
 	{
 		while (data->result[y][x] != '\0')
 		{
@@ -72,7 +72,7 @@ void	camera_posetion(t_data *data)
 	int	y;
 
 	y = 0;
-	while (data->result[y] != '\0' && data->begin_game == 0)
+	while (data->result[y] != '\0')
 	{
 		x = 0;
 		while (data->result[y][x] != '\0')
@@ -100,5 +100,4 @@ void	respone_obj(t_data *data)
 	initial_player_posetion(data);
 	camera_posetion(data);
 	rander_mimimap(data);
-	data->begin_game = 1;
 }

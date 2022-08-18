@@ -83,14 +83,37 @@ void	move_rotated(t_data *data)
 	int i;
 	static int color_increment;
 
-	destroy_and_refresh(data);
-	begin[0] =  (data->player_x) ;
-	begin[1] = (data->player_y + (data->player_mini_res));
-	end[0] = data->player_x ;
-	end[1]= data->player_y ;
-	draw_linev4_for_static_imgs(data, begin,end,data->player_mini_res,data->img_mini_player.addr,data->img_mini_player.line_len);
-	if(data->coin_count != data->counter_of_sprites)
+	
+	i = 0;
+	if(data->begin_game == 0)
+	{
+		while(i < WIN_W)
+		{
+			begin[0] =  i ;
+			begin[1] = WIN_H;
+			end[0] = i ;
+			end[1]= 0;
+			draw_line(data,begin,end,18573);
+			i++;
+		}
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->number.logo, WIN_W/2 - (422 / 2), WIN_H/2 - 259/2);
+		if(color_increment > 40)
+			data->begin_game = 1;
+		color_increment++;
+	}
+
+	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1)
+	{   
+		begin[0] =  (data->player_x) ;
+		begin[1] = (data->player_y + (data->player_mini_res));
+		end[0] = data->player_x ;
+		end[1]= data->player_y ;
+		destroy_and_refresh(data);
+		draw_linev4_for_static_imgs(data, begin,end,data->player_mini_res,data->img_mini_player.addr,data->img_mini_player.line_len);
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+	}
 	i = 0;
 	while(i < data->counter_of_sprites)
 	{
@@ -106,7 +129,7 @@ void	move_rotated(t_data *data)
 			destroy(data);
 		i++;
 	}
-	if(data->coin_count != data->counter_of_sprites)
+	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1)
 	{
 		move_show_count(data);
 		color_increment = 500000;
