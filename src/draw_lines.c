@@ -156,6 +156,7 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
+	static int i  = 0;
 
 	pixel[0] = begin[0];
 	pixel[1] = begin[1];
@@ -166,8 +167,18 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	delta[1] /= pixels;
 	while (pixels)
 	{
+		if(data->begin_game == 0)
+		{
+			color +=  (i << 24);
+			i +=7;
+		}
 		if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H )
 			rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, color},data);
+		if(data->begin_game == 0)
+		{
+			color +=  (i << 24);
+			i -= 2;
+		}
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;

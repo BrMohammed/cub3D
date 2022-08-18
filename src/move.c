@@ -96,9 +96,10 @@ void	move_rotated(t_data *data)
 			draw_line(data,begin,end,18573);
 			i++;
 		}
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
+		//mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 				data->number.logo, WIN_W/2 - (422 / 2), WIN_H/2 - 259/2);
+		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 		if(color_increment > 40)
 			data->begin_game = 1;
 		color_increment++;
