@@ -45,7 +45,18 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
+typedef struct s_menu
+{
+	void *start;
+	char *start_path;
+	char *start_hover_path;
 
+	void *quit;
+	char *quit_path;
+	char *quit_hover_path;
+	int hover_quit;
+	int hover_start;
+} t_menu;
 typedef struct s_number
 {
 	void	*number0;
@@ -216,11 +227,13 @@ typedef struct s_data
 	int **table_formation_of_spritesy;
 	int **table_formation_of_spritesx;
 	t_number	number;
+	t_menu		menu;
 	int coin_count;
 	int			img_width;
 	int			img_height;
 	char **result_back_up;
 	double colutsion;
+	int color_increment;
 }	t_data;
 
 typedef struct s_raycolesion

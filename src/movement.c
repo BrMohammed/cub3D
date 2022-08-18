@@ -165,6 +165,7 @@ int	movement(t_data *data)
 				}
 				aloccation_sprites_and_storage(data);
 				initial_var(data); 
+				data->begin_game = 1;
 			}
 			if(data->KEY_W == 1)
 			{

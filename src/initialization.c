@@ -23,6 +23,7 @@ void initial_var(t_data *data)
     data->begin_game = 0;
     data->coin_count = 0;
     data->colutsion = 1.2;
+    data->color_increment = 0;
 }
 
 void inisial_path(t_data *data)
@@ -55,6 +56,10 @@ void inisial_path(t_data *data)
 	data->number.number9_path = "./assets/9.xpm";
     data->number.slash_path = "./assets/slash.xpm";
     data->number.logo_path = "./assets/logo.xpm";
+    data->menu.quit_path = "./assets/quit.xpm";
+    data->menu.start_path = "./assets/start.xpm";
+    data->menu.quit_hover_path = "./assets/quit_hover.xpm";
+    data->menu.start_hover_path = "./assets/start_hover.xpm";
 
     number_b(data);
 }
@@ -84,6 +89,11 @@ void	number_b(t_data *data)
 			data->number.slash_path, &data->img_width, &data->img_height);
     data->number.logo = mlx_xpm_file_to_image(data->mlx,
 			data->number.logo_path, &data->img_width, &data->img_height);
+
+    data->menu.quit = mlx_xpm_file_to_image(data->mlx,
+			data->menu.quit_path, &data->img_width, &data->img_height);   
+     data->menu.start = mlx_xpm_file_to_image(data->mlx,
+			data->menu.start_path, &data->img_width, &data->img_height);     
 }
 
 void destroy(t_data *data)

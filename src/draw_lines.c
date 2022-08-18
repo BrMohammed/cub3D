@@ -19,6 +19,7 @@ void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,cha
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
 	delta[1] /= pixels;
+	static double rotation;
 
 	while(x < high)
 	{
@@ -26,12 +27,20 @@ void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,cha
 		delta[0] /= pixels;
 		delta[1] /= pixels;
 		y  = high - 1;
+		if(data->begin_game == 0)
+			rotation+=0.15707963267;
+		else 
+			rotation = 0;
+		if(rotation > M_PI*2)
+					rotation -= M_PI*2;
+		
+
 		while (pixels)
 		{
 			if(y > 0)
 			{
 				pixel_color = get_pixel(addr,line_len,x ,y,high);
-				new_ang = data->pa + M_PI/2;
+				new_ang = data->pa + M_PI/2 + rotation;
 				if(new_ang > M_PI*2)
 					new_ang -= M_PI*2;
 				p0 = (((pixel[0] - (data->player_x + (data->player_mini_res / 2))) * 
@@ -172,7 +181,7 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 			color +=  (i << 24);
 			i +=7;
 		}
-		if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H )
+		if(pixel[0] >= 0  && pixel[0] <  WIN_H && pixel[1] >= 0  && pixel[1] <  WIN_H )
 			rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, color},data);
 		if(data->begin_game == 0)
 		{

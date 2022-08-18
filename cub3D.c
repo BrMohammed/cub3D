@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/18 13:30:49 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:54:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,39 @@ void	check_cub(char *str)
 		i--;
 	}
 }
-
+int mouse_move(int x,int y,t_data *data)
+{
+	data->menu.hover_quit = (150 / 2);
+	data->menu.hover_start = (150 / 2);
+	data->menu.quit = mlx_xpm_file_to_image(data->mlx,
+			data->menu.quit_path, &data->img_width, &data->img_height); 
+	data->menu.start = mlx_xpm_file_to_image(data->mlx,
+			data->menu.start_path, &data->img_width, &data->img_height);
+	if(x > 426 && x < 575 && y > 400 && y < 450 && data->begin_game == 0 && data->color_increment > 40)//start
+	{
+		data->menu.start = mlx_xpm_file_to_image(data->mlx,
+			data->menu.start_hover_path, &data->img_width, &data->img_height); 
+		data->menu.hover_start += 15;
+	}
+	else if(x > 426 && x < 575 && y > 500 && y < 550 && data->begin_game == 0 && data->color_increment > 40)//quit
+	{
+		data->menu.quit = mlx_xpm_file_to_image(data->mlx,
+			data->menu.quit_hover_path, &data->img_width, &data->img_height); 
+		data->menu.hover_quit += 15;
+	}
+	return(0);
+}
+int mouse_down(int button ,int x,int y,t_data *data)
+{
+	if (button == 1 && data->begin_game == 0 && data->color_increment > 40)
+	{
+		if(x > 426 && x < 575 && y > 400 && y < 450)//start
+			data->begin_game = 1;
+		else if(x > 426 && x < 575 && y > 500 && y < 550)//quit
+			mouse();
+	}
+	return(0);
+}
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -53,9 +85,11 @@ int	main(int ac, char **av)
 		initial_var(&data);
 		respone(&data);
 		inisial_path(&data);
-		//respone_obj(&data);
+		respone_obj(&data);
 		mlx_hook(data.mlx_win, 2, 0, key_down, &data);
 		mlx_hook(data.mlx_win, 3, 0, key_up, &data);
+		mlx_hook(data.mlx_win, 6, 0, mouse_move, &data);
+		mlx_hook(data.mlx_win, 4, 0, mouse_down, &data);
 		mlx_loop_hook(data.mlx, &movement, &data);
 		mlx_hook(data.mlx_win, 17, 0, &mouse, &data);
 		mlx_loop(data.mlx);

@@ -53,6 +53,7 @@ void	move_show_count(t_data *data)
 	int		i;
 	int		t;
 
+
 	i = 0;
 	t = WIN_W/2 - 80;
 	c = ft_itoa(data->counter_of_sprites);
@@ -81,28 +82,32 @@ void	move_rotated(t_data *data)
 	int begin[2];
 	int end[2];
 	int i;
-	static int color_increment;
 
 	
 	i = 0;
-	if(data->begin_game == 0)
+	if(data->color_increment <= 40)
 	{
 		while(i < WIN_W)
 		{
 			begin[0] =  i ;
-			begin[1] = WIN_H;
+			begin[1] = 0;
 			end[0] = i ;
-			end[1]= 0;
+			end[1]= WIN_H;
 			draw_line(data,begin,end,18573);
 			i++;
 		}
-		//mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 				data->number.logo, WIN_W/2 - (422 / 2), WIN_H/2 - 259/2);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
-		if(color_increment > 40)
-			data->begin_game = 1;
-		color_increment++;
+		data->color_increment++;
+	}
+	else
+	{
+		destroy(data);
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->menu.start, WIN_W/2 - data->menu.hover_start, WIN_H/2 - 100);
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+				data->menu.quit, WIN_W/2 - data->menu.hover_quit, WIN_H/2 );
 	}
 
 	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1)
@@ -133,15 +138,15 @@ void	move_rotated(t_data *data)
 	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1)
 	{
 		move_show_count(data);
-		color_increment = 500000;
+		data->color_increment = 500000;
 	}
 	if(data->coin_count == data->counter_of_sprites)
 	{
-		color_increment += 20;
+		data->color_increment += 20;
 		mlx_string_put(data->mlx, data->mlx_win,WIN_W/2 - 50,  WIN_H/2 - 40, 16777215 , "conngrats");
-		mlx_string_put(data->mlx, data->mlx_win,WIN_W/2 - 100,  WIN_H/2, color_increment , "press enter to retry");
+		mlx_string_put(data->mlx, data->mlx_win,WIN_W/2 - 100,  WIN_H/2, data->color_increment  , "press enter to retry");
 	}
-	if (color_increment == 16777215)
-		color_increment = 500000;
+	if (data->color_increment == 16777215)
+		data->color_increment = 500000;
 	
 }
