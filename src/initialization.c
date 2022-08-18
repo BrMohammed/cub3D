@@ -22,12 +22,13 @@ void initial_var(t_data *data)
     data->coin_res = 400;
     data->begin_game = 0;
     data->coin_count = 0;
+    data->colutsion = 1.2;
 }
 
 void inisial_path(t_data *data)
 {
     data->img_rander.mlx_img = mlx_xpm_file_to_image(data->mlx, data->NO_PATH,
-    &data->map_res, &data->map_res);
+    &data->p_h, &data->p_h);
     data->img_rander.addr = mlx_get_data_addr(data->img_rander.mlx_img, &data->img_rander.bpp,
     &data->img_rander.line_len, &data->img_rander.endian);
 

@@ -131,8 +131,6 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 double one_ray(t_data *data,double angel,int ray_count)
 {
 	t_oneray oneray_var;
-	int a[2];
-	int b[2];
 
 	oneray_var.y = 0;
 	oneray_var.x = 0;
@@ -197,28 +195,22 @@ double one_ray(t_data *data,double angel,int ray_count)
 			 oneray_var.y++;
 		}
 	}
-
-	
 	if (( oneray_var.ray_colesion_y <=  oneray_var.ray_colesion_x &&  oneray_var.ray_colesion_y != 0 ) ||  oneray_var.ray_colesion_x == 0)
 	{
 		oneray_var.distance =  oneray_var.ray_colesion_y;
-		if(oneray_var.degre > 180 && oneray_var.degre <= 360)
-			data->color= 27391; //blue for NO
-		else
-			data->color= 4652872; //gren for SO
+		// if(oneray_var.degre > 180 && oneray_var.degre <= 360)
+		// 	data->color= 27391; //blue for NO
+		// else
+		// 	data->color= 4652872; //gren for SO
 	}
 	else if( ( oneray_var.ray_colesion_x <=  oneray_var.ray_colesion_y &&  oneray_var.ray_colesion_x != 0 ) ||  oneray_var.ray_colesion_y == 0)
 	{
 		oneray_var.distance =  oneray_var.ray_colesion_x;
-		if(oneray_var.degre >= 270  ||  oneray_var.degre <= 90)
-			data->color= 16777062; //yelow for EA
-		 else
-			data->color= 16711716; //reds for WE
+		// if(oneray_var.degre >= 270  ||  oneray_var.degre <= 90)
+		// 	data->color= 16777062; //yelow for EA
+		//  else
+		// 	data->color= 16711716; //reds for WE
 	}
-	a[0] = data->player_x + 2;
-	a[1] = data->player_y + 2;
-	b[0] = data->px_x;
-	b[1] = data->py_x;
 	//draw_line(data, a, b, 0Xff0000);
 	return( oneray_var.distance);
 }

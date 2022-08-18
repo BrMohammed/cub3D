@@ -17,12 +17,10 @@ int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray
 		{
 			tpy =  (((data->player_y + (data->player_mini_res / 2))  - (((y_plus) * data->mini_map_res) + ( data->pos_of_sprite_y[i] % data->mini_map_res))));
 			tpx =  (tpy / -tan(angel));
-			b[1] = floor(data->player_y + (data->player_mini_res / 2) - tpy);
+			b[1] = floor(((y_plus) * data->mini_map_res + ( data->pos_of_sprite_y[i] % data->mini_map_res)));
 			b[0] = floor(tpx + data->player_x + (data->player_mini_res / 2));//
 			if(b[0] == data->pos_of_sprite_x[i] && b[1] == data->pos_of_sprite_y[i] && b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res )
 			{  
-				data->px_y = b[0] ;
-				data->py_y =  b[1] ;
 				data->table_formation_of_spritesy[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy))) ;
 				data->table_formation_of_spritesy[i][1] = ray_count;
 			}
@@ -51,8 +49,6 @@ int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_
 		if (b[1] == data->pos_of_sprite_y[i] && b[0] == data->pos_of_sprite_x[i] &&  
 			floor(b[1] / data->mini_map_res) == y  && floor(b[0] / data->mini_map_res) == x_plus )
 		{
-			data->px_x = b[0]; 
-			data->py_x =  b[1];
 			data->table_formation_of_spritesx[i][0] = floor(sqrt((tpx*tpx) +(tpy*tpy)));
 			data->table_formation_of_spritesx[i][1] = ray_count;
 		}
@@ -75,12 +71,12 @@ double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences)
 			rc_var.distance = data->table_formation_of_spritesy[i][0];
 		else if( (data->table_formation_of_spritesx[i][0] <= data->table_formation_of_spritesy[i][0] && data->table_formation_of_spritesx[i][0] != 0 ) || data->table_formation_of_spritesy[i][0] == 0)
 			rc_var.distance = data->table_formation_of_spritesx[i][0] ;
-		if(rc_var.distance > 0)
+		if(rc_var.distance > 0 && (data->table_formation_of_spritesx[i][1] > 0 || data->table_formation_of_spritesy[i][1] > 0))
 		{
 			rc_var.distance = ((((((rc_var.distance ) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
-			rc_var.ray_count = data->table_formation_of_spritesy[i][1]; 
-			if(data->table_formation_of_spritesy[i][1] == 0)
-				rc_var.ray_count = data->table_formation_of_spritesx[i][1]; 
+			rc_var.ray_count = data->table_formation_of_spritesx[i][1]; 
+			if(data->table_formation_of_spritesx[i][1] == 0)
+				rc_var.ray_count = data->table_formation_of_spritesy[i][1]; 
 			rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
 			rc_var.wallHeight = (((data->coin_res ) / (rc_var.distance)) * rc_var.distanceprojplan);
 			// //WALL

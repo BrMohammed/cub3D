@@ -59,19 +59,19 @@ void	move_show_count(t_data *data)
 	while(c[i] != '\0')
 	{
 		condetion_number(data, &t, c, &i);
-		t += 80;
+		t += 40;
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->number.slash, t, 20);
-	t += 80;
+	t += 40;
 	free(c);
 	c = ft_itoa(data->coin_count);
 	i = 0;
 	while (c[i] != '\0')
 	{	
 		condetion_number(data, &t, c, &i);
-		t += 80;
+		t += 40;
 		i++;
 	}
 	free(c);
@@ -94,8 +94,8 @@ void	move_rotated(t_data *data)
 	i = 0;
 	while(i < data->counter_of_sprites)
 	{
-		if(data->pos_of_sprite_y[i] + (data->mini_map_res) > data->player_y && data->pos_of_sprite_y[i] - (data->mini_map_res) < data->player_y
-			&& data->pos_of_sprite_x[i] + (data->mini_map_res) > data->player_x && data->pos_of_sprite_x[i] - (data->mini_map_res ) < data->player_x)
+		if(data->pos_of_sprite_y[i] + (data->mini_map_res - (data->mini_map_res / 3)) > data->player_y && data->pos_of_sprite_y[i] - (data->mini_map_res + (data->mini_map_res / 3)) < data->player_y
+			&& data->pos_of_sprite_x[i] + (data->mini_map_res - (data->mini_map_res / 3)) > data->player_x && data->pos_of_sprite_x[i] - (data->mini_map_res + (data->mini_map_res / 3)) < data->player_x)
 		{
 			data->result[(data->pos_of_sprite_y[i] -(( data->pos_of_sprite_y[i] % data->mini_map_res))) / 10][(data->pos_of_sprite_x[i] -(( data->pos_of_sprite_x[i] % data->mini_map_res))) / 10] = '0';
 			data->pos_of_sprite_y[i] = 0;
@@ -106,18 +106,18 @@ void	move_rotated(t_data *data)
 			destroy(data);
 		i++;
 	}
-	
 	if(data->coin_count != data->counter_of_sprites)
 	{
 		move_show_count(data);
-		color_increment = 90000;
+		color_increment = 500000;
 	}
 	if(data->coin_count == data->counter_of_sprites)
 	{
 		color_increment += 20;
+		mlx_string_put(data->mlx, data->mlx_win,WIN_W/2 - 50,  WIN_H/2 - 40, 16777215 , "conngrats");
 		mlx_string_put(data->mlx, data->mlx_win,WIN_W/2 - 100,  WIN_H/2, color_increment , "press enter to retry");
 	}
 	if (color_increment == 16777215)
-		color_increment = 90000;
+		color_increment = 500000;
 	
 }

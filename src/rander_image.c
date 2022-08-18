@@ -41,12 +41,15 @@ int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data)
 	return (0);
 }
 
-int get_pixel(char *addr,int line_len,int x, int y)
+int get_pixel(char *addr,int line_len,int x, int y,int demention)
 {
-	char    *buffer2;
-	int color;
+	char    *buffer;
+	int color = 0;
 
-	buffer2 = addr + (y * line_len + x * (4));
-	color = *(int*)buffer2;
+	if (y < demention  && y > 0 && x > 0 && x < demention )
+	{
+		buffer = addr + (y * line_len + x * (4));
+		color = *(int*)buffer;
+	}
 	return (color);
 }

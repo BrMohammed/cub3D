@@ -79,6 +79,10 @@ int	movement(t_data *data)
 	double WE_P;
 	double EA_P;
 	double SO_P;
+	double b_NO_P;
+	double b_WE_P;
+	double b_EA_P;
+	double b_SO_P;
 	static int i;
 	static int index_of_anim;
 	char *path_begin;
@@ -86,16 +90,30 @@ int	movement(t_data *data)
 
 
 	NO_P = data->pa;
-	EA_P = data->pa - (3*M_PI)/2;
+	EA_P = data->pa + M_PI/2;
 	SO_P = data->pa + M_PI;
 	WE_P = data->pa - M_PI/2;
 
-	 if(EA_P < 0)
-		EA_P += 2 * M_PI;
+	b_NO_P = data->pa +  M_PI/4 ;
+	b_EA_P = data->pa + M_PI/2 + M_PI/4;
+	b_SO_P = data->pa + M_PI + M_PI/4;
+	b_WE_P = data->pa - M_PI/4;
+
+	if(EA_P > 2 * M_PI)
+		EA_P  -= 2 * M_PI;
 	if (SO_P > 2 * M_PI)
 		SO_P -= 2 * M_PI;
-	else if (WE_P < 0)
+	if (WE_P < 0)
 		WE_P += 2 * M_PI;
+	
+	if(b_NO_P > 2 * M_PI)
+		b_NO_P  -= 2 * M_PI;
+	if(b_EA_P > 2 * M_PI)
+		b_EA_P  -= 2 * M_PI;
+	if (b_SO_P > 2 * M_PI)
+		b_SO_P -= 2 * M_PI;
+	if (b_WE_P < 0)
+		b_WE_P += 2 * M_PI;
 	path_begin = "./assets/YellowCoin/xpm/";
 	path_end = ".xpm";
 	if(index_of_anim == 0)
@@ -148,14 +166,36 @@ int	movement(t_data *data)
 				aloccation_sprites_and_storage(data);
 				initial_var(data); 
 			}
-			if(data->KEY_W == 1 && ( floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*1.7))))
-				move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
-			else if(data->KEY_S == 1 && (floor(one_ray(data,SO_P,0)) >= floor(data->player_mini_res*1.7)))
-				move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
-			if(data->KEY_A == 1 && (floor(one_ray(data,WE_P,0)) >= floor(data->player_mini_res*1.7)))
+			if(data->KEY_W == 1)
+			{
+				if(floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*data->colutsion)) && 
+				floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion)) && 
+				floor(one_ray(data,b_WE_P,0)) >= floor((data->player_mini_res*data->colutsion)))
+					move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
+	
+			}
+			else if(data->KEY_S == 1)
+			{
+				if( (floor(one_ray(data,SO_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+				(floor(one_ray(data,b_EA_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+				(floor(one_ray(data,b_SO_P,0)) >= floor(data->player_mini_res*data->colutsion)))
+					move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
+			}
+			if(data->KEY_A == 1 )
+			{
+				if((floor(one_ray(data,WE_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+					(floor(one_ray(data,b_WE_P,0)) >= floor(data->player_mini_res*data->colutsion)) && 
+					(floor(one_ray(data,b_SO_P,0)) >= floor(data->player_mini_res*data->colutsion)))
 				move(data,-cos(-data->pa) * data->speed ,-sin(-data->pa) * data->speed);
-			else if(data->KEY_D == 1 && (floor(one_ray(data,EA_P,0)) >= floor(data->player_mini_res*1.7)))
-				move(data,cos(-data->pa) * data->speed ,-sin(data->pa) * data->speed);
+			}
+			else if(data->KEY_D == 1 )
+			{
+				if((floor(one_ray(data,EA_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+					(floor(one_ray(data,b_EA_P,0)) >= floor(data->player_mini_res*data->colutsion))&&
+					floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion)))
+					move(data,cos(-data->pa) * data->speed ,-sin(data->pa) * data->speed);
+			}
+				
 				
 		}
 		if(data->ON_KEYDOWN_CAMERA == 1)

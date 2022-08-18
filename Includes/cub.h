@@ -217,6 +217,7 @@ typedef struct s_data
 	int			img_width;
 	int			img_height;
 	char **result_back_up;
+	double colutsion;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -267,7 +268,7 @@ int		key_down(int key, t_data *data);
 int 	rander_image(t_img *img, t_rect rect,t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color,t_data *data);
 double 	one_ray(t_data *data,double angel,int ray_count);
-int get_pixel(char *addr,int line_len,int x, int y);
+int get_pixel(char *addr,int line_len,int x, int y,int demention);
 void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
