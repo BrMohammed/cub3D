@@ -56,6 +56,10 @@ typedef struct s_menu
 	char *quit_hover_path;
 	int hover_quit;
 	int hover_start;
+
+	void *game_over;
+	char *game_over_path;
+	char *game_over_path_hover;
 } t_menu;
 typedef struct s_number
 {
@@ -234,6 +238,8 @@ typedef struct s_data
 	char **result_back_up;
 	double colutsion;
 	int color_increment;
+	int time_up;
+	int time_move;
 }	t_data;
 
 typedef struct s_raycolesion

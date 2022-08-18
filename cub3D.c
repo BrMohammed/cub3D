@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/18 18:54:35 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:00:46 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ int	main(int ac, char **av)
 		mlx_destroy_image(data.mlx, data.img.mlx_img);
 		free(data.mlx);
 	}
+	//fix_movment : kolama brekti wnta 7da l7it kolama t3tlti bach trje3
 	return (0);
 }

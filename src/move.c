@@ -82,9 +82,11 @@ void	move_rotated(t_data *data)
 	int begin[2];
 	int end[2];
 	int i;
+	int game_over;
+	static int hover;
 
-	
 	i = 0;
+	game_over = WIN_W - 80 ;
 	if(data->color_increment <= 40)
 	{
 		while(i < WIN_W)
@@ -110,14 +112,17 @@ void	move_rotated(t_data *data)
 				data->menu.quit, WIN_W/2 - data->menu.hover_quit, WIN_H/2 );
 	}
 
-	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1)
+	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1 && data->time_up < game_over )
 	{   
+		
+		data->time_up += data->time_move;
 		begin[0] =  (data->player_x) ;
 		begin[1] = (data->player_y + (data->player_mini_res));
 		end[0] = data->player_x ;
 		end[1]= data->player_y ;
 		destroy_and_refresh(data);
 		draw_linev4_for_static_imgs(data, begin,end,data->player_mini_res,data->img_mini_player.addr,data->img_mini_player.line_len);
+		rander_image(&data->img, (t_rect){40,WIN_H - 40,data->time_up, 20, 12580864}, data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 	}
 	i = 0;
@@ -148,5 +153,28 @@ void	move_rotated(t_data *data)
 	}
 	if (data->color_increment == 16777215)
 		data->color_increment = 500000;
+	i = 0;
+	if(data->time_up >= game_over)
+	{
+		destroy(data);
+		hover++;
+		if(hover >= 30 && hover < 60)
+		{
+			data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
+				data->menu.game_over_path_hover, &data->img_width, &data->img_height);
+			mlx_put_image_to_window(data->mlx,data->mlx_win,data->menu.game_over,WIN_W/2 - (600 / 2) ,WIN_H/2 - (309 / 2));
+		}
+		else
+		{
+			data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
+				data->menu.game_over_path, &data->img_width, &data->img_height);
+			mlx_put_image_to_window(data->mlx,data->mlx_win,data->menu.game_over,WIN_W/2 - (510 / 2) ,WIN_H/2 - (263 / 2));
+		}
+			
+		if(hover >= 60)
+			hover = 0;
+		
+	}
+			
 	
 }
