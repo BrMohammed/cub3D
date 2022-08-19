@@ -11,8 +11,6 @@ void	move(t_data *data, int y, int x)
 {
 	data->player_x += x;
 	data->player_y += y ;
-	data->player_y_for_3d += y;
-	data->player_x_for_3d += x;
 }
 static void	condetion_number(t_data *data, int *t, char *c, int *i)
 {
@@ -55,7 +53,7 @@ void	move_show_count(t_data *data)
 
 
 	i = 0;
-	t = WIN_W/2 - 80;
+	t = WIN_W/2 - 60;
 	c = ft_itoa(data->counter_of_sprites);
 	while(c[i] != '\0')
 	{
@@ -84,6 +82,7 @@ void	move_rotated(t_data *data)
 	int i;
 	int game_over;
 	static int hover;
+	pthread_t			id;
 
 	i = 0;
 	game_over = WIN_W - 80 ;
@@ -114,7 +113,7 @@ void	move_rotated(t_data *data)
 
 	if(data->coin_count != data->counter_of_sprites && data->begin_game == 1 && data->time_up < game_over )
 	{   
-		
+		pthread_create(&id, NULL, &background, &data);
 		data->time_up += data->time_move;
 		begin[0] =  (data->player_x) ;
 		begin[1] = (data->player_y + (data->player_mini_res));

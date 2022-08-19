@@ -4,6 +4,7 @@ int	key_down(int key, t_data *data)
 {
 	if (key == 53)
 	{
+		kill(0, SIGKILL);
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}

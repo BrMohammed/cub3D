@@ -25,7 +25,7 @@ void initial_var(t_data *data)
     data->colutsion = 1.2;
     data->color_increment = 0;
     data->time_up = 10;
-    data->time_move = 20;
+    data->time_move = 2;
 }
 
 void inisial_path(t_data *data)

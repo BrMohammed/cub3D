@@ -10,6 +10,8 @@
 #include <signal.h>
 #include "../libft/libft.h"
 #include <math.h>
+# include <pthread.h>
+
 #define pi 3.1415926535
 #define ON_KEYUP_DERECTION key_up[0] 
 #define ON_KEYUP_CAMERA key_up[1] 
@@ -184,8 +186,6 @@ typedef struct s_data
 	int key_select[10];
 
 	int ray_count;
-	int player_y_for_3d;
-	int player_x_for_3d;
 	int color;
 	
 
@@ -213,10 +213,8 @@ typedef struct s_data
     double lte7t ;
 	int p_h;
 	int p_w;
-	int px_x;
-	int py_x;
-	int px_y;
-	int py_y;
+	int py;
+	int px;
 
 	int one_of;
 	int sprite_x;
@@ -240,6 +238,7 @@ typedef struct s_data
 	int color_increment;
 	int time_up;
 	int time_move;
+	int sound_loop;
 }	t_data;
 
 typedef struct s_raycolesion
@@ -305,4 +304,5 @@ int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data);
 void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len);
 void	number_b(t_data *data);
 void	aloccation_sprites_and_storage(t_data *data);
+void *background(void *var);
 #endif

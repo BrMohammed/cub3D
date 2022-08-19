@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/18 19:00:46 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:54:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	mouse(void)
 {
+	kill(0, SIGKILL);
 	exit(0);
 	return (0);
 }
@@ -60,14 +61,41 @@ int mouse_move(int x,int y,t_data *data)
 	}
 	return(0);
 }
+
+void *click(void *var)
+{
+	(void)var;
+	system("afplay -v 70 ./assets/sound/click.mp3");
+	
+	return(0);
+}
+void *background(void *var)
+{
+	t_data	*data;
+
+	data = (t_data *)var;
+	data->sound_loop = system("while :; do afplay -v 70 ./assets/sound/background.mp3; done");
+	fprintf(stderr, "%d\n",55555);
+	return(0);
+}
+
 int mouse_down(int button ,int x,int y,t_data *data)
 {
+	pthread_t			id;
+	
 	if (button == 1 && data->begin_game == 0 && data->color_increment > 40)
 	{
 		if(x > 426 && x < 575 && y > 400 && y < 450)//start
+		{
+			pthread_create(&id, NULL, &click, NULL);
 			data->begin_game = 1;
+		}
 		else if(x > 426 && x < 575 && y > 500 && y < 550)//quit
+		{
+			pthread_create(&id, NULL, &click, NULL);
 			mouse();
+		}
+			
 	}
 	return(0);
 }
