@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/19 20:54:34 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:00:48 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void *background(void *var)
 	t_data	*data;
 
 	data = (t_data *)var;
-	data->sound_loop = system("while :; do afplay -v 70 ./assets/sound/background.mp3; done");
+	data->sound_loop = system("while :; do afplay -v 70 ./assets/sound/background2.mp3; done");
 	fprintf(stderr, "%d\n",55555);
 	return(0);
 }
