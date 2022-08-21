@@ -322,11 +322,11 @@ void ray_colesion(t_data *data)
 		destence_of_door = one_ray(data,rc_var.rays,-1);
 		if(destence_of_door > 0)
 		{
-			if(destence_of_door < 30)
+			if(destence_of_door < 15)
 				data->door_open = -1;
 			if(data->door_close > 0 && data->door_open == -1)
-				data->offcet_x1 += data->door_close * 120;
-				if(data->door_close * 120 > data->map_res)
+				data->offcet_x1 += data->door_close * 140;
+				if(data->door_close * 140 > data->map_res)
 					destence_of_door = 0;
 		}
 		if(destence_of_door > 0)

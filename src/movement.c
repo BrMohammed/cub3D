@@ -153,14 +153,21 @@ int	movement(t_data *data)
 			}
 			//move_rotated(data);
 		}
-		if((data->KEY_ENTER == 1 && data->door_open == -1) || data->door_close > 0) // door
+		static int is_open;
+		if((data->KEY_ENTER == 1 && data->door_open == -1) || (data->door_close > 0 && is_open == 0)) // door
 		{
 			data->door_close++;
-			if(data->door_close == 40)
+			if(data->door_close == 25)
 			{
-				data->door_close = 0;
+				is_open = 1;
 				data->door_open = 0;
 			}
+		}
+		if(is_open == 1)
+		{
+			data->door_close--;
+			if(data->door_close == 0)
+				is_open = 0;
 		}
 		if(data->ON_KEYDOWN_DERECTION == 1)
 		{
