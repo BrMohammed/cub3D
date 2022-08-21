@@ -239,6 +239,10 @@ typedef struct s_data
 	int time_up;
 	int time_move;
 	int sound_loop;
+
+	void *door ;
+	char *door_path;
+
 }	t_data;
 
 typedef struct s_raycolesion

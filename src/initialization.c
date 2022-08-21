@@ -64,6 +64,7 @@ void inisial_path(t_data *data)
     data->menu.start_hover_path = "./assets/start_hover.xpm";
     data->menu.game_over_path = "./assets/game_over.xpm";
     data->menu.game_over_path_hover = "./assets/game_over_hover.xpm";
+    data->door_path = "./assets/door.xpm";
 
     number_b(data);
 }
@@ -100,6 +101,8 @@ void	number_b(t_data *data)
 			data->menu.start_path, &data->img_width, &data->img_height);  
     data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
 			data->menu.game_over_path, &data->img_width, &data->img_height);
+    data->door = mlx_xpm_file_to_image(data->mlx,
+			data->door_path, &data->img_width, &data->img_height);
 }
 
 void destroy(t_data *data)
