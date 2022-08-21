@@ -121,6 +121,15 @@ typedef struct s_img__sprite
 	int		endian;
 }	t_img_sprite;
 
+typedef struct s_img__door
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp; /* bits per pixel */
+	int		line_len;
+	int		endian;
+}	t_img_door;
+
 typedef struct s_img__mini_player
 {
 	void	*mlx_img;
@@ -240,8 +249,9 @@ typedef struct s_data
 	int time_move;
 	int sound_loop;
 
-	void *door ;
-	char *door_path;
+	t_img_door door;
+	int door_open;
+	int door_close;
 
 }	t_data;
 
@@ -294,7 +304,7 @@ int 	rander_image(t_img *img, t_rect rect,t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color,t_data *data);
 double 	one_ray(t_data *data,double angel,int ray_count);
 int get_pixel(char *addr,int line_len,int x, int y,int demention);
-void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall);
+void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall,char *addr,int line_len);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
 void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);

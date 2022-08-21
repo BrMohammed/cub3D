@@ -26,6 +26,7 @@ void initial_var(t_data *data)
     data->color_increment = 0;
     data->time_up = 10;
     data->time_move = 2;
+    data->door_open = 0;
 }
 
 void inisial_path(t_data *data)
@@ -34,6 +35,11 @@ void inisial_path(t_data *data)
     &data->p_h, &data->p_h);
     data->img_rander.addr = mlx_get_data_addr(data->img_rander.mlx_img, &data->img_rander.bpp,
     &data->img_rander.line_len, &data->img_rander.endian);
+
+    data->door.mlx_img = mlx_xpm_file_to_image(data->mlx, "./assets/door.xpm",//door
+    &data->p_h, &data->p_h);
+    data->door.addr = mlx_get_data_addr(data->door.mlx_img, &data->door.bpp,
+    &data->door.line_len, &data->door.endian);
 
     data->point_map_path = "./assets/arow5.xpm";
     data->img_mini_player.mlx_img  = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
@@ -64,7 +70,6 @@ void inisial_path(t_data *data)
     data->menu.start_hover_path = "./assets/start_hover.xpm";
     data->menu.game_over_path = "./assets/game_over.xpm";
     data->menu.game_over_path_hover = "./assets/game_over_hover.xpm";
-    data->door_path = "./assets/door.xpm";
 
     number_b(data);
 }
@@ -101,8 +106,7 @@ void	number_b(t_data *data)
 			data->menu.start_path, &data->img_width, &data->img_height);  
     data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
 			data->menu.game_over_path, &data->img_width, &data->img_height);
-    data->door = mlx_xpm_file_to_image(data->mlx,
-			data->door_path, &data->img_width, &data->img_height);
+    
 }
 
 void destroy(t_data *data)

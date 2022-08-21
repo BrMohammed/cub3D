@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/19 16:41:16 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:01:45 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	rander_mimimap(t_data *data)
 				rander_image(&data->img, (t_rect){x * data->mini_map_res,
 					y * data->mini_map_res,
 					data->mini_map_res, data->mini_map_res, 9524926}, data);
-				else if (ft_strchr("NWSE02", data->result[y][x]))
+				else if (ft_strchr("NWSE025", data->result[y][x]))
 				rander_image(&data->img, (t_rect){x * data->mini_map_res,
 					y * data->mini_map_res,
 					data->mini_map_res, data->mini_map_res, 11796399}, data);

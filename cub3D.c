@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/19 21:03:28 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/21 17:11:07 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int mouse_move(int x,int y,t_data *data)
 void *click(void *var)
 {
 	(void)var;
-	system("afplay -v 70 ./assets/sound/click.mp3");
-	
+	system("afplay -v 20 ./assets/sound/click.mp3");
 	return(0);
 }
 void *background(void *var)
@@ -74,8 +73,7 @@ void *background(void *var)
 	t_data	*data;
 
 	data = (t_data *)var;
-	data->sound_loop = system("while :; do afplay -v 70 ./assets/sound/background3.mp3; done");
-	fprintf(stderr, "%d\n",55555);
+	data->sound_loop = system("while :; do afplay -v 1 ./assets/sound/background3.mp3; done");
 	return(0);
 }
 
