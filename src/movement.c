@@ -187,12 +187,11 @@ int	movement(t_data *data)
 			
 			if(data->KEY_W == 1)
 			{
-				if(floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*data->colutsion + 0.2)) && 
+				if(floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*(data->colutsion + 0.7))) && 
 				floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion) ) && 
 				floor(one_ray(data,b_WE_P,0)) >= floor((data->player_mini_res*data->colutsion) ))
 				{
-
-					if((((int)one_ray(data,NO_P,-1) == 0 || one_ray(data,NO_P,-1) >= (data->player_mini_res*data->colutsion + 0.2 )) && 
+					if((((int)one_ray(data,NO_P,-1) == 0 || one_ray(data,NO_P,-1) >= (data->player_mini_res*(data->colutsion + 0.7) )) && 
 						( ((int)one_ray(data,b_NO_P,-1) == 0) || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion ))) && 
 						( (int)one_ray(data,b_WE_P,-1) == 0 || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
 							move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
@@ -202,11 +201,11 @@ int	movement(t_data *data)
 			}
 			else if(data->KEY_S == 1)
 			{
-				if( (floor(one_ray(data,SO_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+				if( (floor(one_ray(data,SO_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5)) &&
 				(floor(one_ray(data,b_EA_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
 				(floor(one_ray(data,b_SO_P,0)) >= floor(data->player_mini_res*data->colutsion)))
 				{
-					if((((int)one_ray(data,SO_P,-1) == 0 || one_ray(data,SO_P,-1) >= (data->player_mini_res*data->colutsion)) && 
+					if((((int)one_ray(data,SO_P,-1) == 0 || one_ray(data,SO_P,-1) >= (data->player_mini_res*data->colutsion)+ 0.5) && 
 						( ((int)one_ray(data,b_EA_P,-1) == 0) || (one_ray(data,b_EA_P,-1)) >= ((data->player_mini_res*data->colutsion))) && 
 						( (int)one_ray(data,b_SO_P,-1) == 0 || (one_ray(data,b_SO_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
 					move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
@@ -215,11 +214,11 @@ int	movement(t_data *data)
 			}
 			if(data->KEY_A == 1 )
 			{
-				if((floor(one_ray(data,WE_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+				if((floor(one_ray(data,WE_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5) ) &&
 					(floor(one_ray(data,b_WE_P,0)) >= floor(data->player_mini_res*data->colutsion)) && 
 					(floor(one_ray(data,b_SO_P,0)) >= floor(data->player_mini_res*data->colutsion)))
 					{
-						if((((int)one_ray(data,WE_P,-1) == 0 || one_ray(data,WE_P,-1) >= (data->player_mini_res*data->colutsion)) && 
+						if((((int)one_ray(data,WE_P,-1) == 0 || one_ray(data,WE_P,-1) >= (data->player_mini_res*data->colutsion + 0.5)) && 
 						( ((int)one_ray(data,b_WE_P,-1) == 0) || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion))) && 
 						( (int)one_ray(data,b_SO_P,-1) == 0 || (one_ray(data,b_SO_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
 							move(data,-cos(-data->pa) * data->speed ,-sin(-data->pa) * data->speed);
@@ -228,11 +227,11 @@ int	movement(t_data *data)
 			}
 			else if(data->KEY_D == 1 )
 			{
-				if((floor(one_ray(data,EA_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
+				if((floor(one_ray(data,EA_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5)) &&
 					(floor(one_ray(data,b_EA_P,0)) >= floor(data->player_mini_res*data->colutsion))&&
 					floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion)))
 					{
-						if((((int)one_ray(data,EA_P,-1) == 0 || one_ray(data,EA_P,-1) >= (data->player_mini_res*data->colutsion)) && 
+						if((((int)one_ray(data,EA_P,-1) == 0 || one_ray(data,EA_P,-1) >= (data->player_mini_res*data->colutsion + 0.5)) && 
 						( ((int)one_ray(data,b_EA_P,-1) == 0) || (one_ray(data,b_EA_P,-1)) >= ((data->player_mini_res*data->colutsion))) && 
 						( (int)one_ray(data,b_NO_P,-1) == 0 || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
 							move(data,cos(-data->pa) * data->speed ,-sin(data->pa) * data->speed);

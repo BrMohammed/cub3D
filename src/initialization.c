@@ -22,7 +22,7 @@ void initial_var(t_data *data)
     data->coin_res = 400;
     data->begin_game = 0;
     data->coin_count = 0;
-    data->colutsion = 1.2;
+    data->colutsion = 1;
     data->color_increment = 0;
     data->time_up = 10;
     data->time_move = 2;
