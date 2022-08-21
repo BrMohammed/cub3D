@@ -13,9 +13,8 @@ int y_detect_loop(t_data *data, int y_plus,int x, double *ray_colesion_y,double 
 	if(b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res)
 	{ 
 		*ray_colesion_y =   sqrt((tpx*tpx) +(tpy*tpy));
-		b[0] = (((((b[0] - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
-		b[1] = ((((((x * data->mini_map_res) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
-		data->offcet_x1 =  (abs((((int)b[0]) - (int)b[1] )) % data->map_res);
+		b[0] = ((b[0] - (x * data->mini_map_res)) / data->mini_map_res) *  data->map_res;
+		data->offcet_x1 = (int)b[0] % data->map_res;
 		data->ray_offset_in_y = 0;
 		return(1);
 	}
@@ -35,9 +34,8 @@ int x_detect_loop(int x_plus,int y,t_data *data,double *ray_colesion_x,double an
 	if(b[1] >= y * data->mini_map_res && b[1] < (y + 1) * data->mini_map_res)
 	{
 		*ray_colesion_x =  sqrt((tpx*tpx) +(tpy*tpy));
-		b[0] = (((((((y) * data->mini_map_res) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
-		b[1] = (((((b[1] - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2));
-		data->offcet_x =  (abs((((int)b[1]) - (int)b[0] )) % data->map_res);
+		b[1] = ((b[1] - (y * data->mini_map_res)) / data->mini_map_res) *  data->map_res;
+		data->offcet_x =  (int)b[1] % data->map_res;
 		data->ray_offset_in_y = 1;
 		return(1);
 	}
@@ -327,7 +325,9 @@ void ray_colesion(t_data *data)
 			if(destence_of_door < 30)
 				data->door_open = -1;
 			if(data->door_close > 0 && data->door_open == -1)
-				destence_of_door = 0;
+				data->offcet_x1 += data->door_close * 120;
+				if(data->door_close * 120 > data->map_res)
+					destence_of_door = 0;
 		}
 		if(destence_of_door > 0)
 			destence_of_door = ((((((destence_of_door * cos(betwinenngels)) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;

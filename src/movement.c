@@ -153,10 +153,10 @@ int	movement(t_data *data)
 			}
 			//move_rotated(data);
 		}
-		if((data->KEY_ENTER == 1 && data->door_open == -1) || data->door_close > 0)
+		if((data->KEY_ENTER == 1 && data->door_open == -1) || data->door_close > 0) // door
 		{
 			data->door_close++;
-			if(data->door_close == 25)
+			if(data->door_close == 40)
 			{
 				data->door_close = 0;
 				data->door_open = 0;
@@ -181,13 +181,13 @@ int	movement(t_data *data)
 			if(data->KEY_W == 1)
 			{
 				if(floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*data->colutsion + 0.2)) && 
-				floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion) + 0.2) && 
-				floor(one_ray(data,b_WE_P,0)) >= floor((data->player_mini_res*data->colutsion) + 0.2))
+				floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion) ) && 
+				floor(one_ray(data,b_WE_P,0)) >= floor((data->player_mini_res*data->colutsion) ))
 				{
 
-					if((((int)one_ray(data,NO_P,-1) == 0 || one_ray(data,NO_P,-1) >= (data->player_mini_res*data->colutsion + 0.2)) && 
-						( ((int)one_ray(data,b_NO_P,-1) == 0) || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion + 0.2))) && 
-						( (int)one_ray(data,b_WE_P,-1) == 0 || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion + 0.2)))) || (data->door_close > 0 && data->door_open == -1))
+					if((((int)one_ray(data,NO_P,-1) == 0 || one_ray(data,NO_P,-1) >= (data->player_mini_res*data->colutsion + 0.2 )) && 
+						( ((int)one_ray(data,b_NO_P,-1) == 0) || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion ))) && 
+						( (int)one_ray(data,b_WE_P,-1) == 0 || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
 							move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
 				}
 					
