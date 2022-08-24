@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/21 17:01:45 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:07:15 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,29 @@ void	rander_mimimap(t_data *data)
 {
 	int	x;
 	int	y;
-	
-	int player_x_position;
-	int player_y_position;
+	int	player_x_position;
+	int	player_y_position;
 
-	player_x_position = (data->player_x / data->mini_map_res) -  (data->player_mini_res/2);
-	player_y_position = (data->player_y / data->mini_map_res) -  (data->player_mini_res/2);
+	player_x_position = (data->player_x / data->mini_map_res)
+		- (data->player_mini_res / 2);
+	player_y_position = (data->player_y / data->mini_map_res)
+		- (data->player_mini_res / 2);
 	y = 0;
 	while (data->result[y] != '\0')
 	{
 		x = 0;
 		while (data->result[y][x] != '\0')
 		{
-			if(y > player_y_position - 6 && y < player_y_position + 6  && x > player_x_position - 6 && x < player_x_position + 6)
+			if (data->result[y][x] == 49)
 			{
-				if (data->result[y][x] == 49)
 				rander_image(&data->img, (t_rect){x * data->mini_map_res,
 					y * data->mini_map_res,
 					data->mini_map_res, data->mini_map_res, 9524926}, data);
-				else if (ft_strchr("NWSE025", data->result[y][x]))
-				rander_image(&data->img, (t_rect){x * data->mini_map_res,
-					y * data->mini_map_res,
-					data->mini_map_res, data->mini_map_res, 11796399}, data);
-				// else if (data->result[y][x] == 50)
-				// 	rander_image(&data->img, (t_rect){x * 10, y * 10, 10,
-				// 		10, 13422336}, data);
 			}
-			
+			else if (ft_strchr("NWSE025", data->result[y][x]))
+				rander_image(&data->img, (t_rect){x * data->mini_map_res,
+					y * data->mini_map_res, data->mini_map_res,
+					data->mini_map_res, 11796399}, data);
 			x++;
 		}
 		y++;
@@ -93,13 +89,15 @@ void	camera_posetion(t_data *data)
 				if (data->result[y][x] == 'E')
 					data->pa = 0;
 				if (data->result[y][x] == 'W')
-					data->pa = (M_PI);
+					data->pa = M_PI;
 				data->result[y][x] = '0';
+
 			}
 			x++;
 		}
 		y++;
 	}
+	
 }
 
 void	respone_obj(t_data *data)

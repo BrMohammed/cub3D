@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:42 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/19 16:41:22 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/24 21:15:24 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,7 @@ void	aloccation_sprites_and_storage(t_data *data)
 
 void	respone(t_data *data)
 {
-	int	x;
-	int	y;
 
-	x = 0;
-	y = 0;
-	while (data->result[y])
-	{
-		while (data->result[0][x])
-			x++;
-		y++;
-	}
 	data->mlx = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx, data->demintion_with,
 			data->demension_hight, "cub3d");
@@ -105,5 +95,4 @@ void	respone(t_data *data)
 			&data->img.line_len, &data->img.endian);
 	aloccation_sprites(data);
 	aloccation_sprites_and_storage(data);
-	
 }

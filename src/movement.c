@@ -2,15 +2,18 @@
 
 int	key_down(int key, t_data *data)
 {
+	//m = 46
 	if (key == 53)
 	{
 		kill(0, SIGKILL);
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
+	if (key == 46) //M
+			data->show_mouse = !data->show_mouse;
 	if(key == 49)
 			data->KEY_SPACE = 1;
-	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36))
+	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36 || key == 46))
 	{
 		data->ON_KEYDOWN_DERECTION = 1;
 		if (key == 2 ) //d
@@ -21,7 +24,7 @@ int	key_down(int key, t_data *data)
 			data->KEY_W = 1;
 		else if (key == 1)//s
 			data->KEY_S = 1;
-		if (key == 36) //d
+		if (key == 36) 
 			data->KEY_ENTER = 1; //enter
 	}
 	//126 up
@@ -119,6 +122,10 @@ int	movement(t_data *data)
 	path_end = ".xpm";
 	if(index_of_anim == 0)
 		index_of_anim = 1;
+	if(data->show_mouse == true)
+		mlx_mouse_show();
+	else
+		mlx_mouse_hide();
 	if(i == 30)
 	{
 		//coin_animation
@@ -194,10 +201,9 @@ int	movement(t_data *data)
 					if((((int)one_ray(data,NO_P,-1) == 0 || one_ray(data,NO_P,-1) >= (data->player_mini_res*(data->colutsion + 0.7) )) && 
 						( ((int)one_ray(data,b_NO_P,-1) == 0) || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion ))) && 
 						( (int)one_ray(data,b_WE_P,-1) == 0 || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
-							move(data,( sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
+							move(data,(sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
+							
 				}
-					
-	
 			}
 			else if(data->KEY_S == 1)
 			{

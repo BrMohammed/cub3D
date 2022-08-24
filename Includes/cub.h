@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
+/*   Updated: 2022/08/24 21:12:57 by brmohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <mlx.h>
 # include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -9,8 +20,10 @@
 # include <unistd.h>
 #include <signal.h>
 #include "../libft/libft.h"
+# include "../minilibx_opengl/mlx.h"
 #include <math.h>
 # include <pthread.h>
+#include <stdbool.h>
 
 #define pi 3.1415926535
 #define ON_KEYUP_DERECTION key_up[0] 
@@ -27,6 +40,7 @@
 #define KEY_DOWN key_select[7]
 #define KEY_SPACE key_select[8]
 #define KEY_ENTER key_select[9]
+#define KEY_M key_select[10]
 #define WIN_W data->demintion_with
 #define WIN_H data->demension_hight
 
@@ -47,6 +61,7 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
+
 typedef struct s_menu
 {
 	void *start;
@@ -63,6 +78,7 @@ typedef struct s_menu
 	char *game_over_path;
 	char *game_over_path_hover;
 } t_menu;
+
 typedef struct s_number
 {
 	void	*number0;
@@ -103,71 +119,36 @@ typedef struct s_number
 
 }	t_number;
 
-typedef struct s_img_rander
+typedef struct s_color
 {
-	void	*mlx_img;
-	char	*addr;
-	int		bpp; /* bits per pixel */
-	int		line_len;
-	int		endian;
-}	t_img_rander;
-
-typedef struct s_img__sprite
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp; /* bits per pixel */
-	int		line_len;
-	int		endian;
-}	t_img_sprite;
-
-typedef struct s_img__door
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp; /* bits per pixel */
-	int		line_len;
-	int		endian;
-}	t_img_door;
-
-typedef struct s_img__mini_player
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp; /* bits per pixel */
-	int		line_len;
-	int		endian;
-}	t_img_mini_player;
-
-typedef struct s_img_rander_derection
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp; /* bits per pixel */
-	int		line_len;
-	int		endian;
-}	t_img_rander_derection;
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 typedef struct s_data
 {
 	t_img	img;
-	t_img_rander img_rander;
-	t_img_rander_derection img_rander_derection;
-	t_img_sprite img_sprite;
-	t_img_mini_player img_mini_player;
-	int		cur_img;
-
-	char		*NO_PATH;
-	void 		*NO;
-
-	char		*WE_PATH;
-	void 		*WE;
-
-	char		*SO_PATH;
-	void 		*SO;
-
-	char		*EA_PATH;
-	void 		*EA;
+	t_img 	img_rander;
+	t_img 	img_rander_derection;
+	t_img 	img_sprite;
+	t_img 	img_mini_player;
+	t_img 	door;
+	int			cur_img;
+	char		*no_tex_path;
+	char		*so_tex_path;
+	char		*we_tex_path;
+	char		*ea_tex_path;
+	t_img		no_tex;
+	t_img		so_tex;
+	t_img		we_tex;
+	t_img		ea_tex;
+	void 		*no;
+	void 		*we;
+	void 		*so;
+	void 		*ea;
+	int			floor_color;
+	int			ceilling_color;
 
 	char *point_map_path;
 	void *point_map;
@@ -192,7 +173,7 @@ typedef struct s_data
 
 	int key_up[2];
 	int key_down[2];
-	int key_select[10];
+	int key_select[11];
 
 	int ray_count;
 	int color;
@@ -249,11 +230,28 @@ typedef struct s_data
 	int time_move;
 	int sound_loop;
 
-	t_img_door door;
+
 	int door_open;
 	int door_close;
-
+	bool show_mouse;
 }	t_data;
+
+typedef struct s_pars
+{
+	char	*line;
+	int		i;
+	char	c;
+	int		order_flag;
+	int		fd;
+	int		no_f;
+	int		so_f;
+	int		we_f;
+	int		ea_f;
+	int		floor_f;
+	int		ceilling_f;
+	int		map_height;
+	t_data	data;
+}	t_pars;
 
 typedef struct s_raycolesion
 {
@@ -287,12 +285,10 @@ typedef struct s_oneray
 }t_oneray;
 
 char	*get_next_line(int fd);
-
 void	move(t_data *data, int y, int x);
 void	respone(t_data *data);
 void	respone_obj(t_data *data);
 int		hole_move(t_data *data);
-char 	**check_map(char *str,t_data *data);
 void	move_rotated(t_data *data);
 void	draw_line(t_data *game, int *begin, int *end, int color);
 void 	ray_colesion(t_data *data);
@@ -304,7 +300,7 @@ int 	rander_image(t_img *img, t_rect rect,t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color,t_data *data);
 double 	one_ray(t_data *data,double angel,int ray_count);
 int get_pixel(char *addr,int line_len,int x, int y,int demention);
-void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall,char *addr,int line_len);
+void	draw_linev2(t_data *data, int *begin, int *end, int x, int y,double wall_scall,char *addr,int line_len);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
 void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);
@@ -319,4 +315,8 @@ void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,cha
 void	number_b(t_data *data);
 void	aloccation_sprites_and_storage(t_data *data);
 void *background(void *var);
+int	mouse(void);
+int	mouse_down(int button, int x, int y, t_data *data);
+int	mouse_move(int x, int y, t_data *data);
+t_data	check_file(char *path,t_data *data);
 #endif

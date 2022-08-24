@@ -55,16 +55,16 @@ int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_
 			{
 				if(data->result[oneray_var->y][x] == '5') //wall detect posetion
 				{
-				if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
+					if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
 						return(1);
 				}
 			}
 			else
 			{
-				y_detect_loop_for_sprite(data,y_plus,x,angel,ray_count);
+				//y_detect_loop_for_sprite(data,y_plus,x,angel,ray_count);
 				if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 				{
-				if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
+					if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
 						return(1);
 				}
 			}
@@ -79,16 +79,16 @@ int y_detect(t_data *data,t_oneray *oneray_var, int y_plus,double angel,int ray_
 			{
 				if(data->result[oneray_var->y][x] == '5') //wall detect posetion
 				{
-				if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
+					if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
 						return(1);
 				}
 			}
 			else
 			{
-				y_detect_loop_for_sprite(data,y_plus,x,angel,ray_count);
+				//y_detect_loop_for_sprite(data,y_plus,x,angel,ray_count);
 				if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 				{
-				if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
+					if(y_detect_loop(data,y_plus,x,&oneray_var->ray_colesion_y,angel) == 1)
 						return(1);
 				}
 			}
@@ -127,7 +127,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 			}
 			else
 			{
-				x_detect_for_sprite_loop(x_plus,oneray_var->y,data,angel,ray_count);
+				//x_detect_for_sprite_loop(x_plus,oneray_var->y,data,angel,ray_count);
 				if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 				{
 					if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -157,7 +157,7 @@ int x_detect(t_oneray *oneray_var,t_data *data,double angel,int ray_count)
 			}
 			else
 			{
-				x_detect_for_sprite_loop(x_plus,oneray_var->y,data,angel,ray_count);
+				//x_detect_for_sprite_loop(x_plus,oneray_var->y,data,angel,ray_count);
 				if(data->result[oneray_var->y][x] == '1') //wall detect posetion
 				{
 					if(x_detect_loop(x_plus,oneray_var->y,data,&oneray_var->ray_colesion_x,angel) == 1)
@@ -266,6 +266,7 @@ void ray_colesion(t_data *data)
 	double			wall_scall;
 	double			tabl_of_distences[WIN_W];
 	double destence_of_door;
+	int y;
 
 	rc_var.angel_move = (M_PI/3) / (WIN_W);
 	rc_var.point_to_break = 0;	
@@ -289,7 +290,7 @@ void ray_colesion(t_data *data)
 			if(betwinenngels > 2*M_PI)
 				betwinenngels -= 2*M_PI;
 			rc_var.distance = ((((((rc_var.distance * cos(betwinenngels)) - (data->player_mini_res / 2)) / data->mini_map_res)) * data->map_res) + (data->mini_map_res / 2)) ;
-			rc_var.distanceprojplan = ((WIN_W / 2) / tan((M_PI/6)));
+			rc_var.distanceprojplan = ((WIN_W / 2) * tan((M_PI/3)));
 			rc_var.wallHeight = (((data->map_res ) / ( rc_var.distance)) * rc_var.distanceprojplan);
 			wall_scall = (rc_var.wallHeight) / data->map_res;
 			//rc_var.wallHeight = (WIN_H /2) - rc_var.distance;
@@ -297,26 +298,29 @@ void ray_colesion(t_data *data)
 			rc_var.begin[0] =  rc_var.ray_count;
 			rc_var.begin[1] = 0;
 			rc_var.end[0] =  rc_var.ray_count;
-			rc_var.end[1] = (WIN_H  / 2) - ( (rc_var.wallHeight /2) - data->lfo9);
+			rc_var.end[1] = (WIN_H  / 2) - ( (rc_var.wallHeight /2) );
 			if( rc_var.distance > 0)
-				draw_line(data, rc_var.begin, rc_var.end, 1585733);
+				draw_line(data, rc_var.begin, rc_var.end, data->ceilling_color);
 			//l2ard
 			rc_var.begin[0] =  rc_var.ray_count;
-			rc_var.begin[1] = (WIN_H  / 2) + ( (rc_var.wallHeight/2) - data->lte7t);
+			rc_var.begin[1] = (WIN_H  / 2) + ( (rc_var.wallHeight/2) );
 			rc_var.end[0] =  rc_var.ray_count;
 			rc_var.end[1] = WIN_H;
 			if(rc_var.distance > 0)
-				draw_line(data, rc_var.begin, rc_var.end, 3360865);
+				draw_line(data, rc_var.begin, rc_var.end, data->floor_color);
 			//WALL
 			rc_var.begin[0] =  rc_var.ray_count;
-			rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2) - data->lfo9);
+			rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2));
 			rc_var.end[0] =  rc_var.ray_count;
-			rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) - data->lte7t);
+			rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) );
+			y = (data->map_res / 2) - (rc_var.wallHeight / 2);
+			if (y < 0)
+				y = 0;
 			//texturs
 			if(data->ray_offset_in_y == 0)
-				draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x1),wall_scall,data->img_rander.addr,data->img_rander.line_len);
+				draw_linev2(data, rc_var.begin, rc_var.end,(data->offcet_x1),y,wall_scall,data->img_rander.addr,data->img_rander.line_len);
 			else
-				draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x ),wall_scall,data->img_rander.addr,data->img_rander.line_len);
+				draw_linev2(data, rc_var.begin, rc_var.end,(data->offcet_x ),y,wall_scall,data->img_rander.addr,data->img_rander.line_len);
 		} 
 		tabl_of_distences[rc_var.ray_count] = rc_var.distance;
 		destence_of_door = one_ray(data,rc_var.rays,-1);
@@ -338,16 +342,19 @@ void ray_colesion(t_data *data)
 			wall_scall = (rc_var.wallHeight) / data->map_res;
 			//WALL
 			rc_var.begin[0] =  rc_var.ray_count;
-			rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2) - data->lfo9);
+			rc_var.begin[1] = (WIN_H / 2) - ( (rc_var.wallHeight / 2) );
 			rc_var.end[0] =  rc_var.ray_count;
-			rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) - data->lte7t);
+			rc_var.end[1] = (WIN_H / 2) + ( (rc_var.wallHeight / 2) );
 			//texturs
+			y = (data->map_res / 2) - (rc_var.wallHeight / 2);
+			if (y < 0)
+				y = 0;
 			if(data->ray_offset_in_y == 0)
-				draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x1),wall_scall,data->door.addr,data->door.line_len);
+				draw_linev2(data, rc_var.begin, rc_var.end,data->offcet_x1,y,wall_scall,data->door.addr,data->door.line_len);
 			else
-				draw_linev2(data, rc_var.begin, rc_var.end,floor(data->offcet_x ),wall_scall,data->door.addr,data->door.line_len);
+				draw_linev2(data, rc_var.begin, rc_var.end,data->offcet_x ,y,wall_scall,data->door.addr,data->door.line_len);
 		}
 		rc_var.ray_count++;
 	}
-	ray_colesion_for_sprite(data,tabl_of_distences);
+	//ray_colesion_for_sprite(data,tabl_of_distences);
 }

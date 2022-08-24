@@ -124,13 +124,12 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 	
 }
 
-void	draw_linev2(t_data *data, int *begin, int *end, int x,double wall_scall,char *addr,int line_len)
+void	draw_linev2(t_data *data, int *begin, int *end, int x,int y,double wall_scall,char *addr,int line_len)
 {
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
 	int pixel_color;
-	int y = 0;
 	double  temp_y = 0;
 
 	pixel[0] = begin[0];

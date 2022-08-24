@@ -174,6 +174,5 @@ void	move_rotated(t_data *data)
 			hover = 0;
 		
 	}
-			
 	
 }

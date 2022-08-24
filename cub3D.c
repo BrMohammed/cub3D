@@ -6,11 +6,20 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/21 22:09:33 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:05:50 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/cub.h"
+
+int	error(char *msg, t_pars *pars)
+{
+	printf("Error\n %s\n", msg);
+	if (pars)
+		close(pars->fd);
+	exit(0);
+}
+
 
 int	mouse(void)
 {
@@ -39,75 +48,17 @@ void	check_cub(char *str)
 		i--;
 	}
 }
-int mouse_move(int x,int y,t_data *data)
-{
-	data->menu.hover_quit = (150 / 2);
-	data->menu.hover_start = (150 / 2);
-	data->menu.quit = mlx_xpm_file_to_image(data->mlx,
-			data->menu.quit_path, &data->img_width, &data->img_height); 
-	data->menu.start = mlx_xpm_file_to_image(data->mlx,
-			data->menu.start_path, &data->img_width, &data->img_height);
-	if(x > 426 && x < 575 && y > 400 && y < 450 && data->begin_game == 0 && data->color_increment > 40)//start
-	{
-		data->menu.start = mlx_xpm_file_to_image(data->mlx,
-			data->menu.start_hover_path, &data->img_width, &data->img_height); 
-		data->menu.hover_start += 15;
-	}
-	else if(x > 426 && x < 575 && y > 500 && y < 550 && data->begin_game == 0 && data->color_increment > 40)//quit
-	{
-		data->menu.quit = mlx_xpm_file_to_image(data->mlx,
-			data->menu.quit_hover_path, &data->img_width, &data->img_height); 
-		data->menu.hover_quit += 15;
-	}
-	return(0);
-}
 
-void *click(void *var)
-{
-	(void)var;
-	system("afplay -v 20 ./assets/sound/click.mp3");
-	return(0);
-}
-void *background(void *var)
-{
-	t_data	*data;
-
-	data = (t_data *)var;
-	data->sound_loop = system("while :; do afplay -v 1 ./assets/sound/background3.mp3; done");
-	return(0);
-}
-
-int mouse_down(int button ,int x,int y,t_data *data)
-{
-	pthread_t			id;
-	
-	if (button == 1 && data->begin_game == 0 && data->color_increment > 40)
-	{
-		if(x > 426 && x < 575 && y > 400 && y < 450)//start
-		{
-			pthread_create(&id, NULL, &click, NULL);
-			data->begin_game = 1;
-		}
-		else if(x > 426 && x < 575 && y > 500 && y < 550)//quit
-		{
-			pthread_create(&id, NULL, &click, NULL);
-			mouse();
-		}
-			
-	}
-	return(0);
-}
 int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (av[1])
-		check_cub(av[1]);
-	data.result = check_map(av[1], &data);
-	data.result_back_up = check_map(av[1], &data);
 	(void) ac;
 	if (ac == 2)
 	{
+		if (av[1])
+		check_cub(av[1]);
+		check_file(av[1],&data);
 		initial_var(&data);
 		respone(&data);
 		inisial_path(&data);

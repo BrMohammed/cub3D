@@ -3,6 +3,19 @@
 
 void initial_var(t_data *data)
 {
+    int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (data->result[y])
+	{
+		while (data->result[0][x])
+			x++;
+		y++;
+	}
+	data->result_hight = y;
+	data->result_with = x;
     data->lfo9 = 10;
     data->lte7t = 10;
     data->demension_hight = 1000;
@@ -10,7 +23,7 @@ void initial_var(t_data *data)
     if((data->demension_hight / data->result_hight) < (data->demintion_with / data->result_with) )
         data->mini_map_res = (data->demension_hight / data->result_hight) / 3;
     else
-    data->mini_map_res = (data->demintion_with / data->result_with) / 3;
+        data->mini_map_res = (data->demintion_with / data->result_with) / 3;
     data->map_res = 1000;
     data->player_mini_res = data->mini_map_res / 2;
     data->speed = 3;
@@ -27,11 +40,12 @@ void initial_var(t_data *data)
     data->time_up = 10;
     data->time_move = 2;
     data->door_open = 0;
+    data->show_mouse = true;
 }
 
 void inisial_path(t_data *data)
 {
-    data->img_rander.mlx_img = mlx_xpm_file_to_image(data->mlx, data->NO_PATH,
+    data->img_rander.mlx_img = mlx_xpm_file_to_image(data->mlx, data->no_tex_path,
     &data->p_h, &data->p_h);
     data->img_rander.addr = mlx_get_data_addr(data->img_rander.mlx_img, &data->img_rander.bpp,
     &data->img_rander.line_len, &data->img_rander.endian);
