@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 19:56:36 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:07:54 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,5 +377,6 @@ int	y_detect(t_data *data, t_oneray *oneray_var, double angel);
 double	one_ray(t_data *data, double angel, int ray_count);
 void	init_var(t_raycolesion *rc_var, double *betwinenngels,
 		double *destence_of_door, t_data *data);
+void init_var_from_map(t_data *data, t_pars pars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:35:42 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/08/24 23:34:30 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:08:13 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	is_a_valid_elem(t_pars *pars)
 		error("Invalid file!", pars);
 }
 
-t_data	check_file(char *path,t_data *data)
+t_data	check_file(char *path, t_data *data)
 {
 	t_pars	pars;
 	int		fd;
@@ -104,12 +104,6 @@ t_data	check_file(char *path,t_data *data)
 		error("Map  element is missing!", NULL);
 	else if (pars.order_flag != 6)
 		error("Invalid file!", NULL);
-	data->result = pars.data.result;
-	data->no_tex_path = pars.data.no_tex_path;
-	data->so_tex_path = pars.data.so_tex_path;
-	data->we_tex_path = pars.data.we_tex_path;
-	data->ea_tex_path = pars.data.ea_tex_path;
-	data->floor_color = pars.data.floor_color;
-	data->ceilling_color = pars.data.ceilling_color;
+	init_var_from_map(data, pars);
 	return (pars.data);
 }
