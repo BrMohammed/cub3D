@@ -1,80 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/25 21:10:05 by brmohamm          #+#    #+#             */
+/*   Updated: 2022/08/25 21:14:41 by brmohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Includes/cub.h"
+
+void	key_down_for_leters(t_data *data, int key)
+{
+	if (key == 46)
+			data->show_mouse = !data->show_mouse;
+	if (key == 49)
+			data->KEY_SPACE = 1;
+	if ((key == 2 || key == 0 || key == 13 || key == 1
+			|| key == 36 || key == 46))
+	{
+		data->ON_KEYDOWN_DERECTION = 1;
+		if (key == 2)
+			data->KEY_D = 1;
+		else if (key == 0)
+			data->KEY_A = 1;
+		if (key == 13)
+			data->KEY_W = 1;
+		else if (key == 1)
+			data->KEY_S = 1;
+		if (key == 36)
+			data->KEY_ENTER = 1;
+	}
+}
 
 int	key_down(int key, t_data *data)
 {
-	//m = 46
 	if (key == 53)
 	{
 		kill(0, SIGKILL);
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	if (key == 46) //M
-			data->show_mouse = !data->show_mouse;
-	if(key == 49)
-			data->KEY_SPACE = 1;
-	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36 || key == 46))
-	{
-		data->ON_KEYDOWN_DERECTION = 1;
-		if (key == 2 ) //d
-			data->KEY_D = 1;
-		else if ( key == 0 )//a
-			data->KEY_A = 1;
-		if (key == 13 )//w
-			data->KEY_W = 1;
-		else if (key == 1)//s
-			data->KEY_S = 1;
-		if (key == 36) 
-			data->KEY_ENTER = 1; //enter
-	}
-	//126 up
-	//125 down
-	if(key == 123 || key == 124 || key == 126 || key == 125) 
+	key_down_for_leters(data, key);
+	if (key == 123 || key == 124 || key == 126 || key == 125)
 	{
 		data->ON_KEYDOWN_CAMERA = 1;
-		if(key == 123) 
+		if (key == 123)
 			data->KEY_LEFT = 1;
-		else if(key == 124)
+		else if (key == 124)
 			data->KEY_WRIGHT = 1;
-		if(key == 125) 
+		if (key == 125)
 			data->KEY_DOWN = 1;
-		else if(key == 126)
+		else if (key == 126)
 			data->KEY_UP = 1;
 	}
-	return(0);
+	return (0);
+}
+
+void	key_up_for_leters(t_data *data, int key)
+{
+	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36))
+	{
+		data->ON_KEYDOWN_DERECTION = 0;
+		if (key == 2)
+			data->KEY_D = 0;
+		else if (key == 0)
+			data->KEY_A = 0;
+		if (key == 13)
+			data->KEY_W = 0;
+		else if (key == 1)
+			data->KEY_S = 0;
+		if (key == 36)
+			data->KEY_ENTER = 0;
+	}
 }
 
 int	key_up(int key, t_data *data)
 {
-	//49 = space
-	//key = 36
-	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36))
-	{
-		 data->ON_KEYDOWN_DERECTION = 0;
-		if (key == 2) //d
-			data->KEY_D = 0;
-		else if ( key == 0 )//a
-			data->KEY_A = 0;
-	    if (key == 13 )//w
-			data->KEY_W = 0;
-		else if (key == 1)//s
-			data->KEY_S = 0;
-		if (key == 36) 
-			data->KEY_ENTER = 0; //enter
-	}
-	if(key == 123 || key == 124 || key == 126 || key == 125) 
+	key_up_for_leters(data, key);
+	if (key == 123 || key == 124 || key == 126 || key == 125)
 	{
 		data->ON_KEYDOWN_CAMERA = 0;
-		if(key == 123) 
+		if (key == 123)
 			data->KEY_LEFT = 0;
-		else if(key == 124)
+		else if (key == 124)
 			data->KEY_WRIGHT = 0;
-		if(key == 125) 
+		if (key == 125)
 			data->KEY_DOWN = 0;
-		else if(key == 126)
+		else if (key == 126)
 			data->KEY_UP = 0;
 	}
-	return(0);
+	return (0);
 }
 
 int	movement(t_data *data)

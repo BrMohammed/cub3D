@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 20:34:22 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 21:04:34 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:09:44 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,4 @@ void	number_b(t_data *data)
 void	destroy(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->mlx_win);
-	//mlx_destroy_image(data->mlx, data->point_map);
 }
-
-// void	respone2(t_data *data)
-// {
-// 	data->point_map = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
-// 			&data->p_w, &data->p_h);
-// }
