@@ -9,8 +9,8 @@ void	destroy_and_refresh(t_data *data)
 
 void	move(t_data *data, int y, int x)
 {
-	data->player_x += x;
-	data->player_y += y ;
+	data->player_x = data->player_x + x;
+	data->player_y = data->player_y + y;
 }
 static void	condetion_number(t_data *data, int *t, char *c, int *i)
 {

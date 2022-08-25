@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 22:05:50 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/24 23:55:41 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	error(char *msg, t_pars *pars)
 		close(pars->fd);
 	exit(0);
 }
-
 
 int	mouse(void)
 {
@@ -49,6 +48,24 @@ void	check_cub(char *str)
 	}
 }
 
+void	back_up(t_data *data)
+{
+	int	y;
+
+	y = 0;
+	while (data->result[y])
+		y++;
+	y++;
+	data->result_back_up = (char **)malloc(sizeof(char *) * y);
+	data->result_back_up[y - 1] = NULL;
+	y = 0;
+	while (data->result_back_up[y])
+	{
+		data->result_back_up[y] = ft_strdup(data->result[y]);
+		y++;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -56,9 +73,9 @@ int	main(int ac, char **av)
 	(void) ac;
 	if (ac == 2)
 	{
-		if (av[1])
 		check_cub(av[1]);
-		check_file(av[1],&data);
+		check_file(av[1], &data);
+		back_up(&data);
 		initial_var(&data);
 		respone(&data);
 		inisial_path(&data);

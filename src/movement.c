@@ -59,7 +59,7 @@ int	key_up(int key, t_data *data)
 			data->KEY_W = 0;
 		else if (key == 1)//s
 			data->KEY_S = 0;
-		if (key == 36) //d
+		if (key == 36) 
 			data->KEY_ENTER = 0; //enter
 	}
 	if(key == 123 || key == 124 || key == 126 || key == 125) 
@@ -191,7 +191,6 @@ int	movement(t_data *data)
 				initial_var(data); 
 				data->begin_game = 1;
 			}
-			
 			if(data->KEY_W == 1)
 			{
 				if(floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*(data->colutsion + 0.7))) && 
@@ -218,7 +217,7 @@ int	movement(t_data *data)
 				}
 					
 			}
-			if(data->KEY_A == 1 )
+			else if(data->KEY_A == 1 )
 			{
 				if((floor(one_ray(data,WE_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5) ) &&
 					(floor(one_ray(data,b_WE_P,0)) >= floor(data->player_mini_res*data->colutsion)) && 

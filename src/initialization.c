@@ -45,10 +45,25 @@ void initial_var(t_data *data)
 
 void inisial_path(t_data *data)
 {
-    data->img_rander.mlx_img = mlx_xpm_file_to_image(data->mlx, data->no_tex_path,
+    data->no_tex.mlx_img = mlx_xpm_file_to_image(data->mlx, data->no_tex_path,
     &data->p_h, &data->p_h);
-    data->img_rander.addr = mlx_get_data_addr(data->img_rander.mlx_img, &data->img_rander.bpp,
-    &data->img_rander.line_len, &data->img_rander.endian);
+    data->no_tex.addr = mlx_get_data_addr(data->no_tex.mlx_img, &data->no_tex.bpp,
+    &data->no_tex.line_len, &data->no_tex.endian);
+
+    data->so_tex.mlx_img = mlx_xpm_file_to_image(data->mlx, data->so_tex_path,
+    &data->p_h, &data->p_h);
+    data->so_tex.addr = mlx_get_data_addr(data->so_tex.mlx_img, &data->so_tex.bpp,
+    &data->so_tex.line_len, &data->so_tex.endian);
+
+    data->we_tex.mlx_img = mlx_xpm_file_to_image(data->mlx, data->we_tex_path,
+    &data->p_h, &data->p_h);
+    data->we_tex.addr = mlx_get_data_addr(data->we_tex.mlx_img, &data->so_tex.bpp,
+    &data->we_tex.line_len, &data->we_tex.endian);
+
+    data->ea_tex.mlx_img = mlx_xpm_file_to_image(data->mlx, data->ea_tex_path,
+    &data->p_h, &data->p_h);
+    data->ea_tex.addr = mlx_get_data_addr(data->ea_tex.mlx_img, &data->so_tex.bpp,
+    &data->ea_tex.line_len, &data->ea_tex.endian);
 
     data->door.mlx_img = mlx_xpm_file_to_image(data->mlx, "./assets/door.xpm",//door
     &data->p_h, &data->p_h);
@@ -84,7 +99,6 @@ void inisial_path(t_data *data)
     data->menu.start_hover_path = "./assets/start_hover.xpm";
     data->menu.game_over_path = "./assets/game_over.xpm";
     data->menu.game_over_path_hover = "./assets/game_over_hover.xpm";
-
     number_b(data);
 }
 void	number_b(t_data *data)

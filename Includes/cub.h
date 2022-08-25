@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 21:12:57 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 00:55:07 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,9 @@ typedef struct s_oneray
     double ray_colesion_y;
     double ray_colesion_x;
     double distance;
-
+	double ray_count;
+	int x_plus;
+	int	y_plus;
 
 }t_oneray;
 
@@ -319,4 +321,6 @@ int	mouse(void);
 int	mouse_down(int button, int x, int y, t_data *data);
 int	mouse_move(int x, int y, t_data *data);
 t_data	check_file(char *path,t_data *data);
+int	x_detect(t_oneray *oneray_var, t_data *data, double angel);
+int	y_detect(t_data *data, t_oneray *oneray_var, double angel);
 #endif

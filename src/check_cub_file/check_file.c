@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:35:42 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/08/24 21:59:04 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/24 23:34:30 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,10 @@ t_data	check_file(char *path,t_data *data)
 	else if (pars.order_flag != 6)
 		error("Invalid file!", NULL);
 	data->result = pars.data.result;
-	data->result_back_up = pars.data.result;
-	data->no_tex_path =  pars.data.no_tex_path;
-	data->so_tex_path =  pars.data.so_tex_path;
-	data->we_tex_path =  pars.data.we_tex_path;
-	data->ea_tex_path =  pars.data.ea_tex_path;
+	data->no_tex_path = pars.data.no_tex_path;
+	data->so_tex_path = pars.data.so_tex_path;
+	data->we_tex_path = pars.data.we_tex_path;
+	data->ea_tex_path = pars.data.ea_tex_path;
 	data->floor_color = pars.data.floor_color;
 	data->ceilling_color = pars.data.ceilling_color;
 	return (pars.data);

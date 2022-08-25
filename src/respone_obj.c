@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 22:07:15 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/24 23:56:49 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	initial_player_posetion(t_data *data)
 		{
 			if (ft_strchr("NWSE", data->result[y][x]))
 			{
-				data->player_y = (y * data->mini_map_res) + data->player_mini_res/2;
-				data->player_x = (x * data->mini_map_res) + data->player_mini_res/2;
+				data->player_y = (y * data->mini_map_res)
+					+ data->player_mini_res / 2;
+				data->player_x = (x * data->mini_map_res)
+					+ data->player_mini_res / 2;
 			}
 			x++;
 		}
@@ -40,13 +42,7 @@ void	rander_mimimap(t_data *data)
 {
 	int	x;
 	int	y;
-	int	player_x_position;
-	int	player_y_position;
 
-	player_x_position = (data->player_x / data->mini_map_res)
-		- (data->player_mini_res / 2);
-	player_y_position = (data->player_y / data->mini_map_res)
-		- (data->player_mini_res / 2);
 	y = 0;
 	while (data->result[y] != '\0')
 	{
@@ -91,13 +87,11 @@ void	camera_posetion(t_data *data)
 				if (data->result[y][x] == 'W')
 					data->pa = M_PI;
 				data->result[y][x] = '0';
-
 			}
 			x++;
 		}
 		y++;
 	}
-	
 }
 
 void	respone_obj(t_data *data)
