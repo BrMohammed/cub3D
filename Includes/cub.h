@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 03:45:21 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:33:24 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@
 #define KEY_M key_select[10]
 #define WIN_W data->demintion_with
 #define WIN_H data->demension_hight
+
+typedef struct s_loop_for_sprite
+{
+	double	b[2];
+	double	tpx ;
+	double	tpy;
+	int		i;
+	double angel;
+}t_loop_for_sprite;
 
 typedef struct s_rect
 {
@@ -236,8 +245,8 @@ typedef struct s_data
 	void *sprite_buf;
 	int counter_of_sprites;
 	int begin_game;
-	int **table_formation_of_spritesy;
-	int **table_formation_of_spritesx;
+	int **table_of_spritesy;
+	int **table_of_spritesx;
 	t_number	number;
 	t_menu		menu;
 	int coin_count;
@@ -324,15 +333,15 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel,int ray_count);
 int	get_pixel(t_get_pixel get_pixel_var);
 void	draw_linev2(t_data *data, t_draw_linev2 line_var);
-double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
+void ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
 void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);
 void initial_var(t_data *data);
 void destroy(t_data *data);
 void respone2(t_data *data);
 void inisial_path(t_data *data);
-int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray_count);
-int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_count);
+int y_detect_loop_for_sprite(t_data *data,int x,double angel, t_oneray *one_ray);
+int	x_detect_for_sprite_loop(t_data *data, double angel, t_oneray *one_ray);
 int rander_image_for_mini_player(t_img *img, t_rect rect);
 void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len);
 void	number_b(t_data *data);

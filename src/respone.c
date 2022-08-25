@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:42 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 23:31:39 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:33:24 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	continue_alocation(t_data *data)
 	i = 0;
 	while (i < data->counter_of_sprites)
 	{
-		data->table_formation_of_spritesy[i] = malloc(sizeof(int) * 2);
-		data->table_formation_of_spritesy[i][0] = 0;
-		data->table_formation_of_spritesy[i][1] = 0;
-		data->table_formation_of_spritesx[i] = malloc(sizeof(int) * 2);
-		data->table_formation_of_spritesx[i][0] = 0;
-		data->table_formation_of_spritesx[i][1] = 0;
+		data->table_of_spritesy[i] = malloc(sizeof(int) * 2);
+		data->table_of_spritesy[i][0] = 0;
+		data->table_of_spritesy[i][1] = 0;
+		data->table_of_spritesx[i] = malloc(sizeof(int) * 2);
+		data->table_of_spritesx[i][0] = 0;
+		data->table_of_spritesx[i][1] = 0;
 		i++;
 	}
 }
@@ -50,8 +50,8 @@ void	aloccation_sprites(t_data *data)
 		y++;
 	}
 	data->counter_of_sprites = i;
-	data->table_formation_of_spritesy = (int **)malloc(sizeof(int *) * (i));
-	data->table_formation_of_spritesx = (int **)malloc(sizeof(int *) * (i));
+	data->table_of_spritesy = (int **)malloc(sizeof(int *) * (i));
+	data->table_of_spritesx = (int **)malloc(sizeof(int *) * (i));
 	data->pos_of_sprite_x = malloc(sizeof(int) * (i));
 	data->pos_of_sprite_y = malloc(sizeof(int) * (i));
 	continue_alocation(data);

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:42:44 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 01:16:23 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:01:43 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	x_detect_int_while(t_oneray *oneray_var, t_data *data, double angel, int x)
 	}
 	else
 	{
-		x_detect_for_sprite_loop(oneray_var->x_plus, oneray_var->y, data,
-			angel, oneray_var->ray_count);
+		x_detect_for_sprite_loop(data, angel, oneray_var);
 		if (data->result[oneray_var->y][x] == '1')
 		{
 			if (x_detect_loop(oneray_var->x_plus, data, oneray_var, angel) == 1)

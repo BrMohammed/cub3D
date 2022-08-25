@@ -20,7 +20,8 @@
         "unordered_map": "c",
         "vector": "c",
         "bitset": "c",
-        "__node_handle": "c"
+        "__node_handle": "c",
+        "chrono": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "C_Cpp.dimInactiveRegions": false
