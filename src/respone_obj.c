@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 23:56:49 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:40:25 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	rander_mimimap(t_data *data)
 			{
 				rander_image(&data->img, (t_rect){x * data->mini_map_res,
 					y * data->mini_map_res,
-					data->mini_map_res, data->mini_map_res, 9524926}, data);
+					data->mini_map_res, data->mini_map_res, 9524926});
 			}
 			else if (ft_strchr("NWSE025", data->result[y][x]))
 				rander_image(&data->img, (t_rect){x * data->mini_map_res,
 					y * data->mini_map_res, data->mini_map_res,
-					data->mini_map_res, 11796399}, data);
+					data->mini_map_res, 11796399});
 			x++;
 		}
 		y++;

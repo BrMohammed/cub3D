@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 03:36:12 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:37:59 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ void	door_draw(double destence_of_door, t_raycolesion *rc_var,
 			data->door.addr, data->door.line_len});
 	}
 }
-
-
 
 void	ray_colesion(t_data *data)
 {

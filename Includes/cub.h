@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 03:36:41 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:45:21 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ typedef struct s_rect
 	int height;
 	int color;
 }	t_rect;
+
+typedef struct s_get_pixel
+{
+	char *addr;
+	int line_len;
+	int x;
+	int y;
+	int demention;
+}t_get_pixel;
 
 typedef struct s_draw_linev2
 {
@@ -310,10 +319,10 @@ void	destroy_and_refresh(t_data *data);
 int		movement(t_data *data);
 int		key_up(int key, t_data *data);
 int		key_down(int key, t_data *data);
-int 	rander_image(t_img *img, t_rect rect,t_data *data);
-void	img_pix_put(t_img *img, int x, int y, int color,t_data *data);
+int 	rander_image(t_img *img, t_rect rect);
+void	img_pix_put(t_img *img, int x, int y, int color);
 double 	one_ray(t_data *data,double angel,int ray_count);
-int get_pixel(char *addr,int line_len,int x, int y,int demention);
+int	get_pixel(t_get_pixel get_pixel_var);
 void	draw_linev2(t_data *data, t_draw_linev2 line_var);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
@@ -324,7 +333,7 @@ void respone2(t_data *data);
 void inisial_path(t_data *data);
 int y_detect_loop_for_sprite(t_data *data, int y_plus,int x,double angel,int ray_count);
 int x_detect_for_sprite_loop(int x_plus,int y,t_data *data,double angel,int ray_count);
-int rander_image_for_mini_player(t_img *img, t_rect rect,t_data *data);
+int rander_image_for_mini_player(t_img *img, t_rect rect);
 void	draw_linev4_for_static_imgs(t_data *data, int *begin, int *end,int high,char *addr,int line_len);
 void	number_b(t_data *data);
 void	aloccation_sprites_and_storage(t_data *data);

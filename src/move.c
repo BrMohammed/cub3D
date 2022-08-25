@@ -121,7 +121,7 @@ void	move_rotated(t_data *data)
 		end[1]= data->player_y ;
 		destroy_and_refresh(data);
 		draw_linev4_for_static_imgs(data, begin,end,data->player_mini_res,data->img_mini_player.addr,data->img_mini_player.line_len);
-		rander_image(&data->img, (t_rect){40,WIN_H - 40,data->time_up, 20, 12580864}, data);
+		rander_image(&data->img, (t_rect){40,WIN_H - 40,data->time_up, 20, 12580864});
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.mlx_img, 0, 0);
 	}
 	i = 0;
