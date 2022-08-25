@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 00:55:07 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 02:13:33 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,4 +323,5 @@ int	mouse_move(int x, int y, t_data *data);
 t_data	check_file(char *path,t_data *data);
 int	x_detect(t_oneray *oneray_var, t_data *data, double angel);
 int	y_detect(t_data *data, t_oneray *oneray_var, double angel);
+double	one_ray(t_data *data, double angel, int ray_count);
 #endif
