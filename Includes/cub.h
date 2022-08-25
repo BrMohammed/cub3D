@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 02:13:33 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 03:36:41 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ typedef struct s_rect
 	int height;
 	int color;
 }	t_rect;
+
+typedef struct s_draw_linev2
+{
+	int *begin;
+	int *end;
+	int x;
+	int y;
+	double wall_scall;
+	char *addr;
+	int line_len;
+}t_draw_linev2;
 
 typedef struct s_img
 {
@@ -264,8 +275,9 @@ typedef struct s_raycolesion
     double wallHeight;
     int ray_count;
 	double distanceprojplan;
+	int				y;
+	int 			offcet;
 
-	
 }t_raycolesion;
 
 typedef struct s_oneray
@@ -302,7 +314,7 @@ int 	rander_image(t_img *img, t_rect rect,t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color,t_data *data);
 double 	one_ray(t_data *data,double angel,int ray_count);
 int get_pixel(char *addr,int line_len,int x, int y,int demention);
-void	draw_linev2(t_data *data, int *begin, int *end, int x, int y,double wall_scall,char *addr,int line_len);
+void	draw_linev2(t_data *data, t_draw_linev2 line_var);
 double ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
 void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);
@@ -324,4 +336,7 @@ t_data	check_file(char *path,t_data *data);
 int	x_detect(t_oneray *oneray_var, t_data *data, double angel);
 int	y_detect(t_data *data, t_oneray *oneray_var, double angel);
 double	one_ray(t_data *data, double angel, int ray_count);
+void	init_var(t_raycolesion *rc_var, double *betwinenngels,
+		double *destence_of_door, t_data *data);
+
 #endif

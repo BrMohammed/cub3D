@@ -103,9 +103,8 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 				if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0 )
 				{
 					if(distence <= tabl_of_distences[begin[0]])
-					{
 						rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color},data);
-					}
+
 				}	
 				temp_y++;
 			}
@@ -124,34 +123,32 @@ void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *ta
 	
 }
 
-void	draw_linev2(t_data *data, int *begin, int *end, int x,int y,double wall_scall,char *addr,int line_len)
+void	draw_linev2(t_data *data, t_draw_linev2 line_var)
 {
 	double	delta[2];
 	int		pixels;
 	double	pixel[2];
-	int pixel_color;
-	double  temp_y = 0;
+	int		pixel_color;
+	double	temp_y = 0;
 
-	pixel[0] = begin[0];
-	pixel[1] = begin[1];
-	delta[0] = (end[0] - begin[0]);
-	delta[1] = end[1] - begin[1];
+	pixel[0] = line_var.begin[0];
+	pixel[1] = line_var.begin[1];
+	delta[0] = (line_var.end[0] - line_var.begin[0]);
+	delta[1] = line_var.end[1] - line_var.begin[1];
 	pixels = sqrt((delta[0] * delta[0]) + (delta[1] * delta[1]));
 	delta[0] /= pixels;
 	delta[1] /= pixels;
-	while (pixels && x < data->map_res)
+	while (pixels && line_var.x < data->map_res)
 	{
-
-		if(y < data->map_res)
+		if (line_var.y < data->map_res)
 		{
-			y =  floor((temp_y ) / wall_scall) ;
-			if(y < data->map_res && x < data->map_res && y >= 0 && x >= 0)
-				pixel_color = get_pixel(addr,line_len,x,y,data->map_res);
-			if(pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0)
+			line_var.y = floor((temp_y ) / line_var.wall_scall);
+			if (line_var.y < data->map_res && line_var.x < data->map_res && line_var.y >= 0 && line_var.x >= 0)
+				pixel_color = get_pixel(line_var.addr,line_var.line_len,line_var.x,line_var.y,data->map_res);
+			if (pixel[0] > 0  && pixel[0] <  WIN_H && pixel[1] > 0  && pixel[1] <  WIN_H && pixel_color > 0)
 				rander_image(&data->img, (t_rect){pixel[0], pixel[1],1, 1, pixel_color},data);
 			temp_y++;
 		}
-		
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];
 		--pixels;
