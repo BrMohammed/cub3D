@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 18:33:24 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:56:36 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,27 @@ typedef struct s_get_pixel
 	int y;
 	int demention;
 }t_get_pixel;
+
+typedef struct s_draw_linev3_var
+{
+	double	delta[2];
+	int		pixels;
+	double	pixel[2];
+	int		x;
+	double	temp_x;
+	int		pixel_color;
+	int		y;
+	double	temp_y;
+}t_draw_linev3_var;
+
+typedef struct s_draw_linev3
+{
+	int *begin;
+	int *end;
+	double wall_scall;
+	double *tabl_of_distences;
+	double distence;
+}t_draw_linev3;
 
 typedef struct s_draw_linev2
 {
@@ -335,7 +356,7 @@ int	get_pixel(t_get_pixel get_pixel_var);
 void	draw_linev2(t_data *data, t_draw_linev2 line_var);
 void ray_colesion_for_sprite(t_data *data,double *tabl_of_distences);
 double one_ray_for_sprite(t_data *data,double angel);
-void	draw_linev3(t_data *data, int *begin, int *end,double wall_scall,double *tabl_of_distences,double distence);
+void	draw_linev3(t_data *data, t_draw_linev3 line_var);
 void initial_var(t_data *data);
 void destroy(t_data *data);
 void respone2(t_data *data);

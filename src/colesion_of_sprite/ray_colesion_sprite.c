@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:51:34 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 18:48:07 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:31:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	draw_sprite(t_data *data, double *tabl_of_distences,
 			- (wall_scall * data->coin_res / 2);
 		rc_var->begin[1] = (WIN_H / 2) - (rc_var->wallHeight / 2)
 			+ (rc_var->wallHeight / 1.2);
-		rc_var->end[0] = rc_var->ray_count - (wall_scall
-				* data->coin_res / 2);
+		rc_var->end[0] = rc_var->ray_count - (wall_scall * data->coin_res / 2);
 		rc_var->end[1] = (WIN_H / 2) + (rc_var->wallHeight / 2)
 			+ (rc_var->wallHeight / 1.2);
-		draw_linev3(data, rc_var->begin, rc_var->end, wall_scall, tabl_of_distences, rc_var->distance);
+		draw_linev3(data, (t_draw_linev3){rc_var->begin,
+			rc_var->end, wall_scall, tabl_of_distences, rc_var->distance});
 	}
 }
 

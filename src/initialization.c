@@ -45,6 +45,10 @@ void initial_var(t_data *data)
 
 void inisial_path(t_data *data)
 {
+    data->point_map_path = "./assets/point.xpm";
+    data->point_map = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
+    &data->p_w, &data->p_h);
+
     data->no_tex.mlx_img = mlx_xpm_file_to_image(data->mlx, data->no_tex_path,
     &data->p_h, &data->p_h);
     data->no_tex.addr = mlx_get_data_addr(data->no_tex.mlx_img, &data->no_tex.bpp,
@@ -70,11 +74,11 @@ void inisial_path(t_data *data)
     data->door.addr = mlx_get_data_addr(data->door.mlx_img, &data->door.bpp,
     &data->door.line_len, &data->door.endian);
 
-    data->point_map_path = "./assets/arow5.xpm";
-    data->img_mini_player.mlx_img  = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
-    &data->p_w, &data->p_h);
-     data->img_mini_player.addr = mlx_get_data_addr(data->img_mini_player.mlx_img, &data->img_mini_player.bpp,
-    &data->img_mini_player.line_len, &data->img_mini_player.endian);
+    // data->point_map_path = "./assets/arow5.xpm";
+    // data->img_mini_player.mlx_img  = mlx_xpm_file_to_image(data->mlx, data->point_map_path,
+    // &data->p_w, &data->p_h);
+    //  data->img_mini_player.addr = mlx_get_data_addr(data->img_mini_player.mlx_img, &data->img_mini_player.bpp,
+    // &data->img_mini_player.line_len, &data->img_mini_player.endian);
 
     data->path_sprite = "./assets/YellowCoin/xpm/1.xpm";
     data->img_sprite.mlx_img = mlx_xpm_file_to_image(data->mlx, data->path_sprite,

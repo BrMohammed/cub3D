@@ -6,7 +6,7 @@ CFLAGS	= -Wall -Wextra -Werror -std=c99 -fsanitize=address -g ##-Ofast
 
 MLX =   -framework OpenGL -framework AppKit
 
-FILES = src/get_next_line.c src/draw_lines.c\
+FILES = src/get_next_line.c src/drawlines/draw_lines.c src/drawlines/v3.c\
 		src/move.c src/respone_obj.c src/respone.c src/colesion_of_ray/ray_colesion.c  src/colesion_of_ray/one_ray.c src/colesion_of_ray/init_for_draw.c cub3D.c\
 		src/movement.c src/rander_image.c src/initialization.c src/mouse_fun.c src/colesion_of_ray/x_colesion.c src/colesion_of_ray/y_colesion.c\
 		src/colesion_of_sprite/ray_colesion_sprite.c src/colesion_of_sprite/x_and_y_colesion.c\
