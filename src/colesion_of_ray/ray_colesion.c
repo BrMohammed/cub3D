@@ -6,11 +6,33 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 01:27:06 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/25 01:56:29 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub.h"
+
+void player_posetion(t_data *data, t_oneray *oneray_var)
+{
+	while (data->result[oneray_var->y])
+	{
+		if (data->player_y + (data->player_mini_res / 2) >= oneray_var->y
+			* data->mini_map_res && data->player_y + (data->player_mini_res / 2)
+			<= (oneray_var->y + 1) * data->mini_map_res)
+			oneray_var->py = oneray_var->y;
+		oneray_var->x = 0;
+		while (data->result[oneray_var->y][oneray_var->x])
+		{
+			if (data->player_x + (data->player_mini_res / 2) >= oneray_var->x
+				* data->mini_map_res
+				&& data->player_x + (data->player_mini_res / 2)
+				<= (oneray_var->x + 1) * data->mini_map_res)
+				oneray_var->px = oneray_var->x;
+			oneray_var->x++;
+		}
+		oneray_var->y++;
+	}
+}
 
 double	one_ray(t_data *data, double angel, int ray_count)
 {
@@ -23,24 +45,7 @@ double	one_ray(t_data *data, double angel, int ray_count)
 	oneray_var.distance = 0;
 	oneray_var.ray_count = ray_count;
 	oneray_var.degre = (angel / pi) * 180;
-	while (data->result[oneray_var.y])
-	{
-		if (data->player_y + (data->player_mini_res / 2) >= oneray_var.y
-			* data->mini_map_res && data->player_y + (data->player_mini_res / 2)
-			<= (oneray_var.y + 1) * data->mini_map_res)
-			oneray_var.py = oneray_var.y;
-		oneray_var.x = 0;
-		while (data->result[oneray_var.y][oneray_var.x])
-		{
-			if (data->player_x + (data->player_mini_res / 2) >= oneray_var.x
-				* data->mini_map_res
-				&& data->player_x + (data->player_mini_res / 2)
-				<= (oneray_var.x + 1) * data->mini_map_res)
-				oneray_var.px = oneray_var.x;
-			oneray_var.x++;
-		}
-		oneray_var.y++;
-	}
+	player_posetion(data, &oneray_var);
 	if ((oneray_var.degre <= 360 && oneray_var.degre > 180))
 	{
 		oneray_var.y = oneray_var.py;
