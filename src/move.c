@@ -3,14 +3,31 @@
 void	destroy_and_refresh(t_data *data)
 {
 	destroy(data);
-	//respone2(data);
 	respone_obj(data);
+}
+
+
+int	is_a_wall(t_data *data, float x, float y)
+{
+	t_int_point	p;
+
+	p.x = (int)(x + (data->player_mini_res)) / data->mini_map_res;
+	p.y = (int)(y + (data->player_mini_res)) / data->mini_map_res;
+	if (data->result[(int)(y / data->mini_map_res)][(int)x / data->mini_map_res] == '1' ||
+		data->result[(int)(y / data->mini_map_res)][(int)(x + data->player_mini_res) / data->mini_map_res] == '1' ||
+		data->result[(int)(y + data->player_mini_res) / data->mini_map_res][(int)x / data->mini_map_res] == '1' ||
+		data->result[p.y][p.x] == '1')
+		return (1);
+	return (0);
 }
 
 void	move(t_data *data, int y, int x)
 {
-	data->player_x = data->player_x + x;
-	data->player_y = data->player_y + y;
+	if (!is_a_wall (data, data->player_x + x, data->player_y + y))
+	{
+		data->player_x = data->player_x + x;
+		data->player_y = data->player_y + y;
+	}
 }
 static void	condetion_number(t_data *data, int *t, char *c, int *i)
 {
@@ -172,7 +189,6 @@ void	move_rotated(t_data *data)
 			
 		if(hover >= 60)
 			hover = 0;
-		
 	}
 	
 }

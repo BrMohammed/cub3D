@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 21:07:54 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:27:27 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@
 #define WIN_W data->demintion_with
 #define WIN_H data->demension_hight
 
+typedef struct s_int_point
+{
+	int	x;
+	int	y;
+}	t_int_point;
+
 typedef struct s_loop_for_sprite
 {
 	double	b[2];
@@ -61,6 +67,14 @@ typedef struct s_rect
 	int height;
 	int color;
 }	t_rect;
+
+typedef struct s_movement
+{
+	
+	char		*path_begin;
+	char		*path_end;
+	int			i1;
+}t_movement;
 
 typedef struct s_get_pixel
 {
@@ -273,7 +287,7 @@ typedef struct s_data
 	int coin_count;
 	int			img_width;
 	int			img_height;
-	char **result_back_up;
+	char **back_up;
 	double colutsion;
 	int color_increment;
 	int time_up;
@@ -378,5 +392,6 @@ double	one_ray(t_data *data, double angel, int ray_count);
 void	init_var(t_raycolesion *rc_var, double *betwinenngels,
 		double *destence_of_door, t_data *data);
 void init_var_from_map(t_data *data, t_pars pars);
+int	coin_animation(t_data *data, t_movement *var, int index_of_anim);
 
 #endif

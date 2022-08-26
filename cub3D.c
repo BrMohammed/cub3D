@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 23:55:41 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:24:24 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	back_up(t_data *data)
 	while (data->result[y])
 		y++;
 	y++;
-	data->result_back_up = (char **)malloc(sizeof(char *) * y);
-	data->result_back_up[y - 1] = NULL;
+	data->back_up = (char **)malloc(sizeof(char *) * y);
+	data->back_up[y - 1] = NULL;
 	y = 0;
-	while (data->result_back_up[y])
+	while (data->back_up[y])
 	{
-		data->result_back_up[y] = ft_strdup(data->result[y]);
+		data->back_up[y] = ft_strdup(data->result[y]);
 		y++;
 	}
 }

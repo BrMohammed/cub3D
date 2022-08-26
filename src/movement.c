@@ -6,288 +6,135 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 21:10:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 21:14:41 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:27:57 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/cub.h"
 
-void	key_down_for_leters(t_data *data, int key)
+void	jumping(t_data *data)
 {
-	if (key == 46)
-			data->show_mouse = !data->show_mouse;
-	if (key == 49)
-			data->KEY_SPACE = 1;
-	if ((key == 2 || key == 0 || key == 13 || key == 1
-			|| key == 36 || key == 46))
+	if (data->KEY_SPACE == 1)
 	{
-		data->ON_KEYDOWN_DERECTION = 1;
-		if (key == 2)
-			data->KEY_D = 1;
-		else if (key == 0)
-			data->KEY_A = 1;
-		if (key == 13)
-			data->KEY_W = 1;
-		else if (key == 1)
-			data->KEY_S = 1;
-		if (key == 36)
-			data->KEY_ENTER = 1;
+		if (data->is_jumping_up <= data->gravity
+			&& data->is_jumping_down == 0)
+		{
+			data->lfo9 += data->jump_force;
+			data->lte7t -= data->jump_force;
+			data->is_jumping_up++;
+		}
+		if (data->is_jumping_up == data->gravity
+			&& data->is_jumping_down >= 0)
+		{
+			data->lfo9 -= data->jump_force;
+			data->lte7t += data->jump_force;
+			data->is_jumping_down++;
+		}
+		if (data->is_jumping_down == data->gravity
+			&& data->is_jumping_up == data->gravity)
+		{
+			data->KEY_SPACE = 0;
+			data->is_jumping_up = 0;
+			data->is_jumping_down = 0;
+		}
 	}
 }
 
-int	key_down(int key, t_data *data)
+void	derection_move(t_data *data, t_movement *var)
 {
-	if (key == 53)
+	if (data->ON_KEYDOWN_DERECTION == 1)
 	{
-		kill(0, SIGKILL);
-		mlx_destroy_window(data->mlx, data->mlx_win);
-		exit(0);
-	}
-	key_down_for_leters(data, key);
-	if (key == 123 || key == 124 || key == 126 || key == 125)
-	{
-		data->ON_KEYDOWN_CAMERA = 1;
-		if (key == 123)
-			data->KEY_LEFT = 1;
-		else if (key == 124)
-			data->KEY_WRIGHT = 1;
-		if (key == 125)
-			data->KEY_DOWN = 1;
-		else if (key == 126)
-			data->KEY_UP = 1;
-	}
-	return (0);
-}
-
-void	key_up_for_leters(t_data *data, int key)
-{
-	if ((key == 2 || key == 0 || key == 13 || key == 1 || key == 36))
-	{
-		data->ON_KEYDOWN_DERECTION = 0;
-		if (key == 2)
-			data->KEY_D = 0;
-		else if (key == 0)
-			data->KEY_A = 0;
-		if (key == 13)
-			data->KEY_W = 0;
-		else if (key == 1)
-			data->KEY_S = 0;
-		if (key == 36)
-			data->KEY_ENTER = 0;
+		if (data->coin_count == data->counter_of_sprites
+			&& data->KEY_ENTER == 1)
+		{
+			while (data->result[var->i1])
+			{
+				free(data->result[var->i1]);
+				data->result[var->i1] = ft_strdup(data->back_up[var->i1]);
+				var->i1++;
+			}
+			aloccation_sprites_and_storage(data);
+			initial_var(data);
+			data->begin_game = 1;
+		}
+		if (data->KEY_W == 1)
+			move(data, (sin(data->pa) * data->speed),
+				(cos(data->pa) * data->speed));
+		else if (data->KEY_S == 1)
+			move(data, -sin(data->pa) * 2, -cos(data->pa) * 2);
+		else if (data->KEY_A == 1)
+			move(data, -cos(-data->pa) * 2, -sin(-data->pa) * 2);
+		else if (data->KEY_D == 1)
+			move(data, cos(-data->pa) * 2, -sin(data->pa) * 2);
 	}
 }
 
-int	key_up(int key, t_data *data)
+void	camera_move(t_data *data)
 {
-	key_up_for_leters(data, key);
-	if (key == 123 || key == 124 || key == 126 || key == 125)
+	if (data->ON_KEYDOWN_CAMERA == 1)
 	{
-		data->ON_KEYDOWN_CAMERA = 0;
-		if (key == 123)
-			data->KEY_LEFT = 0;
-		else if (key == 124)
-			data->KEY_WRIGHT = 0;
-		if (key == 125)
-			data->KEY_DOWN = 0;
-		else if (key == 126)
-			data->KEY_UP = 0;
+		if (data->KEY_WRIGHT == 1)
+		{
+			data->pa += data->angel_speed;
+			if (data->pa > 2 * M_PI)
+				data->pa -= 2 * M_PI;
+		}
+		else if (data->KEY_LEFT == 1)
+		{
+			data->pa -= data->angel_speed;
+			if (data->pa < 0)
+				data->pa += 2 * M_PI;
+		}
 	}
-	return (0);
+	move_rotated(data);
+}
+
+int	open_door(t_data *data, int is_open)
+{
+	jumping(data);
+	if ((data->KEY_ENTER == 1 && data->door_open == -1)
+		|| (data->door_close > 0 && is_open == 0))
+	{
+		data->door_close++;
+		if (data->door_close == 25)
+		{
+			is_open = 1;
+			data->door_open = 0;
+		}
+	}
+	if (is_open == 1)
+	{
+		data->door_close--;
+		if (data->door_close == 0)
+			is_open = 0;
+	}
+	return (is_open);
 }
 
 int	movement(t_data *data)
 {
- 	double NO_P;
-	double WE_P;
-	double EA_P;
-	double SO_P;
-	double b_NO_P;
-	double b_WE_P;
-	double b_EA_P;
-	double b_SO_P;
-	static int i;
-	static int index_of_anim;
-	char *path_begin;
-	char *path_end;
+	t_movement	var;
+	static int	i;
+	static int	index_of_anim;
+	static int	is_open;
 
-
-	NO_P = data->pa;
-	EA_P = data->pa + M_PI/2;
-	SO_P = data->pa + M_PI;
-	WE_P = data->pa - M_PI/2;
-
-	b_NO_P = data->pa +  M_PI/4 ;
-	b_EA_P = data->pa + M_PI/2 + M_PI/4;
-	b_SO_P = data->pa + M_PI + M_PI/4;
-	b_WE_P = data->pa - M_PI/4;
-
-	if(EA_P > 2 * M_PI)
-		EA_P  -= 2 * M_PI;
-	if (SO_P > 2 * M_PI)
-		SO_P -= 2 * M_PI;
-	if (WE_P < 0)
-		WE_P += 2 * M_PI;
-	
-	if(b_NO_P > 2 * M_PI)
-		b_NO_P  -= 2 * M_PI;
-	if(b_EA_P > 2 * M_PI)
-		b_EA_P  -= 2 * M_PI;
-	if (b_SO_P > 2 * M_PI)
-		b_SO_P -= 2 * M_PI;
-	if (b_WE_P < 0)
-		b_WE_P += 2 * M_PI;
-	path_begin = "./assets/YellowCoin/xpm/";
-	path_end = ".xpm";
-	if(index_of_anim == 0)
+	var.path_begin = "./assets/YellowCoin/xpm/";
+	var.path_end = ".xpm";
+	if (index_of_anim == 0)
 		index_of_anim = 1;
-	if(data->show_mouse == true)
+	if (data->show_mouse == true)
 		mlx_mouse_show();
 	else
 		mlx_mouse_hide();
-	if(i == 30)
+	if (i == 30)
 	{
-		//coin_animation
-		data->path_sprite = ft_strjoin(path_begin,ft_itoa(index_of_anim));
-		data->path_sprite = ft_strjoin(data->path_sprite,path_end);
-		data->img_sprite.mlx_img = mlx_xpm_file_to_image(data->mlx, data->path_sprite,
-		&data->p_w, &data->p_h);
-		data->img_sprite.addr = mlx_get_data_addr(data->img_sprite.mlx_img, &data->img_sprite.bpp,
-		&data->img_sprite.line_len, &data->img_sprite.endian);
-		index_of_anim++;
-		
-		if(data->KEY_SPACE  == 1)
-		{
-				// jump;
-			if( data->is_jumping_up <= data->gravity && data->is_jumping_down == 0)
-			{
-				data->lfo9 += data->jump_force;
-				data->lte7t -= data->jump_force;
-				data->is_jumping_up++;
-			}
-			if( data->is_jumping_up == data->gravity && data->is_jumping_down >= 0)
-			{
-				data->lfo9 -= data->jump_force;
-				data->lte7t += data->jump_force;
-				data->is_jumping_down++;
-			}
-			if(data->is_jumping_down == data->gravity && data->is_jumping_up == data->gravity)
-			{
-				data->KEY_SPACE = 0;
-				data->is_jumping_up = 0;
-				data->is_jumping_down = 0;
-			}
-			//move_rotated(data);
-		}
-		static int is_open;
-		if((data->KEY_ENTER == 1 && data->door_open == -1) || (data->door_close > 0 && is_open == 0)) // door
-		{
-			data->door_close++;
-			if(data->door_close == 25)
-			{
-				is_open = 1;
-				data->door_open = 0;
-			}
-		}
-		if(is_open == 1)
-		{
-			data->door_close--;
-			if(data->door_close == 0)
-				is_open = 0;
-		}
-		if(data->ON_KEYDOWN_DERECTION == 1)
-		{
-			if(data->coin_count == data->counter_of_sprites && data->KEY_ENTER == 1)
-			{
-				int i = 0;
-				while (data->result[i])
-				{
-					free(data->result[i]);
-					data->result[i] = ft_strdup(data->result_back_up[i])  ;
-					i++;
-				}
-				aloccation_sprites_and_storage(data);
-				initial_var(data); 
-				data->begin_game = 1;
-			}
-			if(data->KEY_W == 1)
-			{
-				if(floor(one_ray(data,NO_P,0)) >= floor((data->player_mini_res*(data->colutsion + 0.7))) && 
-				floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion) ) && 
-				floor(one_ray(data,b_WE_P,0)) >= floor((data->player_mini_res*data->colutsion) ))
-				{
-					if((((int)one_ray(data,NO_P,-1) == 0 || one_ray(data,NO_P,-1) >= (data->player_mini_res*(data->colutsion + 0.7) )) && 
-						( ((int)one_ray(data,b_NO_P,-1) == 0) || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion ))) && 
-						( (int)one_ray(data,b_WE_P,-1) == 0 || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
-							move(data,(sin(data->pa) * data->speed), (cos(data->pa) * data->speed));
-							
-				}
-			}
-			else if(data->KEY_S == 1)
-			{
-				if( (floor(one_ray(data,SO_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5)) &&
-				(floor(one_ray(data,b_EA_P,0)) >= floor(data->player_mini_res*data->colutsion)) &&
-				(floor(one_ray(data,b_SO_P,0)) >= floor(data->player_mini_res*data->colutsion)))
-				{
-					if((((int)one_ray(data,SO_P,-1) == 0 || one_ray(data,SO_P,-1) >= (data->player_mini_res*data->colutsion)+ 0.5) && 
-						( ((int)one_ray(data,b_EA_P,-1) == 0) || (one_ray(data,b_EA_P,-1)) >= ((data->player_mini_res*data->colutsion))) && 
-						( (int)one_ray(data,b_SO_P,-1) == 0 || (one_ray(data,b_SO_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
-					move(data, -sin(data->pa) * data->speed, -cos(data->pa) * data->speed);
-				}
-					
-			}
-			else if(data->KEY_A == 1 )
-			{
-				if((floor(one_ray(data,WE_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5) ) &&
-					(floor(one_ray(data,b_WE_P,0)) >= floor(data->player_mini_res*data->colutsion)) && 
-					(floor(one_ray(data,b_SO_P,0)) >= floor(data->player_mini_res*data->colutsion)))
-					{
-						if((((int)one_ray(data,WE_P,-1) == 0 || one_ray(data,WE_P,-1) >= (data->player_mini_res*data->colutsion + 0.5)) && 
-						( ((int)one_ray(data,b_WE_P,-1) == 0) || (one_ray(data,b_WE_P,-1)) >= ((data->player_mini_res*data->colutsion))) && 
-						( (int)one_ray(data,b_SO_P,-1) == 0 || (one_ray(data,b_SO_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
-							move(data,-cos(-data->pa) * data->speed ,-sin(-data->pa) * data->speed);
-					}
-				
-			}
-			else if(data->KEY_D == 1 )
-			{
-				if((floor(one_ray(data,EA_P,0)) >= floor(data->player_mini_res*data->colutsion + 0.5)) &&
-					(floor(one_ray(data,b_EA_P,0)) >= floor(data->player_mini_res*data->colutsion))&&
-					floor(one_ray(data,b_NO_P,0)) >= floor((data->player_mini_res*data->colutsion)))
-					{
-						if((((int)one_ray(data,EA_P,-1) == 0 || one_ray(data,EA_P,-1) >= (data->player_mini_res*data->colutsion + 0.5)) && 
-						( ((int)one_ray(data,b_EA_P,-1) == 0) || (one_ray(data,b_EA_P,-1)) >= ((data->player_mini_res*data->colutsion))) && 
-						( (int)one_ray(data,b_NO_P,-1) == 0 || (one_ray(data,b_NO_P,-1)) >= ((data->player_mini_res*data->colutsion)))) || (data->door_close > 0 && data->door_open == -1))
-							move(data,cos(-data->pa) * data->speed ,-sin(data->pa) * data->speed);
-					}
-			}
-		}
-		if(data->ON_KEYDOWN_CAMERA == 1)
-		{
-			if(data->KEY_WRIGHT == 1)
-			{
-				data->pa += data->angel_speed;
-				if(data->pa > 2 * M_PI)
-					data->pa -= 2 * M_PI;
-			}
-			else if(data->KEY_LEFT == 1)
-			{
-				data->pa -= data->angel_speed;
-				if(data->pa < 0)
-					data->pa += 2 * M_PI;
-			}
-			if(data->KEY_UP  == 1)
-			{
-				
-			}
-			else if(data->KEY_DOWN == 1)
-			{
-				
-			}
-		}
-		move_rotated(data);
+		index_of_anim = coin_animation(data, &var, index_of_anim);
+		is_open = open_door(data, is_open);
+		derection_move(data, &var);
+		camera_move(data);
 		i = 0;
 	}
-	if(index_of_anim == 31)
+	if (index_of_anim == 31)
 		index_of_anim = 0;
 	i++;
 	return (0);
