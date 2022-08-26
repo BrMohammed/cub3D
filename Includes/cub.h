@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 17:27:27 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:25:22 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,5 +393,6 @@ void	init_var(t_raycolesion *rc_var, double *betwinenngels,
 		double *destence_of_door, t_data *data);
 void init_var_from_map(t_data *data, t_pars pars);
 int	coin_animation(t_data *data, t_movement *var, int index_of_anim);
-
+void	move_show_count(t_data *data);
+void	start_game_and_menue(t_data *data);
 #endif
