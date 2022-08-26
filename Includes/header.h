@@ -6,10 +6,9 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:08:36 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/24 21:00:53 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:28:21 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef HEADER_H
 # define HEADER_H
@@ -19,15 +18,15 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
-#include <signal.h>
-#include "../libft/libft.h"
+# include <signal.h>
+# include "../libft/libft.h"
 # include "../minilibx_opengl/mlx.h"
-#include <math.h>
+# include <math.h>
 # include <pthread.h>
-#include <stdbool.h>
-#include "cub.h"
+# include <stdbool.h>
+# include "cub.h"
 
-int	    error(char *msg, t_pars *pars);
+int		error(char *msg, t_pars *pars);
 void	re_init_pars(t_pars *pars);
 int		get_map_len(char **map);
 void	check_is_surrounded_by_walls(t_pars *pars, char **map);
@@ -38,7 +37,7 @@ char	**correct_map(char **map);
 int		get_map_len(char **map);
 char	*char_to_str(char c);
 void	check_map(t_pars *pars);
-t_data	check_file(char *path,t_data *data);
+t_data	check_file(char *path, t_data *data);
 void	is_a_valid_elem(t_pars *pars);
 void	skip_space(t_pars *pars);
 void	pars_advance(t_pars *pars);

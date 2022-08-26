@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 03:37:59 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:37:30 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ void	draw_celling_and_floor(t_raycolesion *rc_var, double *betwinenngels,
 					/ data->mini_map_res)) * data->map_res)
 		+ (data->mini_map_res / 2);
 	rc_var->distanceprojplan = ((WIN_W / 2) * tan((M_PI / 3)));
-	rc_var->wallHeight = (data->map_res / rc_var->distance)
+	rc_var->wall_height = (data->map_res / rc_var->distance)
 		* rc_var->distanceprojplan;
-	*wall_scall = (rc_var->wallHeight) / data->map_res;
+	*wall_scall = (rc_var->wall_height) / data->map_res;
 	rc_var->begin[0] = rc_var->ray_count;
 	rc_var->begin[1] = 0;
 	rc_var->end[0] = rc_var->ray_count;
-	rc_var->end[1] = (WIN_H / 2) - ((rc_var->wallHeight / 2));
+	rc_var->end[1] = (WIN_H / 2) - ((rc_var->wall_height / 2));
 	draw_line(data, rc_var->begin, rc_var->end, data->ceilling_color);
 	rc_var->begin[0] = rc_var->ray_count;
-	rc_var->begin[1] = (WIN_H / 2) + ((rc_var->wallHeight / 2));
+	rc_var->begin[1] = (WIN_H / 2) + ((rc_var->wall_height / 2));
 	rc_var->end[0] = rc_var->ray_count;
 	rc_var->end[1] = WIN_H;
 	draw_line(data, rc_var->begin, rc_var->end, data->floor_color);
@@ -44,10 +44,10 @@ void	draw_wall(t_raycolesion *rc_var,
 	t_data *data, double wall_scall)
 {
 	rc_var->begin[0] = rc_var->ray_count;
-	rc_var->begin[1] = (WIN_H / 2) - ((rc_var->wallHeight / 2));
+	rc_var->begin[1] = (WIN_H / 2) - ((rc_var->wall_height / 2));
 	rc_var->end[0] = rc_var->ray_count;
-	rc_var->end[1] = (WIN_H / 2) + ((rc_var->wallHeight / 2));
-	rc_var->y = (data->map_res / 2) - (rc_var->wallHeight / 2);
+	rc_var->end[1] = (WIN_H / 2) + ((rc_var->wall_height / 2));
+	rc_var->y = (data->map_res / 2) - (rc_var->wall_height / 2);
 	if (rc_var->y < 0)
 		rc_var->y = 0;
 	if (data->ray_offset_in_y == 0)
@@ -89,14 +89,14 @@ void	door_draw(double destence_of_door, t_raycolesion *rc_var,
 	if (destence_of_door > 0 && destence_of_door < rc_var->distance)
 	{
 		rc_var->distanceprojplan = ((WIN_W / 2) / tan((M_PI / 6)));
-		rc_var->wallHeight = ((data->map_res / destence_of_door)
+		rc_var->wall_height = ((data->map_res / destence_of_door)
 				* rc_var->distanceprojplan);
-		wall_scall = (rc_var->wallHeight) / data->map_res;
+		wall_scall = (rc_var->wall_height) / data->map_res;
 		rc_var->begin[0] = rc_var->ray_count;
-		rc_var->begin[1] = (WIN_H / 2) - (rc_var->wallHeight / 2);
+		rc_var->begin[1] = (WIN_H / 2) - (rc_var->wall_height / 2);
 		rc_var->end[0] = rc_var->ray_count;
-		rc_var->end[1] = (WIN_H / 2) + (rc_var->wallHeight / 2);
-		rc_var->y = (data->map_res / 2) - (rc_var->wallHeight / 2);
+		rc_var->end[1] = (WIN_H / 2) + (rc_var->wall_height / 2);
+		rc_var->y = (data->map_res / 2) - (rc_var->wall_height / 2);
 		if (rc_var->y < 0)
 			rc_var->y = 0;
 		if (data->ray_offset_in_y == 0)
