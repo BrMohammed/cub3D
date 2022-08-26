@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 17:24:24 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:40:10 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,21 @@ void	back_up(t_data *data)
 	{
 		data->back_up[y] = ft_strdup(data->result[y]);
 		y++;
+	}
+}
+void	free_data(t_data *data)
+{
+	int	i;
+
+	free(data->no_tex_path);
+	free(data->so_tex_path);
+	free(data->we_tex_path);
+	free(data->ea_tex_path);
+	i = 0;
+	while (data->result[i])
+	{
+		free(data->result[i]);
+		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 14:06:34 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/08/24 23:34:39 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:23:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	check_start_position(t_pars *pars, char **map)
 
 char	*check_map_utils(t_pars *pars, char *map)
 {
-	int	i;
+	int		i;
+	char	*s;
 
 	i = 0;
 	while (pars->line[i])
@@ -66,8 +67,14 @@ char	*check_map_utils(t_pars *pars, char *map)
 			|| pars->line[i] == 'N' || pars->line[i] == 'S'
 			|| pars->line[i] == 'W' || pars->line[i] == 'E'
 			|| pars->line[i] == '\n' || pars->line[i] == ' '
-			|| pars->line[i] == '5' || pars->line[i] == '2')
-			map = ft_strjoin(map, char_to_str(pars->line[i]));
+			||pars->line[i] == '2' || pars->line[i] == '5')
+		{
+			s = char_to_str(pars->line[i]);
+			map = ft_strjoin(map, s);
+			if (!map)
+				return (NULL);
+			free(s);
+		}
 		else
 			error("Invalid Map!", pars);
 		i++;
@@ -98,6 +105,8 @@ void	check_map(t_pars *pars)
 	if (pars->map_height < 3)
 		error("Invalid map!", pars);
 	two_dim_map = ft_split(map, '\n');
+	if (!two_dim_map)
+		error("Error from split", pars);
 	free(map);
 	two_dim_map = correct_map(two_dim_map);
 	check_is_surrounded_by_walls(pars, two_dim_map);

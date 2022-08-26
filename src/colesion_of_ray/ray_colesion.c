@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 18:37:30 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:55:20 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_celling_and_floor(t_raycolesion *rc_var, double *betwinenngels,
 						- (data->player_mini_res / 2))
 					/ data->mini_map_res)) * data->map_res)
 		+ (data->mini_map_res / 2);
-	rc_var->distanceprojplan = ((WIN_W / 2) * tan((M_PI / 3)));
+	rc_var->distanceprojplan = ((WIN_W / 2) / tan((M_PI / 6)));
 	rc_var->wall_height = (data->map_res / rc_var->distance)
 		* rc_var->distanceprojplan;
 	*wall_scall = (rc_var->wall_height) / data->map_res;
@@ -136,3 +136,4 @@ void	ray_colesion(t_data *data)
 	}
 	ray_colesion_for_sprite(data, tabl_of_distences);
 }
+

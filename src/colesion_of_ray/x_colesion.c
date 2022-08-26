@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:42:44 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 18:01:43 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:55:32 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	x_detect_contenue(t_oneray *oneray_var, t_data *data, double angel)
 	int		x;
 	double	degre;
 
-	degre = (angel / pi) * 180;
+	degre = (angel / M_PI) * 180;
 	x = oneray_var->px;
 	x++;
 	while (data->result[oneray_var->y][x])
@@ -87,7 +87,7 @@ int	x_detect(t_oneray *oneray_var, t_data *data, double angel)
 	double	degre;
 
 	x = 0;
-	degre = (angel / pi) * 180;
+	degre = (angel / M_PI) * 180;
 	if (oneray_var->left_begin_agrement_x_from_player_x == 1)
 	{
 		x = oneray_var->px;

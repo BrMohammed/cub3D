@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/26 18:42:42 by brmohamm          #+#    #+#             */
+/*   Updated: 2022/08/26 18:43:17 by brmohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*
 ** mlx.h for MinilibX in 
 ** 
@@ -7,12 +19,9 @@
 ** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
 ** Last update Tue Oct 01 16:23:28 2014 Olivier Crouzet
 */
-
 /*
 **   MinilibX -  Please report bugs
 */
-
-
 /*
 ** FR msg - FR msg - FR msg
 **
@@ -40,20 +49,14 @@
 ** images, et represente la transparence et non l'opacite comme
 ** c'est normalement le cas.
 */
-
-
 #ifndef MLX_H
+# define MLX_H
 
-#define	MLX_H
-
-
-void	*mlx_init();
+void	*mlx_init(void);
 /*
 **  needed before everything else.
 **  return (void *)0 if failed
 */
-
-
 /*
 ** Basic actions
 */
@@ -62,15 +65,13 @@ void	*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
 /*
 **  return void *0 if failed
 */
-int	mlx_clear_window(void *mlx_ptr, void *win_ptr);
-int	mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
+int		mlx_clear_window(void *mlx_ptr, void *win_ptr);
+int		mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
 /*
 **  origin for x & y is top left corner of the window
 **  y down is positive
 **  color is 0x00RRGGBB
 */
-
-
 /*
 ** Image stuff
 */
@@ -142,8 +143,8 @@ int     mlx_mouse_show();
 int     mlx_mouse_move(void *win_ptr, int x, int y);
 int     mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
 
-int	mlx_do_key_autorepeatoff(void *mlx_ptr);
-int	mlx_do_key_autorepeaton(void *mlx_ptr);
-int	mlx_do_sync(void *mlx_ptr);
+int		mlx_do_key_autorepeatoff(void *mlx_ptr);
+int		mlx_do_key_autorepeaton(void *mlx_ptr);
+int		mlx_do_sync(void *mlx_ptr);
 
 #endif /* MLX_H */

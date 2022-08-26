@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:38:45 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 03:46:55 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:56:09 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,8 @@ int	get_pixel(t_get_pixel get_pixel_var)
 	int		color;
 
 	color = 0;
-	if (get_pixel_var.y < get_pixel_var.demention && get_pixel_var.y > 0
-		&& get_pixel_var.x > 0 && get_pixel_var.x < get_pixel_var.demention)
-	{
-		buffer = get_pixel_var.addr + (get_pixel_var.y
-				* get_pixel_var.line_len + get_pixel_var.x * (4));
-		color = *(int *)buffer;
-	}
+	buffer = get_pixel_var.addr + (get_pixel_var.y
+			* get_pixel_var.line_len + get_pixel_var.x * (4));
+	color = *(int *)buffer;
 	return (color);
 }

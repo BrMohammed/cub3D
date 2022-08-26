@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 02:13:15 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 02:13:24 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:02:37 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ double	one_ray(t_data *data, double angel, int ray_count)
 	oneray_var.ray_colesion_x = 0;
 	oneray_var.distance = 0;
 	oneray_var.ray_count = ray_count;
-	oneray_var.degre = (angel / pi) * 180;
+	oneray_var.degre = (angel / M_PI) * 180;
 	player_posetion(data, &oneray_var);
 	if ((oneray_var.degre <= 360 && oneray_var.degre > 180))
 		view_befor_player(data, &oneray_var, angel);

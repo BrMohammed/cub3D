@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:08:36 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 18:28:21 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:43:03 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**correct_map(char **map);
 int		get_map_len(char **map);
 char	*char_to_str(char c);
 void	check_map(t_pars *pars);
-t_data	check_file(char *path, t_data *data);
+void	check_file(char *path, t_data *data);
 void	is_a_valid_elem(t_pars *pars);
 void	skip_space(t_pars *pars);
 void	pars_advance(t_pars *pars);
