@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 16:28:48 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:47:41 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,19 @@
 # include <pthread.h>
 # include <stdbool.h>
 
-/*# define ON_KEYUP_DERECTION key_up[0]
-# define ON_KEYUP_CAMERA key_up[1]
-# define ON_KEYDOWN_DERECTION key_down[0] 
-# define ON_KEYDOWN_CAMERA key_down[1] 
-# define KEY_LEFT key_select[0]
-# define KEY_WRIGHT key_select[1]
-# define KEY_W key_select[2]
-# define KEY_S key_select[3]
-# define KEY_A key_select[4]
-# define KEY_D key_select[5]
-# define KEY_UP key_select[6]
-# define KEY_DOWN key_select[7]
-# define KEY_SPACE key_select[8]
-# define KEY_ENTER key_select[9]
-# define KEY_M key_select[10]
-# define WIN_W data->demintion_with
-# define WIN_H data->demension_hight*/
+# define ON_KEYDOWN_DERECTION 0
+# define ON_KEYDOWN_CAMERA 1
+# define KEY_LEFT 0
+# define KEY_WRIGHT 1
+# define KEY_W 2
+# define KEY_S 3
+# define KEY_A 4
+# define KEY_D 5
+# define KEY_UP 6
+# define KEY_DOWN 7
+# define KEY_SPACE 8
+# define KEY_ENTER 9
+# define KEY_M 10
 
 typedef struct s_int_point
 {
@@ -307,6 +303,7 @@ typedef struct s_pars
 	int		ceilling_f;
 	int		map_height;
 	t_data	data;
+	int		coin_flag;
 }	t_pars;
 
 typedef struct s_raycolesion
@@ -319,7 +316,7 @@ typedef struct s_raycolesion
 	double	distance;
 	double	wall_height;
 	int		ray_count;
-	double	distanceprojplan;
+	double	distprjplan;
 	int		y;
 	int		offcet;
 
@@ -387,4 +384,5 @@ void	init_var_from_map(t_data *data, t_pars pars);
 int		coin_animation(t_data *data, t_movement *var, int index_of_anim);
 void	move_show_count(t_data *data);
 void	start_game_and_menue(t_data *data);
+void	if_can_move(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 16:24:09 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:23:10 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ void	draw_celling_and_floor(t_raycolesion *rc_var, double *betwinenngels,
 						- (data->player_mini_res / 2))
 					/ data->mini_map_res)) * data->map_res)
 		+ (data->mini_map_res / 2);
-	rc_var->distanceprojplan = ((WIN_W / 2) / tan((M_PI / 6)));
+	rc_var->distprjplan = ((data->demintion_with / 2) / tan((M_PI / 6)));
 	rc_var->wall_height = (data->map_res / rc_var->distance)
-		* rc_var->distanceprojplan;
+		* rc_var->distprjplan;
 	*wall_scall = (rc_var->wall_height) / data->map_res;
 	rc_var->begin[0] = rc_var->ray_count;
 	rc_var->begin[1] = 0;
 	rc_var->end[0] = rc_var->ray_count;
-	rc_var->end[1] = (WIN_H / 2) - ((rc_var->wall_height / 2));
+	rc_var->end[1] = (data->demension_hight / 2) - ((rc_var->wall_height / 2));
 	draw_line(data, rc_var->begin, rc_var->end, data->ceilling_color);
 	rc_var->begin[0] = rc_var->ray_count;
-	rc_var->begin[1] = (WIN_H / 2) + ((rc_var->wall_height / 2));
+	rc_var->begin[1] = (data->demension_hight / 2)
+		+ ((rc_var->wall_height / 2));
 	rc_var->end[0] = rc_var->ray_count;
-	rc_var->end[1] = WIN_H;
+	rc_var->end[1] = data->demension_hight;
 	draw_line(data, rc_var->begin, rc_var->end, data->floor_color);
 }
 
@@ -44,9 +45,10 @@ void	draw_wall(t_raycolesion *rc_var,
 	t_data *data, double wall_scall)
 {
 	rc_var->begin[0] = rc_var->ray_count;
-	rc_var->begin[1] = (WIN_H / 2) - ((rc_var->wall_height / 2));
+	rc_var->begin[1] = (data->demension_hight / 2)
+		- ((rc_var->wall_height / 2));
 	rc_var->end[0] = rc_var->ray_count;
-	rc_var->end[1] = (WIN_H / 2) + ((rc_var->wall_height / 2));
+	rc_var->end[1] = (data->demension_hight / 2) + ((rc_var->wall_height / 2));
 	rc_var->y = (data->map_res / 2) - (rc_var->wall_height / 2);
 	if (rc_var->y < 0)
 		rc_var->y = 0;
@@ -69,7 +71,7 @@ double	door_animation( t_data *data, double betwinenngels, double rays)
 		if (destence_of_door < 30)
 			data->door_open = -1;
 		if (data->door_close > 0 && data->door_open == -1)
-			data->offcet_x1 += data->door_close * 140;
+			data->offcet_x1 += data->door_close * 200;
 		if (destence_of_door < 5)
 			data->is_close_to_door = true;
 		else
@@ -90,14 +92,17 @@ void	door_draw(double destence_of_door, t_raycolesion *rc_var,
 {
 	if (destence_of_door > 0 && destence_of_door < rc_var->distance)
 	{
-		rc_var->distanceprojplan = ((WIN_W / 2) / tan((M_PI / 6)));
+		rc_var->distprjplan = ((data->demintion_with
+					/ 2) / tan((M_PI / 6)));
 		rc_var->wall_height = ((data->map_res / destence_of_door)
-				* rc_var->distanceprojplan);
+				* rc_var->distprjplan);
 		wall_scall = (rc_var->wall_height) / data->map_res;
 		rc_var->begin[0] = rc_var->ray_count;
-		rc_var->begin[1] = (WIN_H / 2) - (rc_var->wall_height / 2);
+		rc_var->begin[1] = (data->demension_hight
+				/ 2) - (rc_var->wall_height / 2);
 		rc_var->end[0] = rc_var->ray_count;
-		rc_var->end[1] = (WIN_H / 2) + (rc_var->wall_height / 2);
+		rc_var->end[1] = (data->demension_hight
+				/ 2) + (rc_var->wall_height / 2);
 		rc_var->y = (data->map_res / 2) - (rc_var->wall_height / 2);
 		if (rc_var->y < 0)
 			rc_var->y = 0;
@@ -116,11 +121,12 @@ void	ray_colesion(t_data *data)
 	t_raycolesion	rc_var;
 	double			betwinenngels;
 	double			wall_scall;
-	double			tabl_of_distences[WIN_W];
+	double			*tabl_of_distences;
 	double			destence_of_door;
 
 	init_var(&rc_var, &betwinenngels, &destence_of_door, data);
-	while (rc_var.ray_count < WIN_W)
+	tabl_of_distences = malloc(sizeof(double ) * data->demintion_with);
+	while (rc_var.ray_count < data->demintion_with)
 	{
 		rc_var.rays += rc_var.angel_move;
 		if (rc_var.rays > 2 * M_PI)

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 17:54:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/27 17:58:19 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:15:33 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@ void	view_with_mouse(t_data *data, int x)
 {
 	if (data->show_mouse == false)
 	{
-		if (x > WIN_W / 2 + 10)
+		if (x > data->demintion_with / 2 + 10)
 		{
 			data->pa += data->angel_speed;
 			if (data->pa > 2 * M_PI)
 				data->pa -= 2 * M_PI;
-			mlx_mouse_move(data->mlx_win, WIN_W / 2, WIN_H / 2);
+			mlx_mouse_move(data->mlx_win, data->demintion_with / 2,
+				data->demension_hight / 2);
 		}
-		else if (x < WIN_W / 2 - 10)
+		else if (x < data->demintion_with / 2 - 10)
 		{
 			data->pa -= data->angel_speed;
 			if (data->pa < 0)
 				data->pa += 2 * M_PI;
-			mlx_mouse_move(data->mlx_win, WIN_W / 2, WIN_H / 2);
+			mlx_mouse_move(data->mlx_win, data->demintion_with / 2,
+				data->demension_hight / 2);
 		}
 	}
 }

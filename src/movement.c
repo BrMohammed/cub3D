@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 21:10:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/27 18:12:08 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:29:17 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	jumping(t_data *data)
 {
-	if (data->KEY_SPACE == 1)
+	if (data->key_select[KEY_SPACE] == 1)
 	{
 		if (data->is_jumping_up <= data->gravity
 			&& data->is_jumping_down == 0)
@@ -33,7 +33,7 @@ void	jumping(t_data *data)
 		if (data->is_jumping_down == data->gravity
 			&& data->is_jumping_up == data->gravity)
 		{
-			data->KEY_SPACE = 0;
+			data->key_select[KEY_SPACE] = 0;
 			data->is_jumping_up = 0;
 			data->is_jumping_down = 0;
 		}
@@ -42,10 +42,10 @@ void	jumping(t_data *data)
 
 void	derection_move(t_data *data, t_movement *var)
 {
-	if (data->ON_KEYDOWN_DERECTION == 1)
+	if (data->key_down[ON_KEYDOWN_DERECTION] == 1)
 	{
 		if (data->coin_count == data->counter_of_sprites
-			&& data->KEY_ENTER == 1)
+			&& data->key_select[KEY_ENTER] == 1)
 		{
 			while (data->result[var->i1])
 			{
@@ -59,29 +59,21 @@ void	derection_move(t_data *data, t_movement *var)
 			initial_var(data);
 			data->begin_game = 1;
 		}
-		if (data->KEY_W == 1)
-			move(data, (sin(data->pa) * data->speed),
-				(cos(data->pa) * data->speed));
-		else if (data->KEY_S == 1)
-			move(data, -sin(data->pa) * 2, -cos(data->pa) * 2);
-		else if (data->KEY_A == 1)
-			move(data, -cos(-data->pa) * 2, -sin(-data->pa) * 2);
-		else if (data->KEY_D == 1)
-			move(data, cos(-data->pa) * 2, -sin(data->pa) * 2);
+		if_can_move(data);
 	}
 }
 
 void	camera_move(t_data *data)
 {
-	if (data->ON_KEYDOWN_CAMERA == 1)
+	if (data->key_down[ON_KEYDOWN_CAMERA] == 1)
 	{
-		if (data->KEY_WRIGHT == 1)
+		if (data->key_select[KEY_WRIGHT] == 1)
 		{
 			data->pa += data->angel_speed;
 			if (data->pa > 2 * M_PI)
 				data->pa -= 2 * M_PI;
 		}
-		else if (data->KEY_LEFT == 1)
+		else if (data->key_select[KEY_LEFT] == 1)
 		{
 			data->pa -= data->angel_speed;
 			if (data->pa < 0)
@@ -94,7 +86,7 @@ void	camera_move(t_data *data)
 int	open_door(t_data *data, int is_open)
 {
 	jumping(data);
-	if ((data->KEY_ENTER == 1 && data->door_open == -1)
+	if ((data->key_select[KEY_ENTER] == 1 && data->door_open == -1)
 		|| (data->door_close > 0 && is_open == 0))
 	{
 		data->door_close++;
@@ -121,18 +113,16 @@ int	movement(t_data *data)
 	static int	is_open;
 
 	var.path_begin = ft_strdup("./assets/YellowCoin/xpm/");
-	if(i != 30)
-	{
+	if (i != 50)
 		free(var.path_begin);
-	}
-	var.path_end =  ".xpm";
+	var.path_end = ".xpm";
 	if (index_of_anim == 0)
 		index_of_anim = 1;
 	if (data->show_mouse == true)
 		mlx_mouse_show();
 	else
 		mlx_mouse_hide();
-	if (i == 30)
+	if (i == 50)
 	{
 		index_of_anim = coin_animation(data, &var, index_of_anim);
 		is_open = open_door(data, is_open);
@@ -140,8 +130,6 @@ int	movement(t_data *data)
 		camera_move(data);
 		i = 0;
 	}
-	if (index_of_anim == 31)
-		index_of_anim = 0;
 	i++;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 18:26:44 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 22:43:41 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:36:57 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_a_door(t_data *data, float x, float y)
 int	is_a_wall(t_data *data, float x, float y)
 {
 	t_int_point	p;
-	
+
 	p.x = (int)(x + (data->player_mini_res)) / data->mini_map_res;
 	p.y = (int)(y + (data->player_mini_res)) / data->mini_map_res;
 	if (data->result[(int)(y / data->mini_map_res)][(int)x
@@ -54,9 +54,9 @@ int	is_a_wall(t_data *data, float x, float y)
 
 void	move(t_data *data, int y, int x)
 {
-	if (!is_a_wall (data, (data->player_x) + (x * 2), (data->player_y )+ (y * 2))
-		&& (!is_a_door(data, (data->player_x ) + (x  * 2), (data->player_y) + (y * 2))
-			|| data->door_close != 0))
+	if (!is_a_wall(data, (data->player_x) + (x * 2), data->player_y + (y * 2))
+		&& (!is_a_door(data, data->player_x + (x * 2),
+				(data->player_y) + (y * 2)) || data->door_close != 0))
 	{
 		data->player_x = data->player_x + x;
 		data->player_y = data->player_y + y;

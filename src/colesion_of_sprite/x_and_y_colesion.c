@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:43:48 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/27 17:31:03 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:35:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	if_found_the_pixel_y(t_data *data, int x, t_loop_for_sprite	*sprite_var,
 			data->table_of_spritesy[sprite_var->i][0]
 				= floor(sqrt((sprite_var->tpx * sprite_var->tpx)
 						+ (sprite_var->tpy * sprite_var->tpy)));
-			
 			data->table_of_spritesy[sprite_var->i][1] = one_ray->ray_count;
-			//printf("data->table_of_spritesy[sprite_var->i][0] = %d  data->table_of_spritesy[sprite_var->i][1] = %d\n",data->table_of_spritesy[sprite_var->i][0],data->table_of_spritesy[sprite_var->i][1]);
 		}
 	}
 }

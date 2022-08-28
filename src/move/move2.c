@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 18:24:24 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/27 18:16:05 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:15:18 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	move_show_count(t_data *data)
 	int		t;
 
 	i = -1;
-	t = WIN_W / 2 - 60;
+	t = data->demintion_with / 2 - 60;
 	c = ft_itoa(data->counter_of_sprites);
 	while (c[++i] != '\0')
 	{
@@ -84,20 +84,23 @@ void	start_game_and_menue(t_data *data)
 {
 	if (data->color_increment <= 40)
 	{
-		rander_image(&data->img, (t_rect){0, 0, WIN_H, WIN_W, 18573});
+		rander_image(&data->img, (t_rect){0, 0, data->demension_hight,
+			data->demintion_with, 18573});
 		mlx_put_image_to_window(data->mlx,
 			data->mlx_win, data->img.mlx_img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->number.logo, WIN_W / 2 - (422 / 2), WIN_H / 2 - 259 / 2);
+			data->number.logo, data->demintion_with / 2 - (422 / 2),
+			data->demension_hight / 2 - 259 / 2);
 		data->color_increment++;
 	}
 	else
 	{
 		destroy(data);
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->menu.start, WIN_W / 2
-			- data->menu.hover_start, WIN_H / 2 - 100);
+			data->menu.start, data->demintion_with / 2
+			- data->menu.hover_start, data->demension_hight / 2 - 100);
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->menu.quit, WIN_W / 2 - data->menu.hover_quit, WIN_H / 2);
+			data->menu.quit, data->demintion_with / 2 - data->menu.hover_quit,
+			data->demension_hight / 2);
 	}
 }

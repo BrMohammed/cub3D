@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:36:25 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:55:02 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:39:15 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_var(t_raycolesion *rc_var, double *betwinenngels,
 		double *destence_of_door, t_data *data)
 {
-	rc_var->angel_move = (M_PI / 3) / (WIN_W);
+	rc_var->angel_move = (M_PI / 3) / (data->demintion_with);
 	rc_var->point_to_break = 0;
 	rc_var->ray_count = 0;
 	rc_var->rays = data->pa;

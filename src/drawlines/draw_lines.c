@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 19:07:31 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:55:52 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:40:13 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	get_color_and_rander_for_draw_linev2(t_data *data,
 			pixel_color = get_pixel((t_get_pixel){line_var->addr,
 					line_var->line_len, line_var->x,
 					line_var->y, data->map_res});
-		if (pixel[0] > 0 && pixel[0] < WIN_H && pixel[1] > 0
-			&& pixel[1] < WIN_H && pixel_color > 0)
+		if (pixel[0] > 0 && pixel[0] < data->demension_hight && pixel[1] > 0
+			&& pixel[1] < data->demension_hight && pixel_color > 0)
 			rander_image(&data->img, (t_rect){pixel[0],
 				pixel[1], 1, 1, pixel_color});
 		*temp_y = *temp_y + 1;
@@ -74,8 +74,8 @@ void	draw_line(t_data *data, int *begin, int *end, int color)
 	i = 0;
 	while (pixels)
 	{
-		if (pixel[0] >= 0 && pixel[0] < WIN_H && pixel[1]
-			>= 0 && pixel[1] < WIN_H)
+		if (pixel[0] >= 0 && pixel[0] < data->demension_hight && pixel[1]
+			>= 0 && pixel[1] < data->demension_hight)
 			rander_image(&data->img, (t_rect){pixel[0], pixel[1], 1, 1, color});
 		pixel[0] += delta[0];
 		pixel[1] += delta[1];

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/21 17:35:42 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/08/26 20:42:58 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:48:40 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_pars	init_pars(char *line, int fd)
 	pars.ceilling_f = 0;
 	pars.map_height = 0;
 	pars.data.result = NULL;
+	pars.coin_flag = 0;
 	return (pars);
 }
 
@@ -102,7 +103,7 @@ void	check_file(char *path, t_data *data)
 	close(pars.fd);
 	if (pars.order_flag == 6 && !pars.data.result)
 		error("Map element is missing!", NULL);
-	else if (pars.order_flag != 6)
+	else if (pars.order_flag != 6 || !pars.coin_flag)
 		error("Invalid file!", NULL);
 	init_var_from_map(data, pars);
 }

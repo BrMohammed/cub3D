@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 14:06:34 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/08/26 21:47:04 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:43:47 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ char	*check_map_utils(t_pars *pars, char *map)
 	i = 0;
 	while (pars->line[i])
 	{
-		if (pars->line[i] == '1' || pars->line[i] == '0'
-			|| pars->line[i] == 'N' || pars->line[i] == 'S'
-			|| pars->line[i] == 'W' || pars->line[i] == 'E'
-			|| pars->line[i] == '\n' || pars->line[i] == ' '
-			||pars->line[i] == '2' || pars->line[i] == '5')
+		if (check_condition(pars, i))
 		{
 			s = char_to_str(pars->line[i]);
 			map = ft_strjoin(map, s);

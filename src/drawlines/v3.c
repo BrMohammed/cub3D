@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 20:18:54 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 20:19:47 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:23:58 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	draw_line_of_drawline_v3(t_data *data, t_draw_linev3 *line_var,
 			if (var->y < data->coin_res && var->x < data->coin_res
 				&& var->y >= 0 && var->x >= 0)
 				var->pixel_color = get_pixel((t_get_pixel)
-					{data->img_sprite.addr,
-						data->img_sprite.line_len,
+					{data->img_sprite.addr, data->img_sprite.line_len,
 						var->x, var->y, data->coin_res});
-			if (var->pixel[0] > 0 && var->pixel[0] < WIN_H && var->pixel[1] > 0
-				&& var->pixel[1] < WIN_H && var->pixel_color > 0)
+			if (var->pixel[0] > 0 && var->pixel[0] < data->demension_hight
+				&& var->pixel[1] > 0 && var->pixel[1] < data->demension_hight
+				&& var->pixel_color > 0)
 			{
 				if (line_var->distence
 					<= line_var->tabl_of_distences[line_var->begin[0]])

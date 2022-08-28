@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:08:36 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 21:41:27 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:42:44 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ int		check_floor_ceilling_elemt(t_pars *pars);
 int		nbr_of_comma(t_pars *pars);
 char	*check_tex(t_pars *pars, char c);
 int		rgb(t_color color);
+int		check_condition(t_pars *pars, int i);
 #endif

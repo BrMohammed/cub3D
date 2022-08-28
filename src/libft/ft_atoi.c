@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:47:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/06/21 11:49:31 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:35:54 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ int	ft_atoi(const char *str)
 	result = loop(str, i, n);
 	return (result);
 }
-

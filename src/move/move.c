@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:29:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 18:25:30 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 18:14:55 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	move_time_and__mini_player_show(t_data *data, int game_over)
 		end[0] = data->player_x;
 		end[1] = data->player_y;
 		destroy_and_refresh(data);
-		rander_image(&data->img, (t_rect){40, WIN_H - 40,
+		rander_image(&data->img, (t_rect){40, data->demension_hight - 40,
 			data->time_up, 20, 12580864});
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->img.mlx_img, 0, 0);
@@ -75,10 +75,11 @@ void	wining(t_data *data)
 	if (data->coin_count == data->counter_of_sprites)
 	{
 		data->color_increment += 20;
-		mlx_string_put(data->mlx, data->mlx_win, WIN_W / 2 - 50,
-			WIN_H / 2 - 40, 16777215, "conngrats");
-		mlx_string_put(data->mlx, data->mlx_win, WIN_W / 2 - 100,
-			WIN_H / 2, data->color_increment, "press enter to retry");
+		mlx_string_put(data->mlx, data->mlx_win, data->demintion_with / 2 - 50,
+			data->demension_hight / 2 - 40, 16777215, "conngrats");
+		mlx_string_put(data->mlx, data->mlx_win, data->demintion_with / 2 - 100,
+			data->demension_hight / 2,
+			data->color_increment, "press enter to retry");
 	}
 	if (data->color_increment == 16777215)
 		data->color_increment = 500000;
@@ -96,8 +97,8 @@ void	gameover(t_data *data, int game_over, int *hover)
 					data->menu.game_over_path_hover,
 					&data->img_width, &data->img_height);
 			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->menu.game_over, WIN_W / 2 - (600 / 2),
-				WIN_H / 2 - (309 / 2));
+				data->menu.game_over, data->demintion_with / 2 - (600 / 2),
+				data->demension_hight / 2 - (309 / 2));
 		}
 		else
 		{
@@ -105,8 +106,8 @@ void	gameover(t_data *data, int game_over, int *hover)
 					data->menu.game_over_path,
 					&data->img_width, &data->img_height);
 			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->menu.game_over, WIN_W / 2 - (510 / 2),
-				WIN_H / 2 - (263 / 2));
+				data->menu.game_over, data->demintion_with / 2 - (510 / 2),
+				data->demension_hight / 2 - (263 / 2));
 		}
 		if (*hover >= 60)
 			*hover = 0;
@@ -120,7 +121,7 @@ void	move_rotated(t_data *data)
 	static int	hover;
 
 	i = 0;
-	game_over = WIN_W - 80 ;
+	game_over = data->demintion_with - 80 ;
 	start_game_and_menue(data);
 	move_time_and__mini_player_show(data, game_over);
 	counter_of_sprite(data, i);
