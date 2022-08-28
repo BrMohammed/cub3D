@@ -18,7 +18,7 @@ FILES = src/get_next_line.c src/drawlines/draw_lines.c src/drawlines/v3.c\
 		src/check_cub_file/check_file_utils01.c src/check_cub_file/check_map.c\
 		src/check_cub_file/check_map_utils.c\
 
-LIBFT = libft/libft.a
+LIBFT = src/libft/libft.a
 MINILIBX = minilibx_opengl/libmlx.a
 
 RM = @rm -f
@@ -26,17 +26,17 @@ RM = @rm -f
 
 all :$(NAME)
 
-$(NAME): 
-		@make -C libft && make bonus -C libft
+$(NAME): $(FILES)
+		@make -C src/libft && make bonus -C src/libft
 		@make -C minilibx_opengl
 		$(CC) $(CFLAGS) $(MLX) $(LIBFT) $(MINILIBX)  $(FILES) -o $(NAME) 
-		@make clean -C libft
+		@make clean -C src/libft
 		@echo "CUB3D CREATED"
 clean :
-		@make clean -C libft
+		@make clean -C src/libft
 
 fclean : clean
-		@make fclean -C libft
+		@make fclean -C src/libft
 		$(RM) $(NAME)
 		@echo "CUB3D DELETED"
 

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 18:24:24 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 18:26:38 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:16:05 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	move_show_count(t_data *data)
 		data->number.slash, t, 20);
 	t += 40;
 	free(c);
+	c = NULL;
 	c = ft_itoa(data->coin_count);
 	i = -1;
 	while (c[++i] != '\0')

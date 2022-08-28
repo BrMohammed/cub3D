@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:38:04 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:28:48 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <signal.h>
-# include "../libft/libft.h"
+# include "../src/libft/libft.h"
 # include "../minilibx_opengl/mlx.h"
 # include <math.h>
 # include <pthread.h>
 # include <stdbool.h>
 
-# define ON_KEYUP_DERECTION key_up[0]
+/*# define ON_KEYUP_DERECTION key_up[0]
 # define ON_KEYUP_CAMERA key_up[1]
 # define ON_KEYDOWN_DERECTION key_down[0] 
 # define ON_KEYDOWN_CAMERA key_down[1] 
@@ -41,7 +41,7 @@
 # define KEY_ENTER key_select[9]
 # define KEY_M key_select[10]
 # define WIN_W data->demintion_with
-# define WIN_H data->demension_hight
+# define WIN_H data->demension_hight*/
 
 typedef struct s_int_point
 {
@@ -244,7 +244,7 @@ typedef struct s_data
 	int			mini_map_res;
 	int			map_res;
 	int			coin_res;
-	int			player_mini_res;
+	double		player_mini_res;
 	int			offcet_x;
 	int			offcet_y;
 	int			offcet_x1;
@@ -289,6 +289,7 @@ typedef struct s_data
 	int			door_open;
 	int			door_close;
 	bool		show_mouse;
+	bool		is_close_to_door;
 }	t_data;
 
 typedef struct s_pars

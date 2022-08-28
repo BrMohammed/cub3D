@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 21:10:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 17:27:57 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:12:08 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ void	derection_move(t_data *data, t_movement *var)
 			{
 				free(data->result[var->i1]);
 				data->result[var->i1] = ft_strdup(data->back_up[var->i1]);
+				free(data->back_up[var->i1]);
 				var->i1++;
 			}
+			free(data->back_up);
 			aloccation_sprites_and_storage(data);
 			initial_var(data);
 			data->begin_game = 1;
@@ -96,13 +98,13 @@ int	open_door(t_data *data, int is_open)
 		|| (data->door_close > 0 && is_open == 0))
 	{
 		data->door_close++;
-		if (data->door_close == 25)
+		if (data->door_close == 20)
 		{
 			is_open = 1;
 			data->door_open = 0;
 		}
 	}
-	if (is_open == 1)
+	if (is_open == 1 && data->is_close_to_door == false)
 	{
 		data->door_close--;
 		if (data->door_close == 0)
@@ -118,8 +120,12 @@ int	movement(t_data *data)
 	static int	index_of_anim;
 	static int	is_open;
 
-	var.path_begin = "./assets/YellowCoin/xpm/";
-	var.path_end = ".xpm";
+	var.path_begin = ft_strdup("./assets/YellowCoin/xpm/");
+	if(i != 30)
+	{
+		free(var.path_begin);
+	}
+	var.path_end =  ".xpm";
 	if (index_of_anim == 0)
 		index_of_anim = 1;
 	if (data->show_mouse == true)

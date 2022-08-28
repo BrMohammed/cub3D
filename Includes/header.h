@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:08:36 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:43:03 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/26 21:41:27 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <signal.h>
-# include "../libft/libft.h"
+# include "../src/libft/libft.h"
 # include "../minilibx_opengl/mlx.h"
 # include <math.h>
 # include <pthread.h>

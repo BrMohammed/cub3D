@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:55:20 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:24:09 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ double	door_animation( t_data *data, double betwinenngels, double rays)
 	destence_of_door = one_ray(data, rays, -1);
 	if (destence_of_door > 0)
 	{
-		if (destence_of_door < 15)
+		if (destence_of_door < 30)
 			data->door_open = -1;
 		if (data->door_close > 0 && data->door_open == -1)
 			data->offcet_x1 += data->door_close * 140;
-		if (data->door_close * 140 > data->map_res)
-			destence_of_door = 0;
+		if (destence_of_door < 5)
+			data->is_close_to_door = true;
+		else
+			data->is_close_to_door = false;
 	}
 	if (destence_of_door > 0)
 	{
@@ -136,4 +138,3 @@ void	ray_colesion(t_data *data)
 	}
 	ray_colesion_for_sprite(data, tabl_of_distences);
 }
-

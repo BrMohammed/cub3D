@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:01:09 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:40:10 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:27:59 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,6 @@ void	back_up(t_data *data)
 		y++;
 	}
 }
-void	free_data(t_data *data)
-{
-	int	i;
-
-	free(data->no_tex_path);
-	free(data->so_tex_path);
-	free(data->we_tex_path);
-	free(data->ea_tex_path);
-	i = 0;
-	while (data->result[i])
-	{
-		free(data->result[i]);
-		i++;
-	}
-}
 
 int	main(int ac, char **av)
 {
@@ -102,8 +87,6 @@ int	main(int ac, char **av)
 		mlx_loop_hook(data.mlx, &movement, &data);
 		mlx_hook(data.mlx_win, 17, 0, &mouse, &data);
 		mlx_loop(data.mlx);
-		mlx_destroy_image(data.mlx, data.img.mlx_img);
-		free(data.mlx);
 	}
 	return (0);
 }

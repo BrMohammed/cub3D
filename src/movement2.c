@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:26:38 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 17:26:42 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:14:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,16 @@ int	key_up(int key, t_data *data)
 
 int	coin_animation(t_data *data, t_movement *var, int index_of_anim)
 {
-	data->path_sprite = ft_strjoin(var->path_begin, ft_itoa(index_of_anim));
+	char *i_o_n;
+
+	i_o_n = ft_itoa(index_of_anim);
+	data->path_sprite = ft_strjoin(var->path_begin, i_o_n);
+	free(i_o_n);
 	data->path_sprite = ft_strjoin(data->path_sprite, var->path_end);
 	data->img_sprite.mlx_img
 		= mlx_xpm_file_to_image(data->mlx, data->path_sprite,
 			&data->p_w, &data->p_h);
+	free(data->path_sprite);
 	data->img_sprite.addr = mlx_get_data_addr(data->img_sprite.mlx_img,
 			&data->img_sprite.bpp,
 			&data->img_sprite.line_len, &data->img_sprite.endian);

@@ -1,0 +1,160 @@
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:43.846 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20242 nodes malloced for 36610 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:44.992 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20239 nodes malloced for 36609 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:46.120 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20234 nodes malloced for 36604 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:47.195 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20319 nodes malloced for 36611 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:48.324 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20705 nodes malloced for 36706 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:49.469 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20745 nodes malloced for 36773 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:50.596 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 20833 nodes malloced for 36784 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
+Process:         cub3D [4616]
+Path:            /Volumes/VOLUME/*/cub3D
+Load Address:    0x10e5ae000
+Identifier:      cub3D
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [45085]
+
+Date/Time:       2022-08-27 17:54:51.662 +0100
+Launch Time:     2022-08-27 17:54:30.993 +0100
+OS Version:      Mac OS X 10.14.6 (18G103)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+----
+
+leaks Report Version: 4.0
+Process 4616: 21005 nodes malloced for 36886 KB
+Process 4616: 0 leaks for 0 total leaked bytes.
+
