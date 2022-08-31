@@ -1,8 +1,8 @@
-NAME = cub3D
+NAME = cub3D_bonus
 
 CC = gcc
 
-CFLAGS	= -Wall -Wextra -Werror -std=c99 #-fsanitize=address -g ##-Ofast
+CFLAGS	= -Wall -Wextra -Werror
 
 MLX =   -framework OpenGL -framework AppKit
 
@@ -41,26 +41,3 @@ fclean : clean
 		@echo "CUB3D DELETED"
 
 re : fclean all
-
-exp = export DYLD_LIBRARY_PATH="${PWD}/minilibx_mms"
-
-check:
-	@$(exp)
-
-#  github bigin
-# system("leaks a.out");
-
-ADD = git add .
-
-read :=	@echo "${C_GREEN}Add Commit Plz !!${C_RES}" && read -p "-> " enter \
-		&& git commit -m $${enter}
-
-PU = git push
-
-commit = git log --graph --oneline --decorate HEAD^..HEAD
-
-push :
-	@$(commit)
-	@$(ADD)
-	$(read)
-	$(PU)

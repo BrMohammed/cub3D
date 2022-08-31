@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 20:34:22 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 21:09:44 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/31 20:30:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	number_b_2(t_data *data)
 			"./assets/start.xpm", &data->img_width, &data->img_height);
 	data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
 			"./assets/game_over.xpm", &data->img_width, &data->img_height);
+	data->menu.winn = mlx_xpm_file_to_image(data->mlx,
+			"./assets/win.xpm", &data->img_width, &data->img_height);
+	data->menu.winn_path_hover = "./assets/win_hover.xpm";
+	data->menu.winn_path = "./assets/win.xpm";
 }
 
 void	number_b(t_data *data)

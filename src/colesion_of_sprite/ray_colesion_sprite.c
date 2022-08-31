@@ -6,13 +6,13 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:51:34 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:23:10 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:37:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub.h"
 
-void	draw_sprite(t_data *data, double *tabl_of_distences,
+void	draw_sprite(t_data *data, double *t_distences,
 	int i, t_raycolesion *rc_var)
 {
 	double			wall_scall;
@@ -38,11 +38,11 @@ void	draw_sprite(t_data *data, double *tabl_of_distences,
 		rc_var->end[1] = (data->demension_hight / 2) + (rc_var->wall_height / 2)
 			+ (rc_var->wall_height / 1.2);
 		draw_linev3(data, (t_draw_linev3){rc_var->begin,
-			rc_var->end, wall_scall, tabl_of_distences, rc_var->distance});
+			rc_var->end, wall_scall, t_distences, rc_var->distance});
 	}
 }
 
-void	ray_colesion_for_sprite(t_data *data, double *tabl_of_distences)
+void	ray_colesion_for_sprite(t_data *data, double *t_distences)
 {
 	t_raycolesion	rc_var;
 	int				i;
@@ -60,12 +60,12 @@ void	ray_colesion_for_sprite(t_data *data, double *tabl_of_distences)
 			&& data->table_of_spritesx[i][0] != 0)
 			|| data->table_of_spritesy[i][0] == 0)
 			rc_var.distance = data->table_of_spritesx[i][0];
-		draw_sprite(data, tabl_of_distences, i, &rc_var);
+		draw_sprite(data, t_distences, i, &rc_var);
 		data->table_of_spritesy[i][0] = 0;
 		data->table_of_spritesy[i][1] = 0;
 		data->table_of_spritesx[i][0] = 0;
 		data->table_of_spritesx[i][1] = 0;
 		i++;
 	}
-	free(tabl_of_distences);
+	free(t_distences);
 }

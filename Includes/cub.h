@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:47:41 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/31 20:48:00 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_draw_linev3
 	int		*begin;
 	int		*end;
 	double	wall_scall;
-	double	*tabl_of_distences;
+	double	*t_distences;
 	double	distence;
 }t_draw_linev3;
 
@@ -135,6 +135,10 @@ typedef struct s_menu
 	void	*game_over;
 	char	*game_over_path;
 	char	*game_over_path_hover;
+
+	void	*winn;
+	char	*winn_path;
+	char	*winn_path_hover;
 }t_menu;
 
 typedef struct s_number
@@ -286,6 +290,7 @@ typedef struct s_data
 	int			door_close;
 	bool		show_mouse;
 	bool		is_close_to_door;
+	int			time_over;
 }	t_data;
 
 typedef struct s_pars
@@ -357,7 +362,7 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 double	one_ray(t_data *data, double angel, int ray_count);
 int		get_pixel(t_get_pixel get_pixel_var);
 void	draw_linev2(t_data *data, t_draw_linev2 line_var);
-void	ray_colesion_for_sprite(t_data *data, double *tabl_of_distences);
+void	ray_colesion_for_sprite(t_data *data, double *t_distences);
 double	one_ray_for_sprite(t_data *data, double angel);
 void	draw_linev3(t_data *data, t_draw_linev3 line_var);
 void	initial_var(t_data *data);
@@ -385,4 +390,6 @@ int		coin_animation(t_data *data, t_movement *var, int index_of_anim);
 void	move_show_count(t_data *data);
 void	start_game_and_menue(t_data *data);
 void	if_can_move(t_data *data);
+double	*door_sprite(t_raycolesion	rc_var, double	*t_distences,
+			double destence_of_door, t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 21:00:46 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 21:21:42 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/31 20:49:15 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	initvar_2(t_data *data)
 	data->time_up = 10;
 	data->time_move = 2;
 	data->door_open = 0;
+	data->color_increment = 500000;
 	data->show_mouse = true;
 }
 
@@ -63,11 +64,7 @@ void	initial_var(t_data *data)
 	data->lte7t = 10;
 	data->demension_hight = 1000;
 	data->demintion_with = 1000;
-	if ((data->demension_hight / data->result_hight)
-		< (data->demintion_with / data->result_with))
-		data->mini_map_res = (data->demension_hight / data->result_hight) / 3;
-	else
-		data->mini_map_res = (data->demintion_with / data->result_with) / 3;
+	data->mini_map_res = 10;
 	initvar_2(data);
 }
 

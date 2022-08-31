@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:23:10 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:37:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ void	ray_colesion(t_data *data)
 	t_raycolesion	rc_var;
 	double			betwinenngels;
 	double			wall_scall;
-	double			*tabl_of_distences;
+	double			*t_distences;
 	double			destence_of_door;
 
 	init_var(&rc_var, &betwinenngels, &destence_of_door, data);
-	tabl_of_distences = malloc(sizeof(double ) * data->demintion_with);
+	t_distences = malloc(sizeof(double ) * data->demintion_with);
 	while (rc_var.ray_count < data->demintion_with)
 	{
 		rc_var.rays += rc_var.angel_move;
@@ -137,10 +137,10 @@ void	ray_colesion(t_data *data)
 			draw_celling_and_floor(&rc_var, &betwinenngels, data, &wall_scall);
 			draw_wall(&rc_var, data, wall_scall);
 		}
-		tabl_of_distences[rc_var.ray_count] = rc_var.distance;
 		destence_of_door = door_animation(data, betwinenngels, rc_var.rays);
 		door_draw(destence_of_door, &rc_var, data, wall_scall);
+		t_distences = door_sprite(rc_var, t_distences, destence_of_door, data);
 		rc_var.ray_count++;
 	}
-	ray_colesion_for_sprite(data, tabl_of_distences);
+	ray_colesion_for_sprite(data, t_distences);
 }

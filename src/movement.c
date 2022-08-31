@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 21:10:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:29:17 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/31 20:48:46 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	derection_move(t_data *data, t_movement *var)
 {
 	if (data->key_down[ON_KEYDOWN_DERECTION] == 1)
 	{
-		if (data->coin_count == data->counter_of_sprites
+		if (data->time_up >= data->time_over
 			&& data->key_select[KEY_ENTER] == 1)
 		{
 			while (data->result[var->i1])

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 03:36:25 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 17:39:15 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:37:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,16 @@ void	init_var(t_raycolesion *rc_var, double *betwinenngels,
 	destence_of_door = 0;
 	if (rc_var->rays < 0)
 		rc_var->rays += 2 * M_PI;
+}
+
+double	*door_sprite(t_raycolesion	rc_var,
+	double *t_distences, double destence_of_door, t_data *data)
+{
+	if (destence_of_door > 0 && destence_of_door < rc_var.distance)
+		t_distences[rc_var.ray_count] = destence_of_door;
+	else
+		t_distences[rc_var.ray_count] = rc_var.distance;
+	if (data->offcet_x1 > data->demintion_with)
+		t_distences[rc_var.ray_count] = rc_var.distance;
+	return (t_distences);
 }

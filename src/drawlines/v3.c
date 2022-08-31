@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 20:18:54 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:23:58 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:37:34 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_line_of_drawline_v3(t_data *data, t_draw_linev3 *line_var,
 				&& var->pixel_color > 0)
 			{
 				if (line_var->distence
-					<= line_var->tabl_of_distences[line_var->begin[0]])
+					<= line_var->t_distences[line_var->begin[0]])
 					rander_image(&data->img, (t_rect)
 					{var->pixel[0], var->pixel[1], 1, 1, var->pixel_color});
 			}	
