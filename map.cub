@@ -3,8 +3,8 @@ SO ./assets/wall_img.xpm
 WE ./assets/wall_img.xpm
 EA ./assets/wall_img.xpm
 
-F 220,100,0
-C 225,30,0
+C 49,8,123
+F 28,109,208
 
         1111111111111111111111111
         1000000000110000000000001

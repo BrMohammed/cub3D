@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 14:06:34 by eel-ghan          #+#    #+#             */
-/*   Updated: 2022/08/28 18:43:47 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:17:33 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ char	*check_map_utils(t_pars *pars, char *map)
 	i = 0;
 	while (pars->line[i])
 	{
-		if (check_condition(pars, i))
+		if (pars->line[i] == '1' || pars->line[i] == '0'
+			|| pars->line[i] == 'N' || pars->line[i] == 'S'
+			|| pars->line[i] == 'W' || pars->line[i] == 'E'
+			|| pars->line[i] == '\n' || pars->line[i] == ' ')
 		{
 			s = char_to_str(pars->line[i]);
 			map = ft_strjoin(map, s);
@@ -75,7 +78,7 @@ char	*check_map_utils(t_pars *pars, char *map)
 			error("Invalid Map!", pars);
 		i++;
 	}
-	if (pars->line[i - 2] != '1')
+	if (pars->line[i - 2] != '1' && pars->line[i - 2] != ' ')
 		error("The map should be surrounded by walls !", pars);
 	pars->map_height++;
 	return (map);

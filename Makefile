@@ -16,7 +16,7 @@ FILES = src/get_next_line.c src/drawlines/draw_lines.c src/drawlines/v3.c\
 		src/check_cub_file/check_file.c\
 		src/check_cub_file/check_tex_f_c_utils.c src/check_cub_file/check_file_utils.c\
 		src/check_cub_file/check_file_utils01.c src/check_cub_file/check_map.c\
-		src/check_cub_file/check_map_utils.c src/check_cub_file/check_map_utils02.c\
+		src/check_cub_file/check_map_utils.c src/check_cub_file/check_color_util.c\
 
 LIBFT = src/libft/libft.a
 MINILIBX = minilibx_opengl/libmlx.a
