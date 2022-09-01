@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:29:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/09/01 18:05:59 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:10:23 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	move_time_and__mini_player_show(t_data *data, int game_over)
 		destroy_and_refresh(data);
 		rander_image(&data->img, (t_rect){40, data->demension_hight - 40,
 			data->time_up, 20, 12580864});
-		rander_image(&data->img, (t_rect){(data->player_x - 2),
-			(data->player_y - 2), 6, 6, 16713472});
+		rander_image(&data->img, (t_rect){(data->player_x - 3),
+			(data->player_y - 3), 6, 6, 16713472});
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->img.mlx_img, 0, 0);
 	}
