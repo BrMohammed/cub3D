@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:29:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/09/01 17:23:29 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:05:59 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,30 +103,12 @@ void	gameover(t_data *data, int game_over, int *hover)
 			data->demension_hight - 250,
 			data->color_increment, "press enter to retry");
 		*hover = *hover + 1;
-		if (*hover >= 30 && *hover < 60)
-		{
-			data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
-					data->menu.game_over_path_hover,
-					&data->img_width, &data->img_height);
-			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->menu.game_over, data->demintion_with / 2 - (600 / 2),
-				data->demension_hight / 2 - (309 / 2));
-		}
-		else
-		{
-			data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
-					data->menu.game_over_path,
-					&data->img_width, &data->img_height);
-			mlx_put_image_to_window(data->mlx, data->mlx_win,
-				data->menu.game_over, data->demintion_with / 2 - (510 / 2),
-				data->demension_hight / 2 - (263 / 2));
-		}
+		hoover(data, hover);
 		if (*hover >= 60)
 			*hover = 0;
 		if (data->color_increment == 16777215)
 			data->color_increment = 500000;
 	}
-	
 }
 
 void	move_rotated(t_data *data)

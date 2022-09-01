@@ -6,11 +6,33 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 18:26:44 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/09/01 17:20:32 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:05:50 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/cub.h"
+
+void	hoover(t_data *data, int *hover)
+{
+	if (*hover >= 30 && *hover < 60)
+	{
+		data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
+				data->menu.game_over_path_hover,
+				&data->img_width, &data->img_height);
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->menu.game_over, data->demintion_with / 2 - (600 / 2),
+			data->demension_hight / 2 - (309 / 2));
+	}
+	else
+	{
+		data->menu.game_over = mlx_xpm_file_to_image(data->mlx,
+				data->menu.game_over_path,
+				&data->img_width, &data->img_height);
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->menu.game_over, data->demintion_with / 2 - (510 / 2),
+			data->demension_hight / 2 - (263 / 2));
+	}
+}
 
 void	destroy_and_refresh(t_data *data)
 {

@@ -2,7 +2,7 @@ NAME = cub3D_bonus
 
 CC = gcc
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address -g 
 
 MLX =   -framework OpenGL -framework AppKit
 

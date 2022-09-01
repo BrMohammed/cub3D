@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/09/01 17:23:35 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:05:52 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,4 +392,5 @@ void	start_game_and_menue(t_data *data);
 void	if_can_move(t_data *data);
 double	*door_sprite(t_raycolesion	rc_var, double	*t_distences,
 			double destence_of_door, t_data *data);
+void	hoover(t_data *data, int *hover);
 #endif

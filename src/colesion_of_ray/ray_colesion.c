@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 23:57:05 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/09/01 00:40:26 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:07:04 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	ray_colesion(t_data *data)
 
 	init_var(&rc_var, &betwinenngels, &destence_of_door, data);
 	t_distences = malloc(sizeof(double ) * data->demintion_with);
-	while (rc_var.ray_count <= data->demintion_with)
+	while (rc_var.ray_count < data->demintion_with)
 	{
 		rc_var.distance = one_ray(data, rc_var.rays, rc_var.ray_count);
 		if (rc_var.distance >= 0)
