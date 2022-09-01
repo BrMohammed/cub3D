@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:51:34 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 21:37:34 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:38:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_sprite(t_data *data, double *t_distences,
 	if (rc_var->distance > 0 && (data->table_of_spritesx[i][1] > 0
 		|| data->table_of_spritesy[i][1] > 0))
 	{
-		rc_var->distance = ((((rc_var->distance - (data->player_mini_res / 2))
+		rc_var->distance = ((((rc_var->distance - (0))
 						/ data->mini_map_res) * data->map_res)
 				+ (data->mini_map_res / 2));
 		rc_var->ray_count = data->table_of_spritesx[i][1];

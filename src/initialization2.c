@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 21:00:46 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/31 20:49:15 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 02:00:21 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_var_from_map(t_data *data, t_pars pars)
 void	initvar_2(t_data *data)
 {
 	data->map_res = 1000;
-	data->player_mini_res = data->mini_map_res / 2;
-	data->speed = 4;
+	data->player_mini_res = 5;
+	data->speed = 2;
 	data->angel_speed = 0.15707963267 ;
 	data->is_jumping_up = 0;
 	data->is_jumping_down = 0;

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 20:09:11 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/31 20:48:00 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:23:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef struct s_menu
 
 	void	*winn;
 	char	*winn_path;
-	char	*winn_path_hover;
+	char	*winn_p_h;
 }t_menu;
 
 typedef struct s_number
@@ -346,7 +346,7 @@ typedef struct s_oneray
 }t_oneray;
 
 char	*get_next_line(int fd);
-void	move(t_data *data, int y, int x);
+void	move(t_data *data, int y, int x, double angel);
 void	respone(t_data *data);
 void	respone_obj(t_data *data);
 int		hole_move(t_data *data);

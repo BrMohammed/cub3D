@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 02:13:15 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 19:02:37 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:38:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void	player_posetion(t_data *data, t_oneray *oneray_var)
 {
 	while (data->result[oneray_var->y])
 	{
-		if (data->player_y + (data->player_mini_res / 2) >= oneray_var->y
-			* data->mini_map_res && data->player_y + (data->player_mini_res / 2)
+		if (data->player_y + (0) >= oneray_var->y
+			* data->mini_map_res && data->player_y + (0)
 			<= (oneray_var->y + 1) * data->mini_map_res)
 			oneray_var->py = oneray_var->y;
 		oneray_var->x = 0;
 		while (data->result[oneray_var->y][oneray_var->x])
 		{
-			if (data->player_x + (data->player_mini_res / 2) >= oneray_var->x
+			if (data->player_x + (0) >= oneray_var->x
 				* data->mini_map_res
-				&& data->player_x + (data->player_mini_res / 2)
+				&& data->player_x + (0)
 				<= (oneray_var->x + 1) * data->mini_map_res)
 				oneray_var->px = oneray_var->x;
 			oneray_var->x++;

@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:29:35 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/31 20:48:28 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:23:29 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ void	move_time_and__mini_player_show(t_data *data, int game_over)
 		destroy_and_refresh(data);
 		rander_image(&data->img, (t_rect){40, data->demension_hight - 40,
 			data->time_up, 20, 12580864});
+		rander_image(&data->img, (t_rect){(data->player_x - 2),
+			(data->player_y - 2), 6, 6, 16713472});
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->img.mlx_img, 0, 0);
-		mlx_put_image_to_window(data->mlx, data->mlx_win, data->point_map,
-			data->player_x - (data->player_mini_res / 1.7),
-			data->player_y - (data->player_mini_res / 1.7));
 	}
 }
 
@@ -76,8 +75,7 @@ void	wining(t_data *data, int *hover)
 		if (*hover >= 30 && *hover < 60)
 		{
 			data->menu.winn = mlx_xpm_file_to_image(data->mlx,
-					data->menu.winn_path,
-					&data->img_width, &data->img_height);
+					data->menu.winn_path, &data->img_width, &data->img_height);
 			mlx_put_image_to_window(data->mlx, data->mlx_win,
 				data->menu.winn, data->demintion_with / 2 - (426 / 2),
 				data->demension_hight / 2 - (172 / 2));
@@ -85,8 +83,7 @@ void	wining(t_data *data, int *hover)
 		else
 		{
 			data->menu.winn = mlx_xpm_file_to_image(data->mlx,
-					data->menu.winn_path_hover,
-					&data->img_width, &data->img_height);
+					data->menu.winn_p_h, &data->img_width, &data->img_height);
 			mlx_put_image_to_window(data->mlx, data->mlx_win,
 				data->menu.winn, data->demintion_with / 2 - (501 / 2),
 				data->demension_hight / 2 - (202 / 2));

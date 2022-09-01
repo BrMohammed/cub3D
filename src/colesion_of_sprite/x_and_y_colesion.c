@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 18:43:48 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:35:35 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:38:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	if_found_the_pixel_y(t_data *data, int x, t_loop_for_sprite	*sprite_var,
 	if (data->pos_of_sprite_y[sprite_var->i] != 0
 		&& data->pos_of_sprite_x[sprite_var->i] != 0)
 	{
-		sprite_var->tpy = ((data->player_y + (data->player_mini_res / 2))
+		sprite_var->tpy = ((data->player_y + (0))
 				- (((one_ray->y_plus) * data->mini_map_res)
 					+ (data->pos_of_sprite_y[sprite_var->i]
 						% data->mini_map_res)));
@@ -27,7 +27,7 @@ void	if_found_the_pixel_y(t_data *data, int x, t_loop_for_sprite	*sprite_var,
 					+ (data->pos_of_sprite_y[sprite_var->i]
 						% data->mini_map_res)));
 		sprite_var->b[0] = floor(sprite_var->tpx + data->player_x
-				+ (data->player_mini_res / 2));
+				+ (0));
 		if (sprite_var->b[0] == data->pos_of_sprite_x[sprite_var->i]
 			&& sprite_var->b[1]
 			== data->pos_of_sprite_y[sprite_var->i] && sprite_var->b[0] >= x
@@ -60,12 +60,12 @@ int	y_detect_loop_for_sprite(t_data *data, int x, double angel,
 void	if_found_pixel_x(t_data *data, t_loop_for_sprite	*sprite_var,
 	t_oneray *one_ray)
 {
-	sprite_var->tpx = (data->player_x + (data->player_mini_res / 2))
+	sprite_var->tpx = (data->player_x + (0))
 		- ((one_ray->x_plus) * data->mini_map_res
 			+ (data->pos_of_sprite_x[sprite_var->i] % data->mini_map_res));
 	sprite_var->tpy = (sprite_var->tpx * tan(sprite_var->angel));
 	sprite_var->b[1] = floor((data->player_y
-				+ (data->player_mini_res / 2)) - sprite_var->tpy);
+				+ (0)) - sprite_var->tpy);
 	sprite_var->b[0] = floor(((one_ray->x_plus) * data->mini_map_res
 				+ (data->pos_of_sprite_x[sprite_var->i] % data->mini_map_res)));
 	if (sprite_var->b[1] == data->pos_of_sprite_y[sprite_var->i]

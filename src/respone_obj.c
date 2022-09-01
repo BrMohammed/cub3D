@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 21:04:12 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/25 03:40:25 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 01:15:02 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	initial_player_posetion(t_data *data)
 			if (ft_strchr("NWSE", data->result[y][x]))
 			{
 				data->player_y = (y * data->mini_map_res)
-					+ data->player_mini_res / 2;
+					+ data->mini_map_res/2;
 				data->player_x = (x * data->mini_map_res)
-					+ data->player_mini_res / 2;
+					+ data->mini_map_res/2;
 			}
 			x++;
 		}

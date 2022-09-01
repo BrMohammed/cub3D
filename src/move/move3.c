@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 18:26:44 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/28 18:36:57 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:20:32 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,45 +18,40 @@ void	destroy_and_refresh(t_data *data)
 	respone_obj(data);
 }
 
-int	is_a_door(t_data *data, float x, float y)
+int	is_colession(t_data *data, double angel, int target)
 {
-	t_int_point	p;
+	double	angel_move;
+	int		i;
+	double	distence;
+	double	betwinenngels;
 
-	p.x = (int)(x + (data->player_mini_res)) / data->mini_map_res;
-	p.y = (int)(y + (data->player_mini_res)) / data->mini_map_res;
-	if (data->result[(int)(y / data->mini_map_res)][(int)x
-		/ data->mini_map_res] == '5' ||
-		data->result[(int)(y / data->mini_map_res)][(int)(x
-		+ data->player_mini_res) / data->mini_map_res] == '5' ||
-		data->result[(int)(y + data->player_mini_res)
-		/ data->mini_map_res][(int)x / data->mini_map_res] == '5' ||
-		data->result[p.y][p.x] == '5')
-		return (1);
+	angel_move = (M_PI / 6) / 6;
+	i = 0;
+	while (i < 6)
+	{
+		betwinenngels = data->pa - angel;
+		if (betwinenngels < 0)
+			betwinenngels += 2 * M_PI;
+		if (betwinenngels > 2 * M_PI)
+			betwinenngels -= 2 * M_PI;
+		distence = one_ray(data, angel, target);
+		if (distence < 7 && distence != 0)
+			return (1);
+		angel += angel_move;
+		if (angel > 2 * M_PI)
+			angel -= 2 * M_PI;
+		i++;
+	}
 	return (0);
 }
 
-int	is_a_wall(t_data *data, float x, float y)
+void	move(t_data *data, int y, int x, double angel)
 {
-	t_int_point	p;
-
-	p.x = (int)(x + (data->player_mini_res)) / data->mini_map_res;
-	p.y = (int)(y + (data->player_mini_res)) / data->mini_map_res;
-	if (data->result[(int)(y / data->mini_map_res)][(int)x
-		/ data->mini_map_res] == '1' ||
-		data->result[(int)(y / data->mini_map_res)][(int)(x
-		+ data->player_mini_res) / data->mini_map_res] == '1' ||
-		data->result[(int)(y + data->player_mini_res)
-		/ data->mini_map_res][(int)x / data->mini_map_res] == '1' ||
-		data->result[p.y][p.x] == '1')
-		return (1);
-	return (0);
-}
-
-void	move(t_data *data, int y, int x)
-{
-	if (!is_a_wall(data, (data->player_x) + (x * 2), data->player_y + (y * 2))
-		&& (!is_a_door(data, data->player_x + (x * 2),
-				(data->player_y) + (y * 2)) || data->door_close != 0))
+	if (angel < 0)
+		angel += 2 * M_PI;
+	if (!is_colession(data, angel, 0)
+		&& (!is_colession(data, angel, -1)
+			|| data->door_close != 0))
 	{
 		data->player_x = data->player_x + x;
 		data->player_y = data->player_y + y;

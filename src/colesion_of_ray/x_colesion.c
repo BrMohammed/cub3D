@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:42:44 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:55:32 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:41:01 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	x_detect_loop(int x_plus, t_data *data, t_oneray *one_ray, double angel)
 
 	tpx = 0;
 	tpy = 0;
-	tpx = ((data->player_x + (data->player_mini_res / 2))
+	tpx = ((data->player_x )
 			- (((x_plus) * data->mini_map_res)));
 	tpy = (tpx * tan(angel));
-	b[1] = ((data->player_y + (data->player_mini_res / 2)) - tpy);
+	b[1] = ((data->player_y) - tpy);
 	b[0] = (((x_plus) * data->mini_map_res));
 	if (b[1] >= one_ray->y * data->mini_map_res && b[1]
 		< (one_ray->y + 1) * data->mini_map_res)

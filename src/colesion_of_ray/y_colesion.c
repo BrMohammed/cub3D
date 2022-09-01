@@ -6,7 +6,7 @@
 /*   By: brmohamm <brmohamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 00:57:02 by brmohamm          #+#    #+#             */
-/*   Updated: 2022/08/26 20:55:39 by brmohamm         ###   ########.fr       */
+/*   Updated: 2022/09/01 00:38:35 by brmohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	y_detect_loop(t_data *data, int x, t_oneray *one_ray, double angel)
 
 	tpx = 0;
 	tpy = 0;
-	tpy = (data->player_y + (data->player_mini_res / 2))
+	tpy = (data->player_y + (0))
 		- ((one_ray->y_plus * data->mini_map_res));
 	tpx = (tpy / -tan(angel));
 	b[1] = (((one_ray->y_plus) * data->mini_map_res));
-	b[0] = (tpx + data->player_x + (data->player_mini_res / 2));
+	b[0] = (tpx + data->player_x + (0));
 	if (b[0] >= x * data->mini_map_res && b[0] < (x + 1) * data->mini_map_res)
 	{
 		one_ray->ray_colesion_y = sqrt((tpx * tpx) +(tpy * tpy));
