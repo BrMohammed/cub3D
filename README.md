@@ -28,7 +28,9 @@ To exit the game, press `ESC` or click the red cross.
 
 # Acknowledgments
 
+⋅⋅* Unordered sub-list. 
 ⋅⋅* The Coding Train (raycasting inspiration)
 ⋅⋅* Wolfenstein 3D (for the controversial textures)
 ⋅⋅* And macrespo (for this beautiful life bar)
+
 
